@@ -74,9 +74,11 @@ aitti; Crossref kontrolüyle yakalandı ve doğru DOI (\texttt{10.1038/sj.leu.24
 sayfasıyla teyit edildi.
 \item GSE7186 başlangıçta Affymetrix (GPL96) sanıldı; seri matrisi incelenince iki renkli cDNA
 platformu (GPL4861, log-oran, eksik değerli) olduğu görüldü ve tüm analiz buna göre düzeltildi.
-\item MILE değerlerinin $\log_2$ ölçekte olduğu varsayıldı; GEO veri işleme açıklaması
-(kantil normalizasyonlu sinyal) ve örnek tablolar doğrusal ölçek gösterdiği için betik ölçeği
-veriden tespit edecek şekilde düzeltildi.
+\item MILE değerlerinin ölçeği önce $\log_2$, ardından GEO açıklamasına (kantil normalizasyonlu
+sinyal) dayanarak doğrusal varsayıldı. Veri indirilince her dizinin tam olarak [0, 1] aralığında
+olduğu görüldü; ArrayExpress örnek tablosuyla karşılaştırma (Spearman 1,000; $\log_2$ sinyal ile
+Pearson 0,998) değerlerin dizi başına ölçeklenmiş log yoğunluk olduğunu gösterdi. Bu kontrol
+koda eklendi (\texttt{mile\_scale\_check}) ve gereksiz ikinci log dönüşümü engellendi.
 \item Literatürdeki bazı Golub sonuçlarının (ör.\ \%99,9) özellik seçimini CV dışında yaptığı
 fark edilerek ``sızıntı riski'' sütunu eklendi.
 \end{itemize}
