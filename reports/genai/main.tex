@@ -1,0 +1,98 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{iftex}
+\ifXeTeX
+  \usepackage{fontspec}
+  \setmainfont{texgyretermes}[Extension=.otf, UprightFont=*-regular, BoldFont=*-bold,
+    ItalicFont=*-italic, BoldItalicFont=*-bolditalic]
+\else
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{newtxtext}
+\fi
+\usepackage[turkish]{babel}
+\usepackage[margin=2cm]{geometry}
+\usepackage{booktabs,tabularx,array,enumitem,xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+\urlstyle{tt}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcommand{\ogrenci}[1]{\textcolor{red!70!black}{\textit{[Öğrenci dolduracak: #1]}}}
+\setlist{nosep,leftmargin=*}
+
+\title{Ek A -- GenAI Kullanım Beyanı ve Özgünlük Kanıtı\\[2pt]\large Ara Rapor: ALL/AML Lösemi Alt Tip Sınıflandırması}
+\author{Enes AY -- 503020260092}
+\date{3 Kasım 2026}
+
+\begin{document}
+\maketitle
+
+\section*{1. Beyan}
+Bu projenin ara rapor aşamasında Anthropic'in \textbf{Claude Opus 5.5} modeli (Claude Code
+masaüstü uygulaması, ajan modu, Kasım 2026) yardımcı araç olarak kullanılmıştır. Model; ders
+rehberinin isterlerinin maddeleştirilmesi, veri indirme/ön işleme/EDA kodunun yazılması,
+literatür meta verilerinin taranması ve doğrulanması ile İngilizce rapor taslağının
+oluşturulmasında kullanılmıştır. Üretilen tüm kod tarafımca çalıştırılmış, tüm şekiller ve
+sayılar depodaki betiklerin çıktısıdır; tüm kaynakların DOI'leri Crossref üzerinden
+doğrulanmıştır. Raporun ve kodun içeriğine ilişkin tüm sorumluluk bana aittir. IEEE'nin
+yazarlara yönelik GenAI politikası gereği raporun \emph{Acknowledgment} bölümünde de kısa bir
+beyan yer almaktadır.
+
+\section*{2. Kullanım tablosu}
+{\small
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{1.7cm} Y >{\raggedright\arraybackslash}p{3.3cm} Y Y@{}}
+\toprule
+Araç / sürüm & Amaç & Bölüm / dosya & Öğrencinin yaptığı değişiklik & Nasıl doğrulandı \\
+\midrule
+Claude Opus 5.5 & Rehber isterlerinin (A1--A5, F1--F11, B1--B4) çıkarılması, proje ve veri seti planı & tüm proje & \ogrenci{plana eklediğiniz/çıkardığınız maddeler} & Rehberle madde madde karşılaştırma \\
+Claude Opus 5.5 & Devam ettirilebilir paralel veri indirme betiği & \url{scripts/download_data.py} & \ogrenci{} & gzip bütünlük testi, SHA-256, GEO sayfasındaki örnek sayıları \\
+Claude Opus 5.5 & Veri yükleyiciler, hasta no.\ üzerinden etiket eşleştirme, prob$\to$gen eşleme & \url{src/leukemia/data.py} & \ogrenci{} & Kodda \texttt{assert}: eğitim ID'leri 1--38, test 39--72, sınıf sayıları 27/11 ve 20/14 \\
+Claude Opus 5.5 & Sızıntısız sklearn dönüştürücüleri (clip, log2, filtre) & \url{src/leukemia/preprocessing.py} & \ogrenci{} & \texttt{fit}/\texttt{transform} ayrımının kod incelemesi \\
+Claude Opus 5.5 & EDA analizleri ve şekiller & \url{eda.py}, \url{cross.py}, \url{stats.py}, \url{run_eda.py} & \ogrenci{} & Şekillerin görsel kontrolü; sayıların \texttt{results/eda\_numbers.json} ile eşleşmesi \\
+Claude Opus 5.5 (alt ajan) & Literatür taraması: Crossref, Europe PMC, PubMed sorguları; \texttt{references.bib}, özet tablo & \url{reports/literature/} & \ogrenci{okuduğunuz makaleler, eklediğiniz notlar} & 38 DOI'nin tamamı ayrı bir betikle Crossref'te yeniden kontrol edildi (başlık, yıl eşleşmesi) \\
+Claude Opus 5.5 & Rapor taslağı (İngilizce, IEEEtran) & \url{reports/ara_rapor/main.tex} & \ogrenci{yeniden yazdığınız paragraflar} & Sayılar elle yazılmadı, \LaTeX{} makrolarıyla betik çıktısından geliyor \\
+Claude Opus 5.5 & Video senaryosu & \url{reports/video/} & \ogrenci{} & -- \\
+\bottomrule
+\end{tabularx}}
+
+\section*{3. Önemli prompt'ların özeti}
+\begin{enumerate}
+\item \textbf{Ana istek (öğrenci, Türkçe):} ``makine öğrenmesi ve anomali tespiti dersi
+alıyorum yüksek lisansta. bunun için bir proje geliştirmemiz gerekiyor. şimdi ara sunumu teslim
+etmem gerekiyor. Donem\_projesi\_rapor\_rehber (1) adlı klasörü okuyup bana profesyonel, bütün
+şartları (bonuslar dahil) sağlayacak şekilde bir projeyi geliştirir misin lütfen.''
+\item \textbf{Literatür alt görevi (model tarafından alt ajana verilen):} 26--30 kaynak bul; en az
+18'i hakemli, en az 8'i 2021 ve sonrası; her DOI'yi Crossref API ile doğrula, doğrulanamayanı
+çıkar; Golub sonuçlarını yalnızca okunan metinde görülüyorsa yaz, aksi halde ``n/r''; arama
+sorgularını ve dahil etme/dışlama ölçütlerini kaydet.
+\item \ogrenci{Kendi sorduğunuz takip soruları ve aldığınız cevapların özeti; mümkünse sohbet paylaşım linki}
+\end{enumerate}
+
+\section*{4. GenAI çıktısında yakalanan hatalar (doğrulamanın kanıtı)}
+\begin{itemize}
+\item Andersson (2007) için ilk bulunan DOI (\texttt{10.1038/sj.leu.2404657}) başka bir makaleye
+aitti; Crossref kontrolüyle yakalandı ve doğru DOI (\texttt{10.1038/sj.leu.2404688}) GEO GSE7186
+sayfasıyla teyit edildi.
+\item GSE7186 başlangıçta Affymetrix (GPL96) sanıldı; seri matrisi incelenince iki renkli cDNA
+platformu (GPL4861, log-oran, eksik değerli) olduğu görüldü ve tüm analiz buna göre düzeltildi.
+\item MILE değerlerinin $\log_2$ ölçekte olduğu varsayıldı; GEO veri işleme açıklaması
+(kantil normalizasyonlu sinyal) ve örnek tablolar doğrusal ölçek gösterdiği için betik ölçeği
+veriden tespit edecek şekilde düzeltildi.
+\item Literatürdeki bazı Golub sonuçlarının (ör.\ \%99,9) özellik seçimini CV dışında yaptığı
+fark edilerek ``sızıntı riski'' sütunu eklendi.
+\end{itemize}
+
+\section*{5. Özgünlük kanıtları}
+\begin{itemize}
+\item \textbf{Git geçmişi:} Depo, anlamlı mesajlı ve aşamalı commit'lerle tutulacaktır
+(veri indirme $\to$ yükleyiciler $\to$ EDA $\to$ literatür $\to$ rapor).
+\item \textbf{Videoda canlı anlatım:} Etiket eşleştirme (\texttt{load\_golub}) ve EDA betiği
+ekranda çalıştırılarak kendi sesimle anlatılacaktır.
+\item \textbf{Açıklayabildiğim konular} (öğrenci kontrol listesi):
+average difference neden negatif olur; P/A/M çağrıları; neden clip + $\log_2$;
+PCA açıklanan varyans ve t-SNE farkı; Welch $t$ / Mann--Whitney / BH-FDR; batch etkisi ve
+KS testi; seçim yanlılığı (Ambroise \& McLachlan) ve nested CV neden gerekli.
+\end{itemize}
+
+\vspace{1em}
+\noindent İmza: \rule{5cm}{0.4pt} \hfill Tarih: \rule{3cm}{0.4pt}
+\end{document}
