@@ -25,14 +25,14 @@ def run(cmd, cwd=ROOT):
     subprocess.run(cmd, cwd=cwd, check=True)
 
 
-def build_pdf(tex_dir: Path) -> None:
+def build_pdf(tex_dir: Path, tex: str = "main.tex") -> None:
     tectonic = os.environ.get("TECTONIC") or shutil.which("tectonic")
     if tectonic:
-        run([tectonic, "-X", "compile", "main.tex"], cwd=tex_dir)
+        run([tectonic, "-X", "compile", tex], cwd=tex_dir)
     elif shutil.which("latexmk"):
-        run(["latexmk", "-pdf", "main.tex"], cwd=tex_dir)
+        run(["latexmk", "-pdf", tex], cwd=tex_dir)
     else:
-        print(f"[skip] no LaTeX engine found; compile {tex_dir / 'main.tex'} manually")
+        print(f"[skip] no LaTeX engine found; compile {tex_dir / tex} manually")
 
 
 def main() -> None:
@@ -45,6 +45,7 @@ def main() -> None:
     run([PY, "scripts/make_report_assets.py"])
     build_pdf(ROOT / "reports" / "ara_rapor")
     build_pdf(ROOT / "reports" / "genai")
+    build_pdf(ROOT / "reports" / "sunum", "slides.tex")
 
 
 if __name__ == "__main__":

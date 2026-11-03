@@ -295,8 +295,12 @@ def embeddings_overview(items) -> None:
 
 # ---------------------------------------------------------------------------
 def volcano_and_heatmap(ds, Xlog: pd.DataFrame, symbols: pd.Series | None, name: str,
-                        col_annot: dict | None = None) -> tuple[pd.DataFrame, dict]:
-    """Welch t / Mann-Whitney / SNR table, volcano plot, top-50 clustered heatmap."""
+                        col_annot: dict | None = None,
+                        fc_label: str = r"$\log_2$ fold change") -> tuple[pd.DataFrame, dict]:
+    """Welch t / Mann-Whitney / SNR table, volcano plot, top-k clustered heatmap.
+
+    p-values below 1e-300 (float underflow) are drawn at 300 on the y axis.
+    """
     y = ds.y
     tab = differential_table(Xlog, y, symbols)
     sig = tab["q_t"] < 0.05
@@ -320,14 +324,14 @@ def volcano_and_heatmap(ds, Xlog: pd.DataFrame, symbols: pd.Series | None, name:
         sub = top[np.sign(top["log2FC"]) == side]
         prev = np.inf
         for g, row in sub.sort_values("p_t").iterrows():
-            yp = -np.log10(row["p_t"])
+            yp = lp[g]
             yt = min(yp, prev - 0.075 * ymax)
             prev = yt
             xt = row["log2FC"] + side * 0.12 * (np.nanmax(tab["log2FC"]) - np.nanmin(tab["log2FC"])) / 2
             ax.annotate(str(lab[g]).split("///")[0][:10], (row["log2FC"], yp), xytext=(xt, yt),
                         fontsize=6, color=INK2, va="center", ha="left" if side > 0 else "right",
                         arrowprops={"arrowstyle": "-", "color": INK2, "lw": 0.4})
-    ax.set_xlabel(r"$\log_2$ fold change (AML $-$ ALL)")
+    ax.set_xlabel(fc_label + r" (AML $-$ ALL)")
     ax.set_ylabel(r"$-\log_{10}$ p (Welch t)")
     ax.set_title("Volcano plot")
     ax.legend(loc="lower right", markerscale=3, fontsize=6.3, frameon=True, facecolor="white",
