@@ -80,7 +80,7 @@ def golub_quality(ds) -> dict:
     affx = ds.X.columns.str.startswith("AFFX")
     call_frac = calls.apply(lambda r: r.value_counts(normalize=True), axis=1).fillna(0)
 
-    fig, axes = plt.subplots(1, 3, figsize=(PAGE_W, 1.9))
+    fig, axes = plt.subplots(1, 3, figsize=(PAGE_W, 1.65))
     ax = axes[0]
     v = X.ravel()
     bins = np.r_[-np.logspace(np.log10(30000), 0, 40), 0, np.logspace(0, np.log10(80000), 50)]
@@ -270,7 +270,7 @@ def embeddings_overview(items) -> None:
 
     ``items`` is a list of (name, y, embedding-dict, split-or-None).
     """
-    fig, axes = plt.subplots(2, len(items), figsize=(PAGE_W, 3.7))
+    fig, axes = plt.subplots(2, len(items), figsize=(PAGE_W, 3.25))
     for j, (name, y, emb, split) in enumerate(items):
         y = np.asarray(y)
         edge = None if split is None else np.where(split == "test", "black", "white")
@@ -359,7 +359,7 @@ def volcano_and_heatmap(ds, Xlog: pd.DataFrame, symbols: pd.Series | None, name:
             cols[k] = v
     n = M.shape[0]
     g = sns.clustermap(Mz, cmap="RdBu_r", center=0, vmin=-3, vmax=3, method="average",
-                       metric="correlation", col_colors=cols, figsize=(PAGE_W, 5.4),
+                       metric="correlation", col_colors=cols, figsize=(PAGE_W, 3.1),
                        xticklabels=n <= 80, yticklabels=True,
                        dendrogram_ratio=(0.08, 0.1), colors_ratio=(0.02, 0.025),
                        cbar_pos=(0.005, 0.83, 0.012, 0.12),
@@ -370,8 +370,6 @@ def volcano_and_heatmap(ds, Xlog: pd.DataFrame, symbols: pd.Series | None, name:
     g.ax_heatmap.set_ylabel("")
     g.ax_cbar.tick_params(labelsize=6)
     g.ax_cbar.yaxis.label.set_size(6.5)
-    g.figure.suptitle(f"{ds.name}: top {TOP_GENES} genes by Welch t (25 AML-high, 25 ALL-high), "
-                      "average linkage, 1 - Pearson distance", y=1.0, fontsize=8)
     save(g.figure, f"fig_{name}_heatmap")
 
     # agreement of unsupervised 2-cluster cut of the samples with the classes
@@ -384,7 +382,7 @@ def volcano_and_heatmap(ds, Xlog: pd.DataFrame, symbols: pd.Series | None, name:
         "n_sig_mwu_q05": int((tab["q_mwu"] < 0.05).sum()),
         "n_up_aml": int(up.sum()), "n_up_all": int(dn.sum()),
         "n_auc_1": int(((tab["auc"] == 1) | (tab["auc"] == 0)).sum()),
-        "rho_snr_t": float(rho_snr), "ari_top50_clusters": float(ari),
+        "rho_snr_t": float(rho_snr), "ari_top_clusters": float(ari),
     }
     return tab, numbers
 
@@ -413,7 +411,7 @@ def golub_batch(ds, Xlog: np.ndarray) -> dict:
     from .stats import bh_fdr
     q_all, q_aml = bh_fdr(p_all), bh_fdr(p_aml)
 
-    fig, axes = plt.subplots(1, 3, figsize=(PAGE_W, 1.9))
+    fig, axes = plt.subplots(1, 3, figsize=(PAGE_W, 1.65))
     for ax, vals, lab, letter in ((axes[0], pres * 100, "% Present calls", "a"),
                                   (axes[1], np.log2(np.clip(q75, 1, None)), r"$\log_2$ 75th pct. raw", "b")):
         groups = [(s, c) for s in ("train", "test") for c in (0, 1)]

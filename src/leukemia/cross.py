@@ -84,7 +84,7 @@ def cross_dataset(data: dict[str, tuple[pd.DataFrame, pd.Series]], top_n: int = 
     out["spearman_gene_means"] = {f"{a}_{b}": float(stats.spearmanr(mean_rank[a], mean_rank[b], nan_policy="omit")[0])
                                   for a, b in combinations(keys, 2)}
 
-    fig, axes = plt.subplots(1, 4, figsize=(PAGE_W, 1.95))
+    fig, axes = plt.subplots(1, 4, figsize=(PAGE_W, 1.75))
     for ax, (a, b), letter in zip(axes[:2], (("golub", "mile"), ("golub", "andersson")), "ab"):
         ok = tstat[[a, b]].dropna()
         ax.scatter(ok[a], ok[b], s=1.5, color=BLUE, alpha=0.3, lw=0, rasterized=True)
@@ -97,8 +97,8 @@ def cross_dataset(data: dict[str, tuple[pd.DataFrame, pd.Series]], top_n: int = 
         ax.set_title(fr"$\rho$ = {out['spearman_t'][f'{a}_{b}']:.2f} (n={len(ok)})")
         panel_label(ax, letter)
     axes[0].legend(loc="upper left", markerscale=2, fontsize=6.3)
-    for ax, Z, ev, title, letter in ((axes[2], Zr, er, "Pooled PCA: no harmonisation", "c"),
-                                     (axes[3], Zs, es, "Pooled PCA: per-dataset z-score", "d")):
+    for ax, Z, ev, title, letter in ((axes[2], Zr, er, "pooled, raw scales", "c"),
+                                     (axes[3], Zs, es, "pooled, z-scored per cohort", "d")):
         for k in keys:
             for c, cname in enumerate(("ALL", "AML")):
                 m = (src == k) & (y == c)
@@ -110,7 +110,8 @@ def cross_dataset(data: dict[str, tuple[pd.DataFrame, pd.Series]], top_n: int = 
         panel_label(ax, letter)
     h = [Line2D([], [], ls="", marker="s", color=DATASET_COLORS[NAMES[k]], ms=4, label=NAMES[k]) for k in keys]
     h += [Line2D([], [], ls="", marker=CLASS_MARKERS[c], color=INK2, ms=4, label=c) for c in ("ALL", "AML")]
-    axes[3].legend(handles=h, loc="upper right", fontsize=5.8, handletextpad=0.1, borderaxespad=0.1)
+    # panel (c) has an empty gap between the cohort clusters: put the legend there
+    axes[2].legend(handles=h, loc="center", fontsize=5.8, handletextpad=0.1, borderaxespad=0.1)
     fig.tight_layout(w_pad=0.6)
     save(fig, "fig_cross_dataset")
 
