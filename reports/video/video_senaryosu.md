@@ -32,9 +32,10 @@ terminal.
   bazıları gen seçimini CV dışında yapıyor (Ambroise & McLachlan seçim yanlılığı). Güven
   aralığı ve bağımsız kohort testi nadir. Bu proje bunları hedefliyor.
 
-## 3:00–4:15 — Veri setleri (Tablo II, Şekil 1)
+## 3:00–4:15 — Veri setleri (Tablo II, Ek Şekil 7)
 - Golub: 72 hasta, 7.129 prob, Hu6800; 38/34 bölme; 47 ALL / 25 AML.
-- MILE (GSE13159): çok merkezli, U133 Plus 2.0; yalnızca ALL ve AML sınıfları alındı.
+- MILE (GSE13159): çok merkezli, U133 Plus 2.0; 2.096 örnekten yalnızca ALL ve AML alındı → 1.292 (750 ALL / 542 AML).
+  İlginç bulgu: GEO "sinyal" diyor ama değerler dizi başına [0, 1] ölçekli log yoğunluk (ArrayExpress tablosuyla doğrulandı).
   Neden: aynı soru, çok daha büyük kohort, derin öğrenme ön eğitimi için uygun.
 - Andersson (GSE7186): 121 çocuk lösemisi, iki renkli cDNA dizisi, log-oran, eksik
   değerler. Neden: farklı teknoloji + pediatrik → zor bir dış test; B4 bonusu.
@@ -46,22 +47,22 @@ terminal.
 2. **VS Code'da `src/leukemia/data.py` → `load_golub`:**
    - CSV'de hasta sütunları sırasız (1–27, 34–38, 28–33) → etiketi sütun sırasıyla değil,
      hasta numarasıyla birleştiriyoruz; `assert`'ler sınıf sayılarını doğruluyor.
-3. **Şekil 2 (kalite):** değerlerin %28,7'si negatif; nedeni MAS4 "average difference" =
+3. **Şekil 1 (kalite):** değerlerin %28,7'si negatif; nedeni MAS4 "average difference" =
    PM − MM; Absent çağrıları negatif/düşük değerlerle örtüşüyor. INF/NaN yok.
-4. **Şekil 3 (log dönüşümü):** clip [20, 16000] + log2 → çarpıklık 7,1'den 0,55'e; ortalama–
+4. **Ek Şekil 8 (log dönüşümü):** clip [20, 16000] + log2 → çarpıklık 7,1'den 0,55'e; ortalama–
    varyans bağımlılığı (ρ 0,95 → 0,18) kayboluyor. Ölçeğe duyarlı modeller için şart.
-5. **Şekil 4 (PCA / t-SNE):** PC1 tek başına AUC 0,98 → güçlü sinyal; yöntem farkları küçük
+5. **Şekil 2 (PCA / t-SNE):** PC1 tek başına AUC 0,98 → güçlü sinyal; yöntem farkları küçük
    olacak, bu yüzden güven aralığı ve istatistiksel test şart.
-6. **Şekil 5 + Tablo III (ayırt edici genler):** CST3, CD33, MPO, ZYX (AML), TCF3, CD79B,
+6. **Şekil 3 + Ek Tablo IV (ayırt edici genler):** CST3, CD33, MPO, ZYX (AML), TCF3, CD79B,
    CD19, DNTT (ALL) — bilinen biyolojiyle uyumlu. Uyarı: bu sıralama sadece betimseldir,
    modelde öznitelik seçimi için kullanılırsa sızıntı olur.
-7. **Şekil 6 (batch etkisi):** test seti daha "sönük"; sınıf içi KS testinde ALL için genlerin
+7. **Şekil 4 (batch etkisi):** test seti daha "sönük"; sınıf içi KS testinde ALL için genlerin
    %17,7'si p<0,05 (beklenen %5) → tek 34 örneklik test skoru yanıltıcı olabilir (RQ2).
-8. **Şekil 7 (kohortlar arası):** t istatistikleri kohortlar arası pozitif korelasyonlu, ortak
+8. **Şekil 5 (kohortlar arası):** t istatistikleri kohortlar arası pozitif korelasyonlu, ortak
    üst genler şanstan fazla; ama ölçekler farklı → birleşik PCA'da PC1'i kohort belirliyor,
    kohort içi z-skor sonrası sınıf ekseni ortaya çıkıyor.
 
-## 7:15–8:30 — Final planı (Şekil 8, Bölüm V)
+## 7:15–8:30 — Final planı (Ek Şekil 6, Bölüm V)
 - Pipeline şeması: clip/log2 durumsuz; filtre, imputasyon, z-skor, SelectKBest **her eğitim
   katında yeniden fit** ediliyor (sklearn Pipeline).
 - Protokol: (a) 38/34 bölme, test bir kez; (b) 72 örnek üzerinde 5×5 tekrarlı nested CV,
