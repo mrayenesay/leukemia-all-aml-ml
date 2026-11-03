@@ -25,4 +25,4 @@ FOLD_MIN = 5.0
 DIFF_MIN = 500.0
 
 # Number of top-ranked genes shown in EDA heatmaps.
-TOP_GENES = 50
+TOP_GENES = 30

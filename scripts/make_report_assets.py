@@ -31,10 +31,11 @@ def intc(x):
 
 
 def sci(p):
+    """Math-mode body (use inside $...$)."""
     if p == 0:
-        return r"$<10^{-300}$"
+        return r"<10^{-300}"
     m, e = f"{p:.1e}".split("e")
-    return rf"${m}\times10^{{{int(e)}}}$"
+    return rf"{m}\times10^{{{int(e)}}}"
 
 
 def tex_escape(s: str) -> str:
@@ -76,7 +77,7 @@ def build_macros(d: dict) -> dict:
             "GolubSilTSNE": num(e["silhouette_tsne"]),
             "GolubSig": intc(de["n_sig_q05"]), "GolubSigOne": intc(de["n_sig_q01"]),
             "GolubSigMWU": intc(de["n_sig_mwu_q05"]), "GolubUpAML": de["n_up_aml"], "GolubUpALL": de["n_up_all"],
-            "GolubRhoSNR": num(de["rho_snr_t"], 3), "GolubARI": num(de["ari_top50_clusters"]),
+            "GolubRhoSNR": num(de["rho_snr_t"], 3), "GolubARI": num(de["ari_top_clusters"]),
             "GolubTop": genes_list(g["top_genes"]),
             "GolubPresTrain": pct(b["present_train_mean"]), "GolubPresTest": pct(b["present_test_mean"]),
             "GolubPresP": num(b["present_mwu_p"], 3), "GolubQP": num(b["q75_mwu_p"], 3),
@@ -105,7 +106,7 @@ def build_macros(d: dict) -> dict:
             f"{pre}SilPCA": num(e["silhouette_pca10"]), f"{pre}SilTSNE": num(e["silhouette_tsne"]),
             f"{pre}Sig": intc(de["n_sig_q05"]), f"{pre}SigPct": pct(de["n_sig_q05"] / de["n_tested"]),
             f"{pre}UpAML": intc(de["n_up_aml"]), f"{pre}UpALL": intc(de["n_up_all"]),
-            f"{pre}ARI": num(de["ari_top50_clusters"]), f"{pre}Top": genes_list(m["top_genes"]),
+            f"{pre}ARI": num(de["ari_top_clusters"]), f"{pre}Top": genes_list(m["top_genes"]),
         })
     mi = d.get("mile", {})
     if mi:
@@ -117,6 +118,12 @@ def build_macros(d: dict) -> dict:
         if ser:
             M["MileTotal"] = intc(ser["n_total"])
             M["MileClassesTotal"] = len(ser["classes"])
+        sc = mi.get("scale_check", {})
+        if sc:
+            M["MileScaleSpearman"] = num(sc["spearman_signal"], 3)
+            M["MileScalePearsonLog"] = num(sc["pearson_log2_signal"], 3)
+            M["MileScalePearsonLin"] = num(sc["pearson_linear_signal"], 2)
+        M["MileAllMissing"] = mi.get("n_probes_all_missing", 0)
         tis = mi.get("tissue", {})
         M["MileBM"] = intc(sum(v for k, v in tis.items() if "marrow" in k.lower()))
         M["MilePB"] = intc(sum(v for k, v in tis.items() if "blood" in k.lower()))
