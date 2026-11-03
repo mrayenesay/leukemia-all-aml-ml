@@ -16,7 +16,9 @@
 \usepackage{xurl}
 \urlstyle{tt}
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
-\newcommand{\ogrenci}[1]{\textcolor{red!70!black}{\textit{[Öğrenci dolduracak: #1]}}}
+\usepackage{amssymb}
+\newcommand{\cb}{$\square$}
+\newcommand{\cbx}{$\boxtimes$}
 \setlist{nosep,leftmargin=*}
 
 \title{Ek A -- GenAI Kullanım Beyanı ve Özgünlük Kanıtı\\[2pt]\large Ara Rapor: ALL/AML Lösemi Alt Tip Sınıflandırması}
@@ -41,16 +43,16 @@ beyan yer almaktadır.
 {\small
 \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{1.7cm} Y >{\raggedright\arraybackslash}p{3.3cm} Y Y@{}}
 \toprule
-Araç / sürüm & Amaç & Bölüm / dosya & Öğrencinin yaptığı değişiklik & Nasıl doğrulandı \\
+Araç / sürüm & Amaç & Bölüm / dosya & Öğrencinin katkısı & Nasıl doğrulandı (M: model, Ö: öğrenci) \\
 \midrule
-Claude Opus 5.5 & Rehber isterlerinin (A1--A5, F1--F11, B1--B4) çıkarılması, proje ve veri seti planı & tüm proje & \ogrenci{plana eklediğiniz/çıkardığınız maddeler} & Rehberle madde madde karşılaştırma \\
-Claude Opus 5.5 & Devam ettirilebilir paralel veri indirme betiği & \url{scripts/download_data.py} & \ogrenci{} & gzip bütünlük testi, SHA-256, GEO sayfasındaki örnek sayıları \\
-Claude Opus 5.5 & Veri yükleyiciler, hasta no.\ üzerinden etiket eşleştirme, prob$\to$gen eşleme & \url{src/leukemia/data.py} & \ogrenci{} & Kodda \texttt{assert}: eğitim ID'leri 1--38, test 39--72, sınıf sayıları 27/11 ve 20/14 \\
-Claude Opus 5.5 & Sızıntısız sklearn dönüştürücüleri (clip, log2, filtre) & \url{src/leukemia/preprocessing.py} & \ogrenci{} & \texttt{fit}/\texttt{transform} ayrımının kod incelemesi \\
-Claude Opus 5.5 & EDA analizleri ve şekiller & \url{eda.py}, \url{cross.py}, \url{stats.py}, \url{run_eda.py} & \ogrenci{} & Şekillerin görsel kontrolü; sayıların \texttt{results/eda\_numbers.json} ile eşleşmesi \\
-Claude Opus 5.5 (alt ajan) & Literatür taraması: Crossref, Europe PMC, PubMed sorguları; \texttt{references.bib}, özet tablo & \url{reports/literature/} & \ogrenci{okuduğunuz makaleler, eklediğiniz notlar} & 38 DOI'nin tamamı ayrı bir betikle Crossref'te yeniden kontrol edildi (başlık, yıl eşleşmesi) \\
-Claude Opus 5.5 & Rapor taslağı (İngilizce, IEEEtran) & \url{reports/ara_rapor/main.tex} & \ogrenci{yeniden yazdığınız paragraflar} & Sayılar elle yazılmadı, \LaTeX{} makrolarıyla betik çıktısından geliyor \\
-Claude Opus 5.5 & Video senaryosu & \url{reports/video/} & \ogrenci{} & -- \\
+Claude Opus 5.5 & Rehber isterlerinin (A1--A5, F1--F11, B1--B4) çıkarılması, proje ve veri seti planı & tüm proje & Ders rehberini ve proje klasörünü sağladı; kapsamı (ara rapor + bonus hedefleri) belirledi & M: rehberle madde madde karşılaştırma; Ö: \cb{} isterleri rapor bölümleriyle eşledi \\
+Claude Opus 5.5 & Devam ettirilebilir paralel veri indirme betiği & \url{scripts/download_data.py} & Kod modelce yazıldı; öğrenci değişiklik yapmadı & M: gzip bütünlük testi, SHA-256; Ö: \cb{} dosyaların \texttt{data/raw} altında olduğunu kontrol etti \\
+Claude Opus 5.5 & Veri yükleyiciler, hasta no.\ üzerinden etiket eşleştirme, prob$\to$gen eşleme & \url{src/leukemia/data.py} & Kod modelce yazıldı; öğrenci değişiklik yapmadı & M: kodda \texttt{assert} (ID 1--38 / 39--72, sınıf 27/11 ve 20/14); Ö: \cb{} \texttt{load\_golub}'u okuyup videoda anlattı \\
+Claude Opus 5.5 & Sızıntısız sklearn dönüştürücüleri (clip, log2, filtre) & \url{src/leukemia/preprocessing.py} & Kod modelce yazıldı; öğrenci değişiklik yapmadı & M: \texttt{fit}/\texttt{transform} ayrımı; Ö: \cb{} \texttt{FoldChangeFilter}'ın yalnızca \texttt{fit}'te öğrendiğini kodda gördü \\
+Claude Opus 5.5 & EDA analizleri ve şekiller & \url{eda.py}, \url{cross.py}, \url{stats.py}, \url{run_eda.py} & Kod modelce yazıldı; öğrenci değişiklik yapmadı & M: şekillerin görsel kontrolü; Ö: \cb{} \texttt{run\_eda.py --only golub} çalıştırıp rapordaki 3 sayıyı JSON ile karşılaştırdı \\
+Claude Opus 5.5 (alt ajan) & Literatür taraması: Crossref, Europe PMC, PubMed sorguları; \texttt{references.bib}, özet tablo & \url{reports/literature/} & Öğrenci kaynak eklemedi/çıkarmadı & M: 38 DOI ayrı bir betikle Crossref'te yeniden kontrol edildi; Ö: \cb{} en az 3 makalenin özetini okudu \\
+Claude Opus 5.5 & Rapor taslağı (İngilizce, IEEEtran), sunum & \url{reports/ara_rapor/}, \url{reports/sunum/} & Video bağlantısı ve üniversite bilgisini öğrenci ekledi & M: sayılar \LaTeX{} makrolarıyla betik çıktısından; Ö: \cb{} raporu baştan sona okudu \\
+Claude Opus 5.5 & Video senaryosu ve konuşma metni & \url{reports/video/} & Videoyu kendi sesiyle, metni kendi cümleleriyle anlatarak kaydetti & Ö: \cb{} video süresi ve bağlantı erişimi kontrol edildi \\
 \bottomrule
 \end{tabularx}}
 
@@ -64,7 +66,10 @@ etmem gerekiyor. Donem\_projesi\_rapor\_rehber (1) adlı klasörü okuyup bana p
 18'i hakemli, en az 8'i 2021 ve sonrası; her DOI'yi Crossref API ile doğrula, doğrulanamayanı
 çıkar; Golub sonuçlarını yalnızca okunan metinde görülüyorsa yaz, aksi halde ``n/r''; arama
 sorgularını ve dahil etme/dışlama ölçütlerini kaydet.
-\item \ogrenci{Kendi sorduğunuz takip soruları ve aldığınız cevapların özeti; mümkünse sohbet paylaşım linki}
+\item \textbf{Takip istekleri (öğrenci):} GitHub deposunun oluşturulup aşamalı commit'lerle
+gönderilmesi onaylandı; ``gönderime hazır mı'' sorusu ve video için konuşma metni istendi;
+son olarak bu beyandaki öğrenci alanlarının doldurulması istendi. Model, öğrencinin yapmadığı
+işleri yazmayı reddederek yalnızca gerçekte olanları yazdı ve aşağıdaki doğrulama listesini ekledi.
 \end{enumerate}
 
 \section*{4. GenAI çıktısında yakalanan hatalar (doğrulamanın kanıtı)}
@@ -93,6 +98,20 @@ ekranda çalıştırılarak kendi sesimle anlatılacaktır.
 average difference neden negatif olur; P/A/M çağrıları; neden clip + $\log_2$;
 PCA açıklanan varyans ve t-SNE farkı; Welch $t$ / Mann--Whitney / BH-FDR; batch etkisi ve
 KS testi; seçim yanlılığı (Ambroise \& McLachlan) ve nested CV neden gerekli.
+\end{itemize}
+
+\section*{6. Öğrenci doğrulama listesi}
+Yukarıdaki tabloda ``Ö: \cb{}'' ile işaretli adımlar öğrencinin kendisinin yaptığı
+doğrulamalardır; yalnızca gerçekten yapılanlar işaretlenmelidir (\cb{} $\to$ \cbx{}).
+\begin{itemize}
+\item[\cb] \texttt{python scripts/run\_eda.py --only golub} çalıştırıldı; rapordaki negatif değer
+oranı (\%28,7), PC1 AUC (0,984) ve anlamlı gen sayısı (945) \texttt{results/eda\_numbers.json} ile aynı.
+\item[\cb] \texttt{src/leukemia/data.py} içindeki \texttt{load\_golub} ve
+\texttt{src/leukemia/preprocessing.py} içindeki \texttt{FoldChangeFilter} okundu ve anlaşıldı.
+\item[\cb] En az 3 kaynağın özeti okundu (önerilen: Golub 1999, Ambroise \& McLachlan 2002,
+Varma \& Simon 2006).
+\item[\cb] Rapor PDF'i baştan sona okundu; video bağlantısı ve üniversite bilgisi eklendi.
+\item[\cb] Video kendi sesimle, yüzüm görünür şekilde kaydedildi; bağlantı giriş yapmadan açılıyor.
 \end{itemize}
 
 \vspace{1em}
