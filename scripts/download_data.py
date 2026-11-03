@@ -34,6 +34,10 @@ SOURCES = {
     "mile": [
         (f"{GEO}/series/GSE13nnn/GSE13159/matrix/GSE13159_series_matrix.txt.gz",
          RAW / "GSE13159" / "GSE13159_series_matrix.txt.gz"),
+        # one ArrayExpress sample table (signal + detection p) used to identify
+        # the scale of the series-matrix values
+        ("https://ftp.ebi.ac.uk/biostudies/fire/E-GEOD-/159/E-GEOD-13159/Files/GSM329426_sample_table.txt",
+         RAW / "GSE13159" / "GSM329426_sample_table.txt"),
     ],
     # Andersson et al. (2007), 121 childhood acute leukemias, Swegene 27K cDNA (GPL4861)
     "andersson": [

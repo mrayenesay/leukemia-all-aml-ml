@@ -22,7 +22,7 @@ import pandas as pd
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from leukemia import eda  # noqa: E402
-from leukemia.config import RESULTS, SEED, TABLES  # noqa: E402
+from leukemia.config import DATA_RAW as RAW, RESULTS, SEED, TABLES  # noqa: E402
 from leukemia.cross import cross_dataset  # noqa: E402
 from leukemia.data import collapse_to_genes, load_andersson, load_golub, load_mile, read_annot  # noqa: E402
 from leukemia.plotting import ORANGE, SPLIT_COLORS, set_style  # noqa: E402
@@ -90,6 +90,24 @@ def run_golub(numbers: dict) -> dict:
     return out
 
 
+def mile_scale_check(X: pd.DataFrame) -> dict:
+    """Relate the series-matrix value of one array to its ArrayExpress signal."""
+    from scipy import stats
+    f = RAW / "GSE13159" / "GSM329426_sample_table.txt"
+    if not f.exists() or "GSM329426" not in X.index:
+        return {}
+    t = pd.read_csv(f, sep="\t").set_index("ID_REF")
+    v = X.loc["GSM329426"].astype(float)
+    common = v.index.intersection(t.index)
+    v, s = v[common], t.loc[common, "VALUE_DS"].astype(float)
+    ok = v.notna() & (s > 0)
+    slope, intercept = np.polyfit(np.log2(s[ok]), v[ok], 1)
+    return {"spearman_signal": float(stats.spearmanr(v[ok], s[ok])[0]),
+            "pearson_log2_signal": float(np.corrcoef(v[ok], np.log2(s[ok]))[0, 1]),
+            "pearson_linear_signal": float(np.corrcoef(v[ok], s[ok])[0, 1]),
+            "slope": float(slope)}
+
+
 def run_mile(numbers: dict) -> dict:
     ds = load_mile()
     sym = read_annot("GPL570")
@@ -108,8 +126,12 @@ def run_mile(numbers: dict) -> dict:
         out["skew_raw"] = float(pd.Series(X.to_numpy().ravel()).skew())
         X = np.log2(X.clip(lower=1.0))
         out["skew_log"] = float(pd.Series(X.to_numpy().ravel()).skew())
+    out["scale_check"] = mile_scale_check(ds.X)
+    # probe sets missing in every array carry no information
+    X = X.loc[:, X.notna().any()]
+    out["n_probes_all_missing"] = int(ds.n_features - X.shape[1])
     eda.sample_distributions(ds, X.to_numpy(), "mile", ds.meta["subtype"].to_numpy(),
-                             "MILE leukemia classes", q, r"$\log_2$ expression")
+                             "MILE leukemia classes", q, "range-scaled log expression")
     # unsupervised variance filter for embedding (top 5000 most variable probes)
     var = X.var(axis=0)
     Xv = X.loc[:, var.sort_values(ascending=False).index[:5000]]
