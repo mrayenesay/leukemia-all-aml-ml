@@ -548,49 +548,49 @@ were verified against Crossref; the author reviewed the content and takes full r
 \begin{figure}[!h]
 \centering
 \fig[width=0.95\textwidth]{fig_golub_embedding.pdf}
-\caption{Golub: PCA scree plot (bars: per component, line: cumulative), PCA and t-SNE.}
+\caption{Golub: PCA scree plot (bars: per component, line: cumulative), PCA and t-SNE. PC1 explains \GolubPCOne\% and ten PCs \GolubCumTen\%; \GolubNEighty{} PCs are needed for 80\%. The variance is spread over many directions, yet PC1 alone separates the classes.}
 \end{figure}
 \begin{figure}[!h]
 \centering
 \fig[width=0.95\textwidth]{fig_golub_volcano.pdf}
-\caption{Golub: (a) volcano plot of Welch tests (colour: BH $q<0.05$); (b) agreement of Golub's signal-to-noise ratio and Welch $t$.}
+\caption{Golub: (a) volcano plot of Welch tests (colour: BH $q<0.05$): \GolubUpAML{} genes are higher in AML and \GolubUpALL{} in ALL, i.e.\ the differences are not one-sided. (b) Golub's signal-to-noise ratio and Welch $t$ rank genes almost identically ($\rho=\GolubRhoSNR$), so the choice between them matters little for a univariate filter.}
 \end{figure}
 \begin{figure}[!h]
 \centering
 \fig[width=0.95\textwidth]{fig_mile_samples.pdf}
-\caption{MILE: (a) per-array distribution of the range-scaled log values, sorted by median; (b) number of samples per original leukemia class.}
+\caption{MILE: (a) per-array quantiles of the range-scaled log values (sorted by median). All arrays have identical quantiles, as expected after quantile normalisation, so there are no array-level outliers. (b) Missing values per probe set: \MileAllMissing{} probe sets are empty in every array (removed); all others are complete.}
 \label{fig:mile_samples}
 \end{figure}
 \begin{figure}[!h]
 \centering
 \fig[width=0.95\textwidth]{fig_mile_embedding.pdf}
-\caption{MILE: PCA scree, PCA and t-SNE (top 5,000 most variable probes).}
+\caption{MILE: PCA scree, PCA and t-SNE (top 5,000 most variable probes). PC1 explains \MilePCOne\% and separates ALL from AML (AUC \MileBestPCAUC); in t-SNE the ALL samples form several sub-clusters, in line with the many ALL subtypes in MILE.}
 \end{figure}
 \begin{figure}[!h]
 \centering
 \fig[width=0.95\textwidth]{fig_mile_volcano.pdf}
-\caption{MILE: volcano plot and SNR--$t$ agreement.}
+\caption{MILE: (a) volcano plot; the $x$ axis is a difference of range-scaled log values, and $p<10^{-300}$ is drawn at 300. With $n=\MileN$, \MileSigPct\% of probe sets reach $q<0.05$, so effect size rather than $p$ should guide gene selection. (b) SNR--$t$ agreement.}
 \end{figure}
 \begin{figure}[!h]
 \centering
 \fig[width=0.95\textwidth,height=0.6\textheight,keepaspectratio]{fig_mile_heatmap.pdf}
-\caption{MILE: clustered heatmap of the top-30 genes.}
+\caption{MILE: clustered heatmap of the top-30 genes. The two top-level clusters match ALL/AML (ARI \MileARI); within ALL, a sub-cluster lacks the B-cell genes (EBF1, CD79A, BLK, POU2AF1), consistent with T-ALL.}
 \end{figure}
 \begin{figure}[!h]
 \centering
 \fig[width=0.95\textwidth]{fig_andersson_samples.pdf}
-\caption{Andersson: (a) per-array $\log_2$-ratio distribution; (b) missing values per reporter.}
+\caption{Andersson: (a) per-array $\log_2$-ratio distributions are centred near 0 with similar spread, as expected after lowess normalisation and centring; (b) missing values per reporter: \AndGenesMissing{} reporters have gaps and \AndGenesMissingTwenty{} miss more than 20\%, so imputation (in-fold) is required.}
 \label{fig:and_samples}
 \end{figure}
 \begin{figure}[!h]
 \centering
 \fig[width=0.95\textwidth]{fig_andersson_embedding.pdf}
-\caption{Andersson: PCA scree, PCA and t-SNE (median-imputed for visualisation only).}
+\caption{Andersson: PCA scree, PCA and t-SNE (median-imputed for visualisation only). PC1 explains \AndPCOne\% and almost perfectly orders AML vs.\ ALL (AUC \AndPCOneAUC); t-SNE shows a separate AML group and several ALL sub-groups.}
 \end{figure}
 \begin{figure}[!h]
 \centering
 \fig[width=0.95\textwidth]{fig_andersson_volcano.pdf}
-\caption{Andersson: volcano plot and SNR--$t$ agreement.}
+\caption{Andersson: (a) volcano plot ($x$: difference of $\log_2$ ratios); \AndSigPct\% of reporters reach $q<0.05$, split evenly between AML-high (\AndUpAML) and ALL-high (\AndUpALL). (b) SNR--$t$ agreement.}
 \end{figure}
 \begin{figure}[!h]
 \centering
