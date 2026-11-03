@@ -1,0 +1,29 @@
+# raw and cached data are re-created by scripts/download_data.py
+data/raw/
+data/processed/
+
+# LaTeX build artefacts
+*.aux
+*.log
+*.out
+*.bbl
+*.blg
+*.synctex.gz
+*.toc
+*.fls
+*.fdb_latexmk
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# course material (not ours to redistribute)
+Donem_projesi_rapor_rehber*.pdf
