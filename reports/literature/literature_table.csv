@@ -1,0 +1,31 @@
+key,year,peer_reviewed,dataset,preprocessing_feature_selection,method,validation,best_result,note,verified_via
+golub1999,1999,yes,Golub ALL/AML (Affymetrix Hu6800),Informative-gene selection by class correlation,Class discovery + weighted-vote class predictor,38 train / 34 independent test,n/r,Original dataset; abstract gives no numbers,Crossref + PubMed abstract
+haferlach2010,2010,yes,MILE stage I/II (GSE13159 = stage I),Whole-genome HG-U133 Plus 2.0 profiling,Gene-expression classifier for leukemia subtypes,Retrospective stage I + prospective stage II cohort,92.2% accuracy over 18 classes (stage I),External validation source; 11 labs,Crossref + PubMed abstract + GEO GSE13159
+kohlmann2008,2008,yes,MILE pre-phase (multi-lab),Standardized protocols across labs,Inter-laboratory reproducibility study,Cross-lab comparison,n/r,Linked to GSE13159 in GEO,Crossref + GEO GSE13159
+andersson2007,2007,yes,121 childhood leukemias (GSE7186),n/r,k-nearest neighbor predictors,Independent data set validation,T-ALL MRD status classified with 100% accuracy,External validation source (pediatric),Crossref + PubMed abstract + GEO GSE7186
+armstrong2002,2002,yes,"MLL/ALL/AML leukemias",n/r,Expression profiling of MLL-rearranged leukemia,n/r,n/r,Common 3-class leukemia benchmark,Crossref
+feltes2019,2019,yes,CuMiDa (78 curated GEO sets),Background correction + normalization + QC,Benchmark ML baselines,n/r,n/r,Curated microarray benchmark repository,Crossref + PubMed abstract
+furey2000,2000,yes,Ovarian + two other published sets,n/r,SVM,n/r,n/r,Abstract does not name the other datasets,Crossref + PubMed abstract
+guyon2002,2002,yes,Leukemia and colon microarrays,SVM-RFE gene ranking,Linear SVM,n/r,n/r,Canonical wrapper gene selection,Crossref
+dudoit2002,2002,yes,Leukemia + other tumor microarrays,Univariate gene filtering,"LDA/DLDA, kNN, trees, aggregation",Repeated train/test splits,n/r,Classic comparison; no abstract retrieved,Crossref
+tibshirani2002,2002,yes,SRBCT and leukemia,Shrunken centroid soft-thresholding,Nearest shrunken centroids (PAM),n/r,n/r,Abstract gives no error counts,Crossref + PubMed abstract
+diazuriarte2006,2006,yes,Golub leukemia + 8 other sets,RF backward gene elimination,Random forest vs SVM/kNN/DLDA/SC,.632+ bootstrap,Leukemia .632+ error: SVM 0.014; RF 0.051,Leukemia RF selects 2 genes,Crossref + PMC full text (Table 2)
+statnikov2005,2005,yes,11 datasets incl. leukemia,Several gene selection methods,Multicategory SVMs vs kNN/NNs/ensembles,Two cross-validation designs,n/r,MC-SVMs best; GEMS system,Crossref + PubMed abstract
+zou2005,2005,yes,Methodology (incl. microarray example),Elastic net penalty,Penalized regression,n/r,n/r,Basis for sparse logistic models,Crossref
+ambroise2002,2002,yes,Two published microarray sets,Gene selection inside vs outside CV,Prediction rules with few genes,External 10-fold CV; .632+ bootstrap,n/r,Selection bias; CV error not zero,Crossref + PubMed abstract
+varma2006,2006,yes,Simulation + microarray,Tuning within CV,Nested CV,Nested vs non-nested CV,n/r,Optimistic bias without nesting,Crossref
+cawley2010,2010,yes,Benchmark datasets,Hyperparameter selection,Kernel methods,Model-selection overfitting analysis,n/r,No DOI; JMLR 11:2079-2107,JMLR page metadata
+leek2010,2010,yes,High-throughput studies (review),Batch effect diagnostics,Review,n/a,n/r,Motivates cross-cohort batch handling,Crossref
+johnson2007,2007,yes,Microarray batches,Empirical Bayes location/scale adjustment,ComBat,n/a,n/r,Standard batch correction,Crossref
+warnatherresthal2020,2020,yes,"12,029 samples from 105 studies",High-dimensional genome-wide input,ML for AML prediction,n/r,n/r,Large-scale blood transcriptome AML prediction,Crossref + PubMed abstract
+warnatherresthal2021,2021,yes,">16,400 blood transcriptomes (incl. leukaemia)",n/r,Swarm Learning (decentralized ML),Multi-site with study biases,n/r,Swarm beats single-site classifiers (abstract),Crossref + PubMed abstract
+gorishniy2021,2021,yes,Tabular benchmarks,n/r,FT-Transformer / ResNet vs GBDT,Benchmark protocol,n/r,No DOI; NeurIPS 34 pp. 18932-18943,NeurIPS proceedings + arXiv 2106.11959
+grinsztajn2022,2022,yes,Tabular benchmark suite,n/r,Tree models vs deep learning,Benchmark protocol,n/r,Trees still strong on tabular data,NeurIPS proceedings + arXiv 2207.08815
+hollmann2025,2025,yes,Tabular datasets up to 10k samples,n/r,TabPFN foundation model,Benchmark comparisons,n/r,Candidate small-n baseline,Crossref + PubMed abstract
+chen2025genept,2025,yes,Single-cell expression data,GPT-3.5 gene text embeddings,GenePT embedding model,Downstream task benchmarks,n/r,Published GenePT; preprint 10.1101/2023.10.16.562533,Crossref (journal + preprint) + PubMed abstract
+alhenawi2022,2022,yes,132 reviewed studies,Feature selection methods,Systematic review,n/a,n/r,Hybrid FS most common (34.9%),Crossref + PubMed abstract
+alharbi2023,2023,yes,Microarray and RNA-seq (review),Feature engineering + preprocessing,Review of ML/DL classifiers,n/a,n/r,Covers MLP/CNN/RNN/GNN/transformers,Crossref + PubMed abstract
+xie2022,2022,yes,Golub leukemia (72 x 7129) + 3 others,GNN-based feature ranking aggregation,SVM classifier,10-fold CV,Leukemia Acc 0.971 with 2 genes,From Table 3 of full text,Crossref + PMC full text
+rezaee2022,2022,yes,Golub leukemia (72 x 7129) + DLBCL + prostate,Soft-ensemble wrapper gene selection (kNN),Stacked deep neural network,K-fold CV,Leukaemia average accuracy 99.6%,Gene selection vs CV order unclear,Crossref + PMC full text
+awotunde2022,2022,yes,Golub leukemia (72 x 7129; UCI),PSO selected 2323 of 7129 genes,HORD-optimized CNN,Random 70/30 and 80/20 splits,Leukemia accuracy 99.9% (comparison table),No CV; dataset class description inconsistent,Crossref + PMC full text
+selvaraj2024,2024,yes,Golub ALL/AML + CuMiDa leukemia,RF feature importance (FI >= 0.04),Super learner (RF meta-learner),Stratified 10-fold CV with 20% test,AML-ALL accuracy 0.98 (Table 2),FI ranking appears done before CV,Crossref + PMC full text
