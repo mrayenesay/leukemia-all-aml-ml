@@ -136,7 +136,7 @@ def run_mile(numbers: dict) -> dict:
     var = X.var(axis=0)
     Xv = X.loc[:, var.sort_values(ascending=False).index[:5000]]
     out["embedding"] = eda.embedding(ds, Xv.to_numpy(), "mile", perplexity=30)
-    tab, de = eda.volcano_and_heatmap(ds, X, sym, "mile")
+    tab, de = eda.volcano_and_heatmap(ds, X, sym, "mile", fc_label="range-scaled log difference")
     out["de"] = de
     save_top_table(tab, "mile")
     out["top_genes"] = tab.head(20)["symbol"].fillna("?").tolist()
@@ -167,7 +167,8 @@ def run_andersson(numbers: dict) -> dict:
     tab, de = eda.volcano_and_heatmap(
         ds, X, sym, "andersson",
         col_annot={"lineage": [{"B-lineage ALL": "#9fc3ee", "T-cell ALL": "#1a4f8f", "AML": ORANGE}[l]
-                               for l in ds.meta["lineage"]]})
+                               for l in ds.meta["lineage"]]},
+        fc_label=r"$\log_2$-ratio difference")
     out["de"] = de
     save_top_table(tab, "andersson")
     out["top_genes"] = tab.head(20)["symbol"].fillna("?").tolist()
