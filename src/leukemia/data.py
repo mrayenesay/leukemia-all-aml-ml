@@ -176,9 +176,10 @@ def load_mile(root: Path = DATA_RAW / "GSE13159") -> Dataset:
     X, meta = _cached("mile", build)
     meta["label"] = meta["subtype"].map(mile_label)
     y = meta["label"].map(LABELS).astype(int).rename("y")
-    # GEO values are quantile-normalised signal intensities (Liu et al., 2006)
-    # on the linear scale; report the scale actually found in the file.
-    scale = "linear" if float(np.nanmax(X.to_numpy())) > 100 else "log2"
+    # GEO describes quantile-normalised signal (Liu et al., 2006), but the series
+    # matrix holds per-array range-scaled log intensities in [0, 1] (checked
+    # against an ArrayExpress sample table in run_eda.py); detect it from the data.
+    scale = "linear" if float(np.nanmax(X.to_numpy())) > 100 else "log (range-scaled)"
     series = json.loads(counts_file.read_text()) if counts_file.exists() else {}
     return Dataset("MILE", X, y, meta, platform="GPL570", scale=scale, extra={"series": series})
 
