@@ -1,0 +1,199 @@
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage{iftex}
+\ifXeTeX
+  \usepackage{fontspec}
+  \setsansfont{texgyreheros}[Extension=.otf, UprightFont=*-regular, BoldFont=*-bold,
+    ItalicFont=*-italic, BoldItalicFont=*-bolditalic]
+\else
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\fi
+\usepackage[turkish,shorthands=off]{babel}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,fit,backgrounds}
+
+\input{../../results/numbers.tex}
+\graphicspath{{../../results/figures/}}
+\newcommand{\fig}[2][]{\IfFileExists{../../results/figures/#2}{\includegraphics[#1]{#2}}{\fbox{eksik: \texttt{\detokenize{#2}}}}}
+
+\definecolor{ink}{HTML}{0B0B0B}
+\definecolor{accent}{HTML}{2A78D6}
+\definecolor{aml}{HTML}{EB6834}
+\setbeamercolor{frametitle}{fg=accent}
+\setbeamercolor{title}{fg=accent}
+\setbeamercolor{structure}{fg=accent}
+\setbeamercolor{normal text}{fg=ink}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{\hfill\scriptsize\color{gray}\insertframenumber/\inserttotalframenumber\hspace*{4mm}\vspace*{2mm}}
+\setbeamerfont{frametitle}{series=\bfseries}
+
+\title{ALL ve AML Lösemi Alt Tip Sınıflandırması}
+\subtitle{Ara Rapor: Literatür, Veri Setleri ve Keşifsel Veri Analizi}
+\author{Enes AY \quad 503020260092}
+\institute{Makine Öğrenmesi ve Anomali Tespiti}
+\date{Kasım 2026}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Problem ve motivasyon}
+\begin{columns}[T]
+\column{0.55\textwidth}
+\begin{itemize}
+\item ALL (lenfoid) ve AML (miyeloid): ikisi de akut \textbf{lösemi alt tipi}; tedavi protokolleri farklı.
+\item Modüldeki ``non-cancer'' etiketi biyolojik olarak yanlış $\Rightarrow$ \emph{ALL vs.\ AML alt tip sınıflandırması}.
+\item Mikrodizi: binlerce genin mRNA düzeyini tek deneyde ölçer.
+\item Golub: 72 hasta, \GolubP{} prob $\Rightarrow$ $p \gg n$.
+\end{itemize}
+\column{0.42\textwidth}
+\textbf{Araştırma soruları}
+\begin{enumerate}\small
+\item Nested CV'de 3 yöntem farklı mı?
+\item 38/34 tek bölme CV ile tutarlı mı?
+\item Sinyal kohortlar arası taşınıyor mu?
+\item (Bonus) DL / TabPFN daha iyi mi?
+\end{enumerate}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Literatür taraması}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\begin{itemize}\small
+\item Crossref, Europe PMC, PubMed; keşif 2021--2026 + klasikler
+\item 152 kayıt $\to$ 24 özet $\to$ 5 tam metin
+\item \textbf{38 kaynak}, hepsi hakemli, 11'i 2021+; tüm DOI'ler Crossref ile doğrulandı
+\item Klasikler: Golub 1999, SVM, SVM-RFE, DLDA, RF
+\item Yeni: TabPFN, GenePT, swarm learning
+\end{itemize}
+\column{0.5\textwidth}
+\textbf{Boşluk}
+\begin{itemize}\small
+\item Golub'da \%97--99,9 doğruluk, ama protokoller karşılaştırılamaz
+\item Gen seçimi çoğu zaman CV \emph{dışında} $\Rightarrow$ seçim yanlılığı
+\item Güven aralığı ve bağımsız kohort testi nadir
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Veri setleri}
+\centering\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+ & Golub & MILE (GSE13159) & Andersson (GSE7186) \\
+\midrule
+Platform & Hu6800 & U133 Plus 2.0 & 27K cDNA (2 renk) \\
+Ölçü & MAS4 avg.\ diff. & kantil-norm.\ sinyal & $\log_2$ oran \\
+$n$ (ALL/AML) & 72 (47/25) & \MileN{} (\MileALL/\MileAML) & \AndN{} (\AndALL/\AndAML) \\
+$p$ & \GolubP{} & \MileP{} & \AndP{} \\
+Eksik değer & 0 & \MileMissingPct\% & \AndMissingPct\% \\
+Rol & ana & benzer 1 & benzer 2 (B4) \\
+\bottomrule
+\end{tabular}
+
+\vspace{2mm}
+\fig[width=0.95\textwidth]{fig_class_distribution.pdf}
+\end{frame}
+
+\begin{frame}{Veri kalitesi (Golub)}
+\fig[width=\textwidth]{fig_golub_quality.pdf}
+\begin{itemize}\small
+\item NaN/INF yok; ama değerlerin \textbf{\GolubNegPct\%}'i negatif (PM $-$ MM).
+\item Absent çağrıları (\GolubCallA\%) negatif/düşük değerlerle örtüşüyor.
+\item Hasta sütunları sırasız $\Rightarrow$ etiketler hasta numarasıyla eşlendi, \texttt{assert} ile doğrulandı.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Dönüşüm: clip [20, 16000] + $\log_2$}
+\fig[width=\textwidth]{fig_golub_log_distributions.pdf}
+\begin{itemize}\small
+\item Çarpıklık \GolubSkewRaw{} $\to$ \GolubSkewLog; ortalama--SD korelasyonu \GolubRhoLin{} $\to$ \GolubRhoLog.
+\item Kat-değişim filtresi: \GolubFilt{} gen kalıyor.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Boyut indirgeme}
+\centering
+\fig[height=0.72\textheight]{fig_embeddings_overview.pdf}
+
+\small PC1 tek başına AUC \GolubPCOneAUC{} (Golub) $\Rightarrow$ güçlü sinyal, yöntem farkları küçük olacak.
+\end{frame}
+
+\begin{frame}{Ayırt edici genler}
+\begin{columns}[c]
+\column{0.5\textwidth}
+\fig[width=\textwidth,height=0.8\textheight,keepaspectratio]{fig_golub_heatmap.pdf}
+\column{0.48\textwidth}
+\begin{itemize}\small
+\item Welch $t$, Mann--Whitney, BH-FDR, SNR
+\item $q<0.05$: \GolubSig{} gen
+\item AML: CST3, CD33, MPO, ZYX
+\item ALL: TCF3, CD79B, CD19, DNTT
+\item Kümeleme sınıfları buluyor (ARI \GolubARI)
+\item \textcolor{aml}{\textbf{Uyarı:}} bu sıralama yalnızca betimsel; modelde kullanılırsa sızıntı!
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Eğitim ve bağımsız test seti (batch etkisi)}
+\fig[width=\textwidth]{fig_golub_batch.pdf}
+\begin{itemize}\small
+\item Test dizileri daha sönük (75.\ yüzdelik \GolubQTest{} vs.\ \GolubQTrain, $p=\GolubQP$).
+\item Sınıf içi KS: ALL'de genlerin \GolubKSAll\%'i $p<0.05$ (beklenen \%5).
+\item $\Rightarrow$ tek 34 örneklik test skoru nested CV'den sapabilir (RQ2).
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Kohortlar arası karşılaştırma}
+\fig[width=\textwidth]{fig_cross_dataset.pdf}
+\begin{itemize}\small
+\item $t$ istatistikleri: $\rho=\RhoGM$ (Golub--MILE), $\rho=\RhoGA$ (Golub--Andersson); ortak üst genler şanstan fazla.
+\item Birleşik PCA'da PC1'i \textbf{kohort} belirliyor ($\eta^2=\EtaRawDataset\%$); kohort içi $z$-skor sonrası sınıf ekseni ortaya çıkıyor.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Bulgular $\Rightarrow$ modelleme kararları}
+\small
+\begin{enumerate}
+\item Negatif/taban değerler $\Rightarrow$ clip + $\log_2$
+\item $p\gg n$ $\Rightarrow$ öznitelik seçimi \textbf{her eğitim katının içinde}, $k$ iç CV'de ayarlanır
+\item Güçlü sinyal $\Rightarrow$ güven aralığı + eşleştirilmiş testler şart
+\item Dengesizlik (\%65/35) $\Rightarrow$ stratified katlar, \texttt{class\_weight}, balanced accuracy
+\item Train/test kayması $\Rightarrow$ 38/34 ve nested CV ayrı raporlanır
+\item Andersson'da eksik değer $\Rightarrow$ kat içi imputasyon (medyan vs.\ $k$NN)
+\item Platform/ölçek farkı $\Rightarrow$ kohort içi standardizasyon, ortak \CommonAll{} gen
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Final planı}
+\begin{columns}[T]
+\column{0.5\textwidth}
+\small
+\textbf{Yöntemler:} elastic-net LR, SVM (lineer/RBF), random forest (+ karar ağacı tabanı)\\[1mm]
+\textbf{Protokol:} (a) 38/34, test \emph{bir kez}; (b) 72 örnekte 5$\times$5 nested CV, 5 seed\\[1mm]
+\textbf{Metrikler:} Acc, BAcc, Precision, Recall, Specificity, F1, ROC-AUC, karışıklık matrisi\\[1mm]
+\textbf{İstatistik:} Friedman/Nemenyi, düzeltilmiş $t$, McNemar
+\column{0.48\textwidth}
+\small
+\textbf{Bonuslar}
+\begin{itemize}
+\item B1: MLP / autoencoder (+ MILE ön eğitim)
+\item B2: TabPFN v2, GenePT gömmeleri
+\item B3: IEEE konferansına gönderim
+\item B4: Andersson (3.\ veri seti)
+\end{itemize}
+\textbf{Tekrarlanabilirlik:} \texttt{python run\_all.py}, seed 42, rapordaki her sayı betikten
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\centering\Large Teşekkürler\\[4mm]
+\normalsize Kod: \texttt{github.com/mrayenesay/leukemia-all-aml-ml}\\[2mm]
+\small GenAI beyanı: Claude (Opus 5.5) kullanıldı; ayrıntılar Ek A'da.
+\end{frame}
+
+\end{document}
