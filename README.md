@@ -11,7 +11,7 @@ cohort and two independent open cohorts for external validation.
 | Data set | Source | Platform | n (ALL/AML) | Role |
 |---|---|---|---|---|
 | Golub et al. 1999 | Kaggle mirror (CC0), [doi:10.1126/science.286.5439.531](https://doi.org/10.1126/science.286.5439.531) | Affymetrix Hu6800 (GPL80) | 72 (47/25), 38/34 split | main |
-| MILE stage 1 | GEO [GSE13159](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE13159) | HG-U133 Plus 2.0 (GPL570) | ALL+AML subset | similar set 1 |
+| MILE stage 1 | GEO [GSE13159](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE13159) | HG-U133 Plus 2.0 (GPL570) | 1,292 (750/542) of 2,096 | similar set 1 |
 | Andersson et al. 2007 | GEO [GSE7186](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE7186) | Swegene 27K cDNA (GPL4861) | 121 (98/23) | similar set 2 (bonus B4) |
 
 ## Status

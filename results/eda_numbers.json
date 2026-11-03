@@ -145,7 +145,7 @@
       "n_up_all": 483,
       "n_auc_1": 0,
       "rho_snr_t": 0.9994434796612583,
-      "ari_top50_clusters": 0.9441556635184554
+      "ari_top_clusters": 0.8900168736687781
     },
     "top_genes": [
       "MGST1",
@@ -249,7 +249,7 @@
       "n_up_all": 4577,
       "n_auc_1": 2,
       "rho_snr_t": 0.9978660968155799,
-      "ari_top50_clusters": 0.40648905302031124
+      "ari_top_clusters": 0.40648905302031124
     },
     "top_genes": [
       "PILRB",
@@ -273,5 +273,220 @@
       "TERF2",
       "?"
     ]
+  },
+  "mile": {
+    "n_samples": 1292,
+    "n_probes": 54675,
+    "n_symbol_mapped": 45118,
+    "quality": {
+      "n_samples": 1292,
+      "n_features": 54675,
+      "frac_missing": 0.0008230452674896638,
+      "n_inf": 0,
+      "genes_with_missing": 45,
+      "genes_missing_gt20": 45,
+      "max_sample_missing": 0.0008230452674896638,
+      "min_value": 0.0,
+      "max_value": 1.0,
+      "median_value": 0.2496335208415985,
+      "frac_negative": 0.0,
+      "frac_outlier_3iqr": 0.0
+    },
+    "subtypes": {
+      "AML with normal karyotype + other abnormalities": 351,
+      "c-ALL/Pre-B-ALL without t(9;22)": 237,
+      "T-ALL": 174,
+      "c-ALL/Pre-B-ALL with t(9;22)": 122,
+      "Pro-B-ALL with t(11q23)/MLL": 70,
+      "ALL with t(12;21)": 58,
+      "AML complex aberrant karyotype": 48,
+      "ALL with hyperdiploid karyotype": 40,
+      "AML with t(8;21)": 40,
+      "AML with t(11q23)/MLL": 38,
+      "AML with t(15;17)": 37,
+      "ALL with t(1;19)": 36,
+      "AML with inv(16)/t(16;16)": 28,
+      "mature B-ALL with t(8;14)": 13
+    },
+    "tissue": {
+      "bone marrow": 1211,
+      "peripheral blood": 81
+    },
+    "series": {
+      "n_total": 2096,
+      "classes": {
+        "CLL": 448,
+        "AML with normal karyotype + other abnormalities": 351,
+        "c-ALL/Pre-B-ALL without t(9;22)": 237,
+        "MDS": 206,
+        "T-ALL": 174,
+        "c-ALL/Pre-B-ALL with t(9;22)": 122,
+        "CML": 76,
+        "Non-leukemia and healthy bone marrow": 74,
+        "Pro-B-ALL with t(11q23)/MLL": 70,
+        "ALL with t(12;21)": 58,
+        "AML complex aberrant karyotype": 48,
+        "ALL with hyperdiploid karyotype": 40,
+        "AML with t(8;21)": 40,
+        "AML with t(11q23)/MLL": 38,
+        "AML with t(15;17)": 37,
+        "ALL with t(1;19)": 36,
+        "AML with inv(16)/t(16;16)": 28,
+        "mature B-ALL with t(8;14)": 13
+      },
+      "tissue": {
+        "bone marrow": 1556,
+        "peripheral blood": 540
+      }
+    },
+    "scale": "log (range-scaled)",
+    "scale_check": {
+      "spearman_signal": 0.9999999999539623,
+      "pearson_log2_signal": 0.9978081263879992,
+      "pearson_linear_signal": 0.5062107416727324,
+      "slope": 0.0826697524542531
+    },
+    "n_probes_all_missing": 45,
+    "embedding": {
+      "evr_pc1": 0.1982306112355128,
+      "evr_pc2": 0.07235907096572544,
+      "evr_cum10": 0.5067991318154225,
+      "n_pc_80": null,
+      "auc_pc": [
+        0.9870996309963099,
+        0.525960639606396,
+        0.5650922509225091,
+        0.6157392373923739,
+        0.637761377613776
+      ],
+      "best_pc": 1,
+      "best_pc_auc": 0.9870996309963099,
+      "silhouette_pca10": 0.2737495028259015,
+      "silhouette_tsne": 0.43406397104263306,
+      "perplexity": 30
+    },
+    "de": {
+      "n_tested": 54630,
+      "n_sig_q05": 37742,
+      "n_sig_q01": 33754,
+      "n_sig_mwu_q05": 37764,
+      "n_up_aml": 18808,
+      "n_up_all": 18934,
+      "n_auc_1": 0,
+      "rho_snr_t": 0.9999864442689854,
+      "ari_top_clusters": 0.8596363123701205
+    },
+    "top_genes": [
+      "PNKD",
+      "LEF1-AS1",
+      "LEF1",
+      "CFD",
+      "APLP2",
+      "LOC101928615///FNDC3B",
+      "MGST1",
+      "MGST1",
+      "LEF1",
+      "CTSA",
+      "FUCA2",
+      "LEF1-AS1",
+      "APLP2",
+      "MGST1",
+      "SNTB1",
+      "APLP2",
+      "MSRB3",
+      "GALNT11",
+      "ZNF423",
+      "APLP2"
+    ]
+  },
+  "cross": {
+    "n_genes": {
+      "Golub": 5268,
+      "MILE": 20848,
+      "Andersson": 9677
+    },
+    "n_common_all": 3469,
+    "n_common_golub_mile": 5207,
+    "n_common_golub_andersson": 3487,
+    "n_common_mile_andersson": 8065,
+    "spearman_t": {
+      "golub_mile": 0.5625172872281878,
+      "golub_andersson": 0.4448298419718379,
+      "mile_andersson": 0.6699699619655266
+    },
+    "top_overlap": {
+      "golub_mile": {
+        "k": 33,
+        "n": 100,
+        "N": 3469,
+        "p": 3.5978204635508935e-28,
+        "same_direction": 1.0
+      },
+      "golub_andersson": {
+        "k": 28,
+        "n": 100,
+        "N": 3468,
+        "p": 1.4548966287952858e-21,
+        "same_direction": 1.0
+      },
+      "mile_andersson": {
+        "k": 41,
+        "n": 100,
+        "N": 3468,
+        "p": 4.5035352701321746e-40,
+        "same_direction": 1.0
+      }
+    },
+    "shared_top_genes": [
+      "CST3",
+      "CD33",
+      "CTSA",
+      "POU2AF1",
+      "CD79A",
+      "PYGL",
+      "PCBD1",
+      "NPY",
+      "ASAH1",
+      "MAPKAPK3",
+      "CD19",
+      "CSTA",
+      "LYN",
+      "SPTAN1",
+      "RHOG",
+      "LRPAP1",
+      "EDEM1",
+      "MYO1F"
+    ],
+    "median_expr": {
+      "Golub": 7.312882955284356,
+      "MILE": 0.4637511670589447,
+      "Andersson": -0.033952895151324
+    },
+    "iqr_expr": {
+      "Golub": 4.649615459063409,
+      "MILE": 0.3726598024368286,
+      "Andersson": 0.9467068608957301
+    },
+    "spearman_gene_means": {
+      "golub_mile": 0.5435568578767637,
+      "golub_andersson": 0.2406495898419013,
+      "mile_andersson": 0.3514327209833587
+    },
+    "pc1_eta2": {
+      "raw_dataset": 0.9980528838169288,
+      "raw_class": 5.397653593200515e-05,
+      "std_dataset": 2.0258756579901075e-32,
+      "std_class": 0.614391071783248
+    },
+    "pc_evr": {
+      "raw": [
+        0.9449037656774818,
+        0.005373479928223451
+      ],
+      "std": [
+        0.09619540985689871,
+        0.08405900701445952
+      ]
+    }
   }
 }
