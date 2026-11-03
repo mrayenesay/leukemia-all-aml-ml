@@ -1,0 +1,36 @@
+\begin{longtable}{@{}p{0.9cm}p{0.5cm}p{2.3cm}p{2.6cm}p{2.6cm}p{2.3cm}p{2.6cm}p{2.4cm}@{}}
+\caption{Full literature summary table (all 30 included studies, chronological).}\label{tab:litfull}\\
+\toprule Ref. & Year & Data set & Pre-proc./feature sel. & Method & Validation & Best result & Note\\ \midrule\endfirsthead
+\toprule Ref. & Year & Data set & Pre-proc./feature sel. & Method & Validation & Best result & Note\\ \midrule\endhead
+\cite{golub1999} & 1999 & Golub ALL/AML (Affymetrix Hu6800) & Informative-gene selection by class correlation & Class discovery + weighted-vote class predictor & 38 train / 34 independent test & n/r & Original dataset; abstract gives no numbers\\
+\cite{furey2000} & 2000 & Ovarian + two other published sets & n/r & SVM & n/r & n/r & Abstract does not name the other datasets\\
+\cite{armstrong2002} & 2002 & MLL/ALL/AML leukemias & n/r & Expression profiling of MLL-rearranged leukemia & n/r & n/r & Common 3-class leukemia benchmark\\
+\cite{guyon2002} & 2002 & Leukemia and colon microarrays & SVM-RFE gene ranking & Linear SVM & n/r & n/r & Canonical wrapper gene selection\\
+\cite{dudoit2002} & 2002 & Leukemia + other tumor microarrays & Univariate gene filtering & LDA/DLDA, kNN, trees, aggregation & Repeated train/test splits & n/r & Classic comparison; no abstract retrieved\\
+\cite{tibshirani2002} & 2002 & SRBCT and leukemia & Shrunken centroid soft-thresholding & Nearest shrunken centroids (PAM) & n/r & n/r & Abstract gives no error counts\\
+\cite{ambroise2002} & 2002 & Two published microarray sets & Gene selection inside vs outside CV & Prediction rules with few genes & External 10-fold CV; .632+ bootstrap & n/r & Selection bias; CV error not zero\\
+\cite{statnikov2005} & 2005 & 11 datasets incl. leukemia & Several gene selection methods & Multicategory SVMs vs kNN/NNs/ensembles & Two cross-validation designs & n/r & MC-SVMs best; GEMS system\\
+\cite{zou2005} & 2005 & Methodology (incl. microarray example) & Elastic net penalty & Penalized regression & n/r & n/r & Basis for sparse logistic models\\
+\cite{diazuriarte2006} & 2006 & Golub leukemia + 8 other sets & RF backward gene elimination & Random forest vs SVM/kNN/DLDA/SC & .632+ bootstrap & Leukemia .632+ error: SVM 0.014; RF 0.051 & Leukemia RF selects 2 genes\\
+\cite{varma2006} & 2006 & Simulation + microarray & Tuning within CV & Nested CV & Nested vs non-nested CV & n/r & Optimistic bias without nesting\\
+\cite{andersson2007} & 2007 & 121 childhood leukemias (GSE7186) & n/r & k-nearest neighbor predictors & Independent data set validation & T-ALL MRD status classified with 100\% accuracy & External validation source (pediatric)\\
+\cite{johnson2007} & 2007 & Microarray batches & Empirical Bayes location/scale adjustment & ComBat & n/a & n/r & Standard batch correction\\
+\cite{kohlmann2008} & 2008 & MILE pre-phase (multi-lab) & Standardized protocols across labs & Inter-laboratory reproducibility study & Cross-lab comparison & n/r & Linked to GSE13159 in GEO\\
+\cite{haferlach2010} & 2010 & MILE stage I/II (GSE13159 = stage I) & Whole-genome HG-U133 Plus 2.0 profiling & Gene-expression classifier for leukemia subtypes & Retrospective stage I + prospective stage II cohort & 92.2\% accuracy over 18 classes (stage I) & External validation source; 11 labs\\
+\cite{cawley2010} & 2010 & Benchmark datasets & Hyperparameter selection & Kernel methods & Model-selection overfitting analysis & n/r & No DOI; JMLR 11:2079-2107\\
+\cite{leek2010} & 2010 & High-throughput studies (review) & Batch effect diagnostics & Review & n/a & n/r & Motivates cross-cohort batch handling\\
+\cite{feltes2019} & 2019 & CuMiDa (78 curated GEO sets) & Background correction + normalization + QC & Benchmark ML baselines & n/r & n/r & Curated microarray benchmark repository\\
+\cite{warnatherresthal2020} & 2020 & 12,029 samples from 105 studies & High-dimensional genome-wide input & ML for AML prediction & n/r & n/r & Large-scale blood transcriptome AML prediction\\
+\cite{warnatherresthal2021} & 2021 & >16,400 blood transcriptomes (incl. leukaemia) & n/r & Swarm Learning (decentralized ML) & Multi-site with study biases & n/r & Swarm beats single-site classifiers (abstract)\\
+\cite{gorishniy2021} & 2021 & Tabular benchmarks & n/r & FT-Transformer / ResNet vs GBDT & Benchmark protocol & n/r & No DOI; NeurIPS 34 pp. 18932-18943\\
+\cite{grinsztajn2022} & 2022 & Tabular benchmark suite & n/r & Tree models vs deep learning & Benchmark protocol & n/r & Trees still strong on tabular data\\
+\cite{alhenawi2022} & 2022 & 132 reviewed studies & Feature selection methods & Systematic review & n/a & n/r & Hybrid FS most common (34.9\%)\\
+\cite{xie2022} & 2022 & Golub leukemia (72 x 7129) + 3 others & GNN-based feature ranking aggregation & SVM classifier & 10-fold CV & Leukemia Acc 0.971 with 2 genes & From Table 3 of full text\\
+\cite{rezaee2022} & 2022 & Golub leukemia (72 x 7129) + DLBCL + prostate & Soft-ensemble wrapper gene selection (kNN) & Stacked deep neural network & K-fold CV & Leukaemia average accuracy 99.6\% & Gene selection vs CV order unclear\\
+\cite{awotunde2022} & 2022 & Golub leukemia (72 x 7129; UCI) & PSO selected 2323 of 7129 genes & HORD-optimized CNN & Random 70/30 and 80/20 splits & Leukemia accuracy 99.9\% (comparison table) & No CV; dataset class description inconsistent\\
+\cite{alharbi2023} & 2023 & Microarray and RNA-seq (review) & Feature engineering + preprocessing & Review of ML/DL classifiers & n/a & n/r & Covers MLP/CNN/RNN/GNN/transformers\\
+\cite{selvaraj2024} & 2024 & Golub ALL/AML + CuMiDa leukemia & RF feature importance (FI >= 0.04) & Super learner (RF meta-learner) & Stratified 10-fold CV with 20\% test & AML-ALL accuracy 0.98 (Table 2) & FI ranking appears done before CV\\
+\cite{hollmann2025} & 2025 & Tabular datasets up to 10k samples & n/r & TabPFN foundation model & Benchmark comparisons & n/r & Candidate small-n baseline\\
+\cite{chen2025genept} & 2025 & Single-cell expression data & GPT-3.5 gene text embeddings & GenePT embedding model & Downstream task benchmarks & n/r & Published GenePT; preprint 10.1101/2023.10.16.562533\\
+\bottomrule
+\end{longtable}

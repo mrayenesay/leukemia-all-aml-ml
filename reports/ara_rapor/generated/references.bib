@@ -1,0 +1,467 @@
+% references.bib -- ALL vs. AML classification literature review
+% All DOIs verified against the Crossref REST API on 2026-11-03.
+% Items without DOI verified against JMLR / NeurIPS proceedings / arXiv pages.
+% Long author lists are truncated with "and others" (IEEEtran prints "et al.").
+
+%% ---------------------------------------------------------------
+%% (a) Datasets
+%% ---------------------------------------------------------------
+
+@article{golub1999,
+  author  = {Golub, T. R. and Slonim, D. K. and Tamayo, P. and others},
+  title   = {Molecular Classification of Cancer: Class Discovery and Class Prediction by Gene Expression Monitoring},
+  journal = {Science},
+  year    = {1999},
+  volume  = {286},
+  number  = {5439},
+  pages   = {531--537},
+  doi     = {10.1126/science.286.5439.531},
+  note    = {doi: \href{https://doi.org/10.1126/science.286.5439.531}{10.1126/science.286.5439.531}}
+}
+
+@article{haferlach2010,
+  author  = {Haferlach, Torsten and Kohlmann, Alexander and Wieczorek, Lothar and others},
+  title   = {Clinical Utility of Microarray-Based Gene Expression Profiling in the Diagnosis and Subclassification of Leukemia: Report From the {International Microarray Innovations in Leukemia Study Group}},
+  journal = {Journal of Clinical Oncology},
+  year    = {2010},
+  volume  = {28},
+  number  = {15},
+  pages   = {2529--2537},
+  doi     = {10.1200/JCO.2009.23.4732},
+  note    = {doi: \href{https://doi.org/10.1200/JCO.2009.23.4732}{10.1200/JCO.2009.23.4732}}
+}
+
+@article{kohlmann2008,
+  author  = {Kohlmann, Alexander and Kipps, Thomas J. and Rassenti, Laura Z. and others},
+  title   = {An international standardization programme towards the application of gene expression profiling in routine leukaemia diagnostics: the {Microarray Innovations in LEukemia} study prephase},
+  journal = {British Journal of Haematology},
+  year    = {2008},
+  volume  = {142},
+  number  = {5},
+  pages   = {802--807},
+  doi     = {10.1111/j.1365-2141.2008.07261.x},
+  note    = {doi: \href{https://doi.org/10.1111/j.1365-2141.2008.07261.x}{10.1111/j.1365-2141.2008.07261.x}}
+}
+
+@article{andersson2007,
+  author  = {Andersson, A. and Ritz, C. and Lindgren, D. and others},
+  title   = {Microarray-based classification of a consecutive series of 121 childhood acute leukemias: prediction of leukemic and genetic subtype as well as of minimal residual disease status},
+  journal = {Leukemia},
+  year    = {2007},
+  volume  = {21},
+  number  = {6},
+  pages   = {1198--1203},
+  doi     = {10.1038/sj.leu.2404688},
+  note    = {doi: \href{https://doi.org/10.1038/sj.leu.2404688}{10.1038/sj.leu.2404688}}
+}
+
+@article{armstrong2002,
+  author  = {Armstrong, Scott A. and Staunton, Jane E. and Silverman, Lewis B. and Pieters, Rob and den Boer, Monique L. and Minden, Mark D. and Sallan, Stephen E. and Lander, Eric S. and Golub, Todd R. and Korsmeyer, Stanley J.},
+  title   = {{MLL} translocations specify a distinct gene expression profile that distinguishes a unique leukemia},
+  journal = {Nature Genetics},
+  year    = {2002},
+  volume  = {30},
+  number  = {1},
+  pages   = {41--47},
+  doi     = {10.1038/ng765},
+  note    = {doi: \href{https://doi.org/10.1038/ng765}{10.1038/ng765}}
+}
+
+@article{feltes2019,
+  author  = {Feltes, Bruno C{\'e}sar and Chandelier, Eduardo Bassani and Grisci, Bruno Iochins and Dorn, M{\'a}rcio},
+  title   = {{CuMiDa}: An Extensively Curated Microarray Database for Benchmarking and Testing of Machine Learning Approaches in Cancer Research},
+  journal = {Journal of Computational Biology},
+  year    = {2019},
+  volume  = {26},
+  number  = {4},
+  pages   = {376--386},
+  doi     = {10.1089/cmb.2018.0238},
+  note    = {doi: \href{https://doi.org/10.1089/cmb.2018.0238}{10.1089/cmb.2018.0238}}
+}
+
+%% ---------------------------------------------------------------
+%% (b) Classic machine learning on microarrays / Golub data
+%% ---------------------------------------------------------------
+
+@article{furey2000,
+  author  = {Furey, Terrence S. and Cristianini, Nello and Duffy, Nigel and Bednarski, David W. and Schummer, Mich{\`e}l and Haussler, David},
+  title   = {Support vector machine classification and validation of cancer tissue samples using microarray expression data},
+  journal = {Bioinformatics},
+  year    = {2000},
+  volume  = {16},
+  number  = {10},
+  pages   = {906--914},
+  doi     = {10.1093/bioinformatics/16.10.906},
+  note    = {doi: \href{https://doi.org/10.1093/bioinformatics/16.10.906}{10.1093/bioinformatics/16.10.906}}
+}
+
+@article{guyon2002,
+  author  = {Guyon, Isabelle and Weston, Jason and Barnhill, Stephen and Vapnik, Vladimir},
+  title   = {Gene Selection for Cancer Classification using Support Vector Machines},
+  journal = {Machine Learning},
+  year    = {2002},
+  volume  = {46},
+  number  = {1--3},
+  pages   = {389--422},
+  doi     = {10.1023/A:1012487302797},
+  note    = {doi: \href{https://doi.org/10.1023/A:1012487302797}{10.1023/A:1012487302797}}
+}
+
+@article{dudoit2002,
+  author  = {Dudoit, Sandrine and Fridlyand, Jane and Speed, Terence P.},
+  title   = {Comparison of Discrimination Methods for the Classification of Tumors Using Gene Expression Data},
+  journal = {Journal of the American Statistical Association},
+  year    = {2002},
+  volume  = {97},
+  number  = {457},
+  pages   = {77--87},
+  doi     = {10.1198/016214502753479248},
+  note    = {doi: \href{https://doi.org/10.1198/016214502753479248}{10.1198/016214502753479248}}
+}
+
+@article{tibshirani2002,
+  author  = {Tibshirani, Robert and Hastie, Trevor and Narasimhan, Balasubramanian and Chu, Gilbert},
+  title   = {Diagnosis of multiple cancer types by shrunken centroids of gene expression},
+  journal = {Proceedings of the National Academy of Sciences},
+  year    = {2002},
+  volume  = {99},
+  number  = {10},
+  pages   = {6567--6572},
+  doi     = {10.1073/pnas.082099299},
+  note    = {doi: \href{https://doi.org/10.1073/pnas.082099299}{10.1073/pnas.082099299}}
+}
+
+@article{diazuriarte2006,
+  author  = {D{\'\i}az-Uriarte, Ram{\'o}n and Alvarez de Andr{\'e}s, Sara},
+  title   = {Gene selection and classification of microarray data using random forest},
+  journal = {BMC Bioinformatics},
+  year    = {2006},
+  volume  = {7},
+  pages   = {3},
+  doi     = {10.1186/1471-2105-7-3},
+  note    = {doi: \href{https://doi.org/10.1186/1471-2105-7-3}{10.1186/1471-2105-7-3}}
+}
+
+@article{statnikov2005,
+  author  = {Statnikov, Alexander and Aliferis, Constantin F. and Tsamardinos, Ioannis and Hardin, Douglas and Levy, Shawn},
+  title   = {A comprehensive evaluation of multicategory classification methods for microarray gene expression cancer diagnosis},
+  journal = {Bioinformatics},
+  year    = {2005},
+  volume  = {21},
+  number  = {5},
+  pages   = {631--643},
+  doi     = {10.1093/bioinformatics/bti033},
+  note    = {doi: \href{https://doi.org/10.1093/bioinformatics/bti033}{10.1093/bioinformatics/bti033}}
+}
+
+@article{zou2005,
+  author  = {Zou, Hui and Hastie, Trevor},
+  title   = {Regularization and Variable Selection Via the Elastic Net},
+  journal = {Journal of the Royal Statistical Society Series B: Statistical Methodology},
+  year    = {2005},
+  volume  = {67},
+  number  = {2},
+  pages   = {301--320},
+  doi     = {10.1111/j.1467-9868.2005.00503.x},
+  note    = {doi: \href{https://doi.org/10.1111/j.1467-9868.2005.00503.x}{10.1111/j.1467-9868.2005.00503.x}}
+}
+
+%% ---------------------------------------------------------------
+%% (c) Validation, selection bias, batch effects
+%% ---------------------------------------------------------------
+
+@article{ambroise2002,
+  author  = {Ambroise, Christophe and McLachlan, Geoffrey J.},
+  title   = {Selection bias in gene extraction on the basis of microarray gene-expression data},
+  journal = {Proceedings of the National Academy of Sciences},
+  year    = {2002},
+  volume  = {99},
+  number  = {10},
+  pages   = {6562--6566},
+  doi     = {10.1073/pnas.102102699},
+  note    = {doi: \href{https://doi.org/10.1073/pnas.102102699}{10.1073/pnas.102102699}}
+}
+
+@article{varma2006,
+  author  = {Varma, Sudhir and Simon, Richard},
+  title   = {Bias in error estimation when using cross-validation for model selection},
+  journal = {BMC Bioinformatics},
+  year    = {2006},
+  volume  = {7},
+  pages   = {91},
+  doi     = {10.1186/1471-2105-7-91},
+  note    = {doi: \href{https://doi.org/10.1186/1471-2105-7-91}{10.1186/1471-2105-7-91}}
+}
+
+@article{cawley2010,
+  author  = {Cawley, Gavin C. and Talbot, Nicola L. C.},
+  title   = {On Over-fitting in Model Selection and Subsequent Selection Bias in Performance Evaluation},
+  journal = {Journal of Machine Learning Research},
+  year    = {2010},
+  volume  = {11},
+  pages   = {2079--2107},
+  url     = {https://www.jmlr.org/papers/v11/cawley10a.html}
+}
+
+@article{leek2010,
+  author  = {Leek, Jeffrey T. and Scharpf, Robert B. and Bravo, H{\'e}ctor Corrada and Simcha, David and Langmead, Benjamin and Johnson, W. Evan and Geman, Donald and Baggerly, Keith and Irizarry, Rafael A.},
+  title   = {Tackling the widespread and critical impact of batch effects in high-throughput data},
+  journal = {Nature Reviews Genetics},
+  year    = {2010},
+  volume  = {11},
+  number  = {10},
+  pages   = {733--739},
+  doi     = {10.1038/nrg2825},
+  note    = {doi: \href{https://doi.org/10.1038/nrg2825}{10.1038/nrg2825}}
+}
+
+@article{johnson2007,
+  author  = {Johnson, W. Evan and Li, Cheng and Rabinovic, Ariel},
+  title   = {Adjusting batch effects in microarray expression data using empirical {Bayes} methods},
+  journal = {Biostatistics},
+  year    = {2007},
+  volume  = {8},
+  number  = {1},
+  pages   = {118--127},
+  doi     = {10.1093/biostatistics/kxj037},
+  note    = {doi: \href{https://doi.org/10.1093/biostatistics/kxj037}{10.1093/biostatistics/kxj037}}
+}
+
+%% ---------------------------------------------------------------
+%% (d) Modern leukemia transcriptome ML, tabular DL, foundation models
+%% ---------------------------------------------------------------
+
+@article{warnatherresthal2020,
+  author  = {Warnat-Herresthal, Stefanie and Perrakis, Konstantinos and Taschler, Bernd and others},
+  title   = {Scalable Prediction of Acute Myeloid Leukemia Using High-Dimensional Machine Learning and Blood Transcriptomics},
+  journal = {iScience},
+  year    = {2020},
+  volume  = {23},
+  number  = {1},
+  pages   = {100780},
+  doi     = {10.1016/j.isci.2019.100780},
+  note    = {doi: \href{https://doi.org/10.1016/j.isci.2019.100780}{10.1016/j.isci.2019.100780}}
+}
+
+@article{warnatherresthal2021,
+  author  = {Warnat-Herresthal, Stefanie and Schultze, Hartmut and Shastry, Krishnaprasad Lingadahalli and others},
+  title   = {Swarm Learning for decentralized and confidential clinical machine learning},
+  journal = {Nature},
+  year    = {2021},
+  volume  = {594},
+  number  = {7862},
+  pages   = {265--270},
+  doi     = {10.1038/s41586-021-03583-3},
+  note    = {doi: \href{https://doi.org/10.1038/s41586-021-03583-3}{10.1038/s41586-021-03583-3}}
+}
+
+@inproceedings{gorishniy2021,
+  author    = {Gorishniy, Yury and Rubachev, Ivan and Khrulkov, Valentin and Babenko, Artem},
+  title     = {Revisiting Deep Learning Models for Tabular Data},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year      = {2021},
+  volume    = {34},
+  pages     = {18932--18943},
+  url       = {https://proceedings.neurips.cc/paper/2021/hash/9d86d83f925f2149e9edb0ac3b49229c-Abstract.html},
+  note      = {arXiv:2106.11959}
+}
+
+@inproceedings{grinsztajn2022,
+  author    = {Grinsztajn, L{\'e}o and Oyallon, Edouard and Varoquaux, Ga{\"e}l},
+  title     = {Why do tree-based models still outperform deep learning on typical tabular data?},
+  booktitle = {Advances in Neural Information Processing Systems (Datasets and Benchmarks Track)},
+  year      = {2022},
+  volume    = {35},
+  pages     = {507--520},
+  url       = {https://proceedings.neurips.cc/paper_files/paper/2022/hash/0378c7692da36807bdec87ab043cdadc-Abstract-Datasets_and_Benchmarks.html},
+  note      = {arXiv:2207.08815}
+}
+
+@article{hollmann2025,
+  author  = {Hollmann, Noah and M{\"u}ller, Samuel and Purucker, Lennart and Krishnakumar, Arjun and K{\"o}rfer, Max and Hoo, Shi Bin and Schirrmeister, Robin Tibor and Hutter, Frank},
+  title   = {Accurate predictions on small data with a tabular foundation model},
+  journal = {Nature},
+  year    = {2025},
+  volume  = {637},
+  number  = {8045},
+  pages   = {319--326},
+  doi     = {10.1038/s41586-024-08328-6},
+  note    = {doi: \href{https://doi.org/10.1038/s41586-024-08328-6}{10.1038/s41586-024-08328-6}}
+}
+
+@article{chen2025genept,
+  author  = {Chen, Yiqun and Zou, James},
+  title   = {Simple and effective embedding model for single-cell biology built from {ChatGPT}},
+  journal = {Nature Biomedical Engineering},
+  year    = {2025},
+  volume  = {9},
+  number  = {4},
+  pages   = {483--493},
+  doi     = {10.1038/s41551-024-01284-6},
+  note    = {doi: \href{https://doi.org/10.1038/s41551-024-01284-6}{10.1038/s41551-024-01284-6}},
+  note    = {Published version of the GenePT preprint, bioRxiv doi:10.1101/2023.10.16.562533}
+}
+
+@article{alhenawi2022,
+  author  = {Alhenawi, Esra'a and Al-Sayyed, Rizik and Hudaib, Amjad and Mirjalili, Seyedali},
+  title   = {Feature selection methods on gene expression microarray data for cancer classification: A systematic review},
+  journal = {Computers in Biology and Medicine},
+  year    = {2022},
+  volume  = {140},
+  pages   = {105051},
+  doi     = {10.1016/j.compbiomed.2021.105051},
+  note    = {doi: \href{https://doi.org/10.1016/j.compbiomed.2021.105051}{10.1016/j.compbiomed.2021.105051}}
+}
+
+@article{alharbi2023,
+  author  = {Alharbi, Fadi and Vakanski, Aleksandar},
+  title   = {Machine Learning Methods for Cancer Classification Using Gene Expression Data: A Review},
+  journal = {Bioengineering},
+  year    = {2023},
+  volume  = {10},
+  number  = {2},
+  pages   = {173},
+  doi     = {10.3390/bioengineering10020173},
+  note    = {doi: \href{https://doi.org/10.3390/bioengineering10020173}{10.3390/bioengineering10020173}}
+}
+
+@article{xie2022,
+  author  = {Xie, Weidong and Li, Wei and Zhang, Shoujia and Wang, Linjie and Yang, Jinzhu and Zhao, Dazhe},
+  title   = {A novel biomarker selection method combining graph neural network and gene relationships applied to microarray data},
+  journal = {BMC Bioinformatics},
+  year    = {2022},
+  volume  = {23},
+  number  = {1},
+  pages   = {303},
+  doi     = {10.1186/s12859-022-04848-y},
+  note    = {doi: \href{https://doi.org/10.1186/s12859-022-04848-y}{10.1186/s12859-022-04848-y}}
+}
+
+@article{rezaee2022,
+  author  = {Rezaee, Khosro and Jeon, Gwanggil and Khosravi, Mohammad R. and Attar, Hani H. and Sabzevari, Alireza},
+  title   = {Deep learning-based microarray cancer classification and ensemble gene selection approach},
+  journal = {IET Systems Biology},
+  year    = {2022},
+  volume  = {16},
+  number  = {3--4},
+  pages   = {120--131},
+  doi     = {10.1049/syb2.12044},
+  note    = {doi: \href{https://doi.org/10.1049/syb2.12044}{10.1049/syb2.12044}}
+}
+
+@article{awotunde2022,
+  author  = {Awotunde, Joseph Bamidele and Imoize, Agbotiname Lucky and Ayoade, Oluwafisayo Babatope and Abiodun, Moses Kazeem and Do, Dinh-Thuan and Silva, Ad{\~a}o and Sur, Samarendra Nath},
+  title   = {An Enhanced Hyper-Parameter Optimization of a Convolutional Neural Network Model for Leukemia Cancer Diagnosis in a Smart Healthcare System},
+  journal = {Sensors},
+  year    = {2022},
+  volume  = {22},
+  number  = {24},
+  pages   = {9689},
+  doi     = {10.3390/s22249689},
+  note    = {doi: \href{https://doi.org/10.3390/s22249689}{10.3390/s22249689}}
+}
+
+@article{selvaraj2024,
+  author  = {Selvaraj, Sharanya and Alsayed, Alhuseen Omar and Ismail, Nor Azman and Kavin, Balasubramanian Prabhu and Onyema, Edeh Michael and Seng, Gan Hong and Uchechi, Arinze Queen},
+  title   = {Super learner model for classifying leukemia through gene expression monitoring},
+  journal = {Discover Oncology},
+  year    = {2024},
+  volume  = {15},
+  number  = {1},
+  pages   = {499},
+  doi     = {10.1007/s12672-024-01337-x},
+  note    = {doi: \href{https://doi.org/10.1007/s12672-024-01337-x}{10.1007/s12672-024-01337-x}}
+}
+
+%% ---------------------------------------------------------------
+%% (e) Methods and statistics used in the analysis plan
+%%     (DOIs verified against Crossref on 2026-11-03; JMLR items
+%%     without DOI verified against the JMLR volume pages)
+%% ---------------------------------------------------------------
+
+@article{breiman2001,
+  author  = {Breiman, Leo},
+  title   = {Random Forests},
+  journal = {Machine Learning},
+  year    = {2001},
+  volume  = {45},
+  number  = {1},
+  pages   = {5--32},
+  doi     = {10.1023/A:1010933404324},
+  note    = {doi: \href{https://doi.org/10.1023/A:1010933404324}{10.1023/A:1010933404324}}
+}
+
+@article{cortes1995,
+  author  = {Cortes, Corinna and Vapnik, Vladimir},
+  title   = {Support-vector networks},
+  journal = {Machine Learning},
+  year    = {1995},
+  volume  = {20},
+  number  = {3},
+  pages   = {273--297},
+  doi     = {10.1007/BF00994018},
+  note    = {doi: \href{https://doi.org/10.1007/BF00994018}{10.1007/BF00994018}}
+}
+
+@article{nadeau2003,
+  author  = {Nadeau, Claude and Bengio, Yoshua},
+  title   = {Inference for the Generalization Error},
+  journal = {Machine Learning},
+  year    = {2003},
+  volume  = {52},
+  number  = {3},
+  pages   = {239--281},
+  doi     = {10.1023/A:1024068626366},
+  note    = {doi: \href{https://doi.org/10.1023/A:1024068626366}{10.1023/A:1024068626366}}
+}
+
+@article{demsar2006,
+  author  = {Dem{\v{s}}ar, Janez},
+  title   = {Statistical Comparisons of Classifiers over Multiple Data Sets},
+  journal = {Journal of Machine Learning Research},
+  year    = {2006},
+  volume  = {7},
+  pages   = {1--30}
+}
+
+@article{benjamini1995,
+  author  = {Benjamini, Yoav and Hochberg, Yosef},
+  title   = {Controlling the False Discovery Rate: A Practical and Powerful Approach to Multiple Testing},
+  journal = {Journal of the Royal Statistical Society: Series B (Methodological)},
+  year    = {1995},
+  volume  = {57},
+  number  = {1},
+  pages   = {289--300},
+  doi     = {10.1111/j.2517-6161.1995.tb02031.x},
+  note    = {doi: \href{https://doi.org/10.1111/j.2517-6161.1995.tb02031.x}{10.1111/j.2517-6161.1995.tb02031.x}}
+}
+
+@article{liu2006,
+  author  = {Liu, Wei-min and Li, Rui and Sun, Jian Zhong and others},
+  title   = {{PQN} and {DQN}: Algorithms for expression microarrays},
+  journal = {Journal of Theoretical Biology},
+  year    = {2006},
+  volume  = {243},
+  number  = {2},
+  pages   = {273--278},
+  doi     = {10.1016/j.jtbi.2006.06.017},
+  note    = {doi: \href{https://doi.org/10.1016/j.jtbi.2006.06.017}{10.1016/j.jtbi.2006.06.017}}
+}
+
+@article{vandermaaten2008,
+  author  = {van der Maaten, Laurens and Hinton, Geoffrey},
+  title   = {Visualizing Data using t-{SNE}},
+  journal = {Journal of Machine Learning Research},
+  year    = {2008},
+  volume  = {9},
+  pages   = {2579--2605}
+}
+
+@article{pedregosa2011,
+  author  = {Pedregosa, Fabian and Varoquaux, Ga{\"e}l and Gramfort, Alexandre and others},
+  title   = {Scikit-learn: Machine Learning in {P}ython},
+  journal = {Journal of Machine Learning Research},
+  year    = {2011},
+  volume  = {12},
+  pages   = {2825--2830}
+}
