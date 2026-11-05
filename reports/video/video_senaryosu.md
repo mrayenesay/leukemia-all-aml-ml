@@ -53,22 +53,25 @@ terminal.
    varyans bağımlılığı (ρ 0,95 → 0,18) kayboluyor. Ölçeğe duyarlı modeller için şart.
 5. **Şekil 2 (PCA / t-SNE):** PC1 tek başına AUC 0,98 → güçlü sinyal; yöntem farkları küçük
    olacak, bu yüzden güven aralığı ve istatistiksel test şart.
-6. **Şekil 3 + Ek Tablo IV (ayırt edici genler):** CST3, CD33, MPO, ZYX (AML), TCF3, CD79B,
+6. **Ek Şekil 6 + Ek Tablo V (ayırt edici genler):** CST3, CD33, MPO, ZYX (AML), TCF3, CD79B,
    CD19, DNTT (ALL) — bilinen biyolojiyle uyumlu. Uyarı: bu sıralama sadece betimseldir,
    modelde öznitelik seçimi için kullanılırsa sızıntı olur.
-7. **Ek Şekil 6 (batch etkisi):** test seti daha "sönük"; sınıf içi KS testinde ALL için genlerin
+7. **Ek Şekil 5 (batch etkisi):** test seti daha "sönük"; sınıf içi KS testinde ALL için genlerin
    %17,7'si p<0,05 (beklenen %5) → tek 34 örneklik test skoru yanıltıcı olabilir (AS2).
-8. **Şekil 4 (kohortlar arası):** t istatistikleri kohortlar arası pozitif korelasyonlu, ortak
+8. **Şekil 3 (kohortlar arası):** t istatistikleri kohortlar arası pozitif korelasyonlu, ortak
    üst genler şanstan fazla; ama ölçekler farklı → birleşik PCA'da PC1'i kohort belirliyor,
    kohort içi z-skor sonrası sınıf ekseni ortaya çıkıyor.
 
-## 7:15–8:30 — Final planı (Ek Şekil 5, Bölüm V)
+## 7:15–8:30 — Fizibilite pilotu ve final planı (Tablo III, Ek Şekil 4, Bölüm V)
+- Pilot (ön bulgu, sabit ayar): rastgele etiketle sızıntılı protokol 0,91, doğru protokol 0,50;
+  kohortlar arası AUC 0,93–0,99 ama dengeli doğruluk 0,59–0,94. Sıralama taşınıyor, eşik taşınmıyor.
+- Kilitli dış testler: Golub 34 örnek, MILE aşama 2 (693 akut lösemi), TARGET (RNA-seq).
 - Pipeline şeması: clip/log2 durumsuz; filtre, imputasyon, z-skor, SelectKBest **her eğitim
   katında yeniden fit** ediliyor (sklearn Pipeline).
 - Protokol: (a) 38/34 bölme, test bir kez; (b) 72 örnek üzerinde 5×5 tekrarlı nested CV,
   5 seed. Metrikler: Accuracy, Balanced Acc., Precision, Recall, Specificity, F1, ROC-AUC,
   karışıklık matrisi; düzeltilmiş t-testi + Holm, McNemar.
-- Bonuslar: B1 MLP/autoencoder (+MILE ön eğitim), B2 TabPFN + GenePT, B3 uluslararası IEEE konferansı,
+- Bonuslar: B1 MLP/autoencoder (+MILE ön eğitim), B2 TabPFN + GenePT, B3 IEEE EMBC 2027 adayı (hocanın yazılı onayıyla),
   B4 Andersson.
 
 ## 8:30–9:00 — Kapanış

@@ -22,9 +22,9 @@ Ders rehberinin "4. Ara Rapor isterleri" bölümündeki her madde ve nerede kar�
 | 1. Problem tanımı, klinik önem, mikrodizi açıklaması, ≥2 test edilebilir araştırma sorusu | – | ✅ | Bölüm I (4 araştırma sorusu, H0 tanımlı) |
 | 1. "non-cancer" terminolojisinin düzeltilmesi | – | ✅ | Bölüm I, "Clinical problem" |
 | 2. ≥15 kaynak, ≥10 hakemli, ≥5 son 5 yıl | A2 | ✅ | 38 kaynak, 38 hakemli, 11 tanesi 2021+; DOI'ler Crossref'te doğrulandı; 31 tam metin, 6 özet, 1 künye (`reports/literature/reading_notes.md`, `claim_audit.md`) |
-| 2. Veritabanları, arama sorguları, tarih aralığı, dahil etme/dışlama ölçütleri | A2 | ✅ | Bölüm II "Search protocol"; ayrıntı: `reports/literature/search_log.md` |
+| 2. Veritabanları, arama sorguları, tarih aralığı, dahil etme/dışlama ölçütleri | A2 | ✅ | Bölüm II "Arama protokolü"; ayrıntı: `reports/literature/search_log.md` |
 | 2. Literatür özet tablosu (yazar/yıl · veri · ön işleme · yöntem · doğrulama · sonuç · not) | A2 | ✅ | Tablo I (özet) + Ek A (30 çalışmanın tamamı) |
-| 2. Golub sonuçlarının karşılaştırmalı özeti + literatürdeki boşluk | A2 | ✅ | Tablo I "Best result / Leakage risk" sütunları; Bölüm II "Gap" paragrafı |
+| 2. Golub sonuçlarının karşılaştırmalı özeti + literatürdeki boşluk | A2 | ✅ | Tablo I "En iyi sonuç / Sızıntı riski" sütunları; Bölüm II "Boşluk" paragrafı |
 | 3. Ana + ≥1 benzer açık veri seti (ad, DOI, GEO no, lisans) | A3 | ✅ | Bölüm III: Golub, MILE (GSE13159), Andersson (GSE7186) |
 | 3. Biyolojik bağlam, platform, n, p, sınıflar, dağılım | A3 | ✅ | Bölüm III + Tablo II + Ek Şekil 7 |
 | 3. Seçim gerekçesi, ortak gen sayısı, platform farkları | A3 | ✅ | Bölüm III "Why it was chosen" ve "Harmonisation" |
@@ -32,11 +32,12 @@ Ders rehberinin "4. Ara Rapor isterleri" bölümündeki her madde ve nerede kar�
 | 4. Veri kalitesi: eksik/INF, negatif/uç değer, P/A/M, etiket–sütun doğrulaması | A1 | ✅ | Bölüm IV-A, Şekil 1; MILE ölçek kontrolü |
 | 4. Betimsel istatistik, sınıf dağılımı, log öncesi/sonrası dağılım | A1 | ✅ | Bölüm IV-B, Ek Şekil 7–8, 11, 15 |
 | 4. PCA (açıklanan varyans), t-SNE | A1 | ✅ | Bölüm IV-C, Şekil 2, Ek Şekil 9, 12, 16 |
-| 4. Sınıflar arası testler, ısı haritası, hiyerarşik kümeleme | A1 | ✅ | Bölüm IV-D, Şekil 3, Ek Tablo IV, Ek Şekil 10, 13–14, 17–18 |
-| 4. Eğitim/test karşılaştırması (batch) ve veri setleri arası farklar | A1 | ✅ | Bölüm IV-E (Ek Şekil 6), IV-F (Şekil 4) |
+| 4. Sınıflar arası testler, ısı haritası, hiyerarşik kümeleme | A1 | ✅ | Bölüm IV-D, Ek Şekil 6, Ek Tablo V, Ek Şekil 10, 13–14, 17–18 |
+| 4. Eğitim/test karşılaştırması (batch) ve veri setleri arası farklar | A1 | ✅ | Bölüm IV-E (Ek Şekil 5), IV-F (Şekil 3) |
 | 4. Veri analitik aracı (Python) ve her şeklin yorumlanması | A1 | ✅ | Ana metin + ek şekil altyazıları |
 | 4. Bulguların numaralı özeti ve modelleme çıkarımları | A1 | ✅ | Bölüm IV-G (7 madde) |
-| 5. 3 ML yöntemi ve gerekçesi, hedeflenen bonuslar, takvim, riskler | – | ✅ | Bölüm V, Ek Şekil 5 (pipeline) |
+| 5. 3 ML yöntemi ve gerekçesi, hedeflenen bonuslar, takvim, riskler | – | ✅ | Bölüm V, Ek Şekil 4 (pipeline), Ek B (arama uzayları) |
+| Rehberde zorunlu değil: makale için fizibilite pilotu ve kilitli dış test setleri | – | ✅ | Bölüm III, Bölüm V, Tablo III |
 | 6. GenAI beyanı (A4) | A4 | ✅ / ⬜ | `reports/genai/main.pdf` + raporda "Yapay Zekâ Kullanım Beyanı" bölümü |
 | 6. Tanıtım videosu (A5) | A5 | ⬜ | yukarıya bak |
 | IEEE şablonu, ≤6 sayfa + kaynaklar + ekler | – | ✅ | IEEEtran, Türkçe; ana metin 6. sayfada bitiyor |
@@ -48,7 +49,7 @@ pip install -r requirements.txt
 python run_all.py            # veriyi indirir, EDA, makrolar, 3 PDF
 ```
 
-Son uçtan uca test: 2026-11-03, hatasız (`python run_all.py --skip-download`).
+Son uçtan uca test: 2026-11-06, hatasız (`python run_all.py --skip-download`).
 
 ## Bonuslar (finalde puanlanır)
 
@@ -56,5 +57,5 @@ Son uçtan uca test: 2026-11-03, hatasız (`python run_all.py --skip-download`).
 |---|---|
 | B1 Derin öğrenme | Planlandı (Bölüm V); final deneyleriyle aynı protokolde yapılacak |
 | B2 LLM / transformer (TabPFN, GenePT) | Planlandı |
-| B3 IEEE konferansına gönderim | Finalden sonra; hocanın yazılı onayı gerekli, gönderimi öğrenci yapar |
+| B3 IEEE konferansına gönderim | Aday: IEEE EMBC 2027 (son tarih 24 Ocak 2027, 4+1 sayfa, en çok 20 kaynak). Hocanın yazılı onayı gerekli, gönderimi öğrenci yapar; kabul şartı yok, kanıt paper ID ve tarih. Final tarihi hocadan teyit edilmeli |
 | B4 Üçüncü veri seti | Andersson seçildi, A kriterleri (EDA) tamam; F kriterleri (modeller) finalde |

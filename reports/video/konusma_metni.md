@@ -1,6 +1,6 @@
 # Ara Rapor Videosu — Konuşma Metni
 
-**Hedef süre:** 9–10 dakika. Konuşma kısmı ~1.200 kelime; Türkçe normal hızda (dakikada
+**Hedef süre:** yaklaşık 10 dakika. Konuşma kısmı ~1.300 kelime; Türkçe normal hızda (dakikada
 ~120–130 kelime) okununca bölüm süreleri aşağıdaki gibi çıkar. Rehberde üst sınır 15 dk,
 ara rapor için 5–10 dk yeterli sayılıyor. 10 dakikayı geçersen **[KISALTILABİLİR]**
 işaretli paragrafları atla. Köşeli parantezli satırlar **ekrana ne getireceğini** söyler;
@@ -189,21 +189,34 @@ onları okuma.
 
 ## 9. Final planı ve kapanış — 8:00–9:00
 
-[EKRAN: Slayt 11 — Bulgular ve modelleme kararları, ardından Slayt 12 — Final planı.]
+[EKRAN: Slayt 11 — Bulgular ve modelleme kararları.]
 
 > Bu bulguları doğrudan modelleme kararlarına çevirdim. Öznitelik seçimi her eğitim
 > katının içinde yapılacak. Sınıf dengesizliği için katmanlı bölme ve dengeli doğruluk
 > kullanılacak. Andersson'daki eksik değerler kat içinde doldurulacak. Kohortlar arası
 > testte de her kohort kendi içinde standartlaştırılacak.
->
+
+[EKRAN: Slayt 12 — Fizibilite pilotu.]
+
+> Finalde yazılacak makalenin iki ana iddiası ölçülebilir mi diye sabit ayarlı küçük bir
+> pilot deneme yapıldı. Bu bir model karşılaştırması değil. Birincisi: etiketler tamamen
+> rastgele karıştırıldığında bile, genler çapraz doğrulamadan önce seçilirse dengeli doğruluk
+> 0,91 çıkıyor; doğru protokolde 0,50, yani şans düzeyinde. İkincisi: bir kohortta eğitilen
+> model başka kohortta hastaları iyi sıralıyor, AUC 0,93 ile 0,99 arasında; ama karar eşiği
+> taşınmıyor, dengeli doğruluk 0,59'a kadar düşebiliyor. Makalenin ana mesajı bu olacak.
+> Bu sonuçlar ön bulgu. Golub'un 34 test örneği, MILE'ın ikinci aşaması ve RNA-seq tabanlı
+> TARGET verisi finale kadar kapalı tutuluyor.
+
+[EKRAN: Slayt 13 — Final planı.]
+
 > Finalde üç yöntem karşılaştıracağım: elastic-net lojistik regresyon, SVM ve random
 > forest; modüldeki karar ağacı da taban model olarak kalacak. İki protokol olacak: 38'e
 > 34'lük sabit bölmede test seti yalnızca bir kez kullanılacak, 72 örneğin tamamında da
 > beş farklı seed ile tekrarlanan 5×5 iç içe çapraz doğrulama yapılacak. Bonus olarak MLP
-> ve autoencoder, TabPFN, üçüncü veri seti ve uluslararası bir IEEE konferansına İngilizce
-> makale gönderimi planlıyorum.
+> ve autoencoder, TabPFN, üçüncü veri seti ve hocamın onayıyla uluslararası bir IEEE
+> konferansına İngilizce makale gönderimi planlıyorum; aday konferans IEEE EMBC 2027.
 
-[EKRAN: Slayt 13 — Teşekkürler. Webcam büyütülebilir.]
+[EKRAN: Slayt 14 — Teşekkürler. Webcam büyütülebilir.]
 
 > Kod deposu GitHub'da ve tek komutla bütün sonuçlar yeniden üretilebiliyor. Bu
 > çalışmada kod, literatür okuması ve metin için Anthropic'in Claude modelini kullandım; nasıl

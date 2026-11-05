@@ -52,6 +52,7 @@ Claude Opus 5.5 & Sızıntısız sklearn dönüştürücüleri (clip, log2, filt
 Claude Opus 5.5 & EDA analizleri ve şekiller & \url{eda.py}, \url{cross.py}, \url{stats.py}, \url{run_eda.py} & Kod modelce yazıldı; öğrenci değişiklik yapmadı & M: şekillerin görsel kontrolü; Ö: \cb{} \texttt{run\_eda.py --only golub} çalıştırıp rapordaki 3 sayıyı JSON ile karşılaştırdı \\
 Claude Opus 5.5 (alt ajan) & Literatür taraması: Crossref, Europe PMC, PubMed sorguları; \texttt{references.bib}, özet tablo & \url{reports/literature/} & Öğrenci kaynak eklemedi/çıkarmadı; okumanın ve denetimin yapılmasını istedi & M: 38 DOI Crossref'te kontrol edildi; 31 tam metin okunup 76 iddia denetlendi (\url{claim_audit.md}), ajan özetleri örneklem olarak kontrol edildi; Ö: \cb{} okuma notlarını ve temel makaleleri okudu \\
 Claude Opus 5.5 & Rapor taslağı (IEEEtran; önce İngilizce yazıldı, öğrencinin kararıyla Türkçeye çevrildi), şekil etiketlerinin Türkçeleştirilmesi, sunum & \url{reports/ara_rapor/}, \url{reports/sunum/} & Üniversite bilgisini verdi, rapor dilini seçti; video bağlantısını kendisi ekleyecek & M: sayılar \LaTeX{} makrolarıyla betik çıktısından, çeviri sonrası \texttt{eda\_numbers.json} değişmedi; Ö: \cb{} raporu baştan sona okudu \\
+Claude Opus 5.5 & Fizibilite pilotu; dış kohort ve konferans araştırması; makale kurgusu & \url{scripts/run_feasibility.py}, rapor Bölüm V & Kod modelce yazıldı ve çalıştırıldı; öğrenci raporun finale ve makaleye yeterliliği göstermesini istedi & M: sabit ayar, kilitli setlere dokunulmadı, GDC ve GEO kayıtları sorgulandı, EMBC tarihi resmî sayfada görüldü; Ö: \cb{} betiği kendisi çalıştırıp Tablo III ile karşılaştırdı \\
 Claude Opus 5.5 & Video senaryosu ve konuşma metni & \url{reports/video/} & Videoyu kendi sesiyle, metni kendi cümleleriyle anlatarak kaydetti & Ö: \cb{} video süresi ve bağlantı erişimi kontrol edildi \\
 \bottomrule
 \end{tabularx}}
@@ -72,7 +73,10 @@ son olarak bu beyandaki öğrenci alanlarının doldurulması istendi. Model, ö
 işleri yazmayı reddederek yalnızca gerçekte olanları yazdı ve aşağıdaki doğrulama listesini ekledi.
 Öğrenci ayrıca 15 makalenin gerçekten incelenip incelenmediğini sordu; bunun üzerine tam metin
 okuması ve iddia denetimi yapıldı. Ardından ara raporun Türkçe olmasını istedi; final makalesi
-İngilizce kalacaktır.
+İngilizce kalacaktır. Son olarak raporun final ve uluslararası makale için yeterliliği göstermesini,
+gerekirse daha güçlü veri setleri bulunmasını ve okuması gereken kaynakların Türkçe ve İngilizce
+sunulmasını istedi; fizibilite pilotu ve okuma rehberi bunun üzerine hazırlandı. Kabul güvencesi
+verilemeyeceği öğrenciye açıkça söylendi.
 \end{enumerate}
 
 \section*{4. GenAI çıktısında yakalanan hatalar (doğrulamanın kanıtı)}
@@ -118,6 +122,7 @@ oranı (\%28,7), PC1 AUC (0,984) ve anlamlı gen sayısı (945) \texttt{results/
 \texttt{src/leukemia/preprocessing.py} içindeki \texttt{FoldChangeFilter} okundu ve anlaşıldı.
 \item[\cb] \texttt{reports/literature/reading\_notes.md} okundu; en az 3 temel makale bizzat okundu
 (önerilen: Golub 1999, Ambroise \& McLachlan 2002, Varma \& Simon 2006).
+\item[\cb] \texttt{run\_feasibility.py} çalıştırıldı; sonuçlar Tablo III ile karşılaştırıldı.
 \item[\cb] Rapor PDF'i baştan sona okundu; video bağlantısı ve üniversite bilgisi eklendi.
 \item[\cb] Video kendi sesimle, yüzüm görünür şekilde kaydedildi; bağlantı giriş yapmadan açılıyor.
 \end{itemize}
