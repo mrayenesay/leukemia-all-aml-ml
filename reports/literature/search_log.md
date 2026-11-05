@@ -74,7 +74,8 @@ Lookups by known identifier:
 |---|---|
 | Records screened from discovery queries 1–7 (titles; duplicates included) | 152 |
 | Abstracts screened (Europe PMC / PubMed) | 24 |
-| Full texts assessed (PMC XML) | 5 (Selvaraj 2024, Awotunde 2022, Xie 2022, Rezaee 2022, Díaz-Uriarte 2006) |
+| Full texts assessed during the search (PMC XML) | 5 (Selvaraj 2024, Awotunde 2022, Xie 2022, Rezaee 2022, Díaz-Uriarte 2006) |
+| Full texts consulted in the later claim audit (2026-11-05, AI-assisted) | 31 of 38; 6 abstract only; 1 citation only (see `reading_notes.md`) |
 | Known classic/foundational items added by identifier | 22 |
 | Included from discovery searches | 8 (Alhenawi 2022, Alharbi 2023, Selvaraj 2024, Awotunde 2022, Xie 2022, Rezaee 2022; plus the corrected Andersson 2007 DOI and the GenePT journal version) |
 | **Final included** | **30** (30 peer-reviewed; 11 published 2021 or later) |
