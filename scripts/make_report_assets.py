@@ -169,7 +169,43 @@ def build_macros(d: dict) -> dict:
     return M
 
 
-PREFIXES = ("Golub", "Mile", "And", "Common", "Genes", "Rho", "Ov", "Shared", "Eta", "Med")
+PREFIXES = ("Golub", "Mile", "And", "Common", "Genes", "Rho", "Ov", "Shared", "Eta", "Med", "Pilot")
+
+
+def pilot_macros(f: dict) -> dict:
+    """Numbers of the feasibility pilot (scripts/run_feasibility.py)."""
+    leak, rows = f["leakage"], f["transfer_rows"]
+    z = [r for r in rows if r["mode"] == "zscore"]
+    raw = [r for r in rows if r["mode"] == "raw"]
+    m_a = next(r for r in z if (r["train"], r["test"]) == ("MILE", "Andersson"))
+    g_m = next(r for r in z if (r["train"], r["test"]) == ("Golub", "MILE"))
+    return {
+        "PilotK": leak["k"], "PilotNPerm": leak["n_perm"], "PilotKT": f["transfer"]["k"],
+        "PilotInReal": num(leak["inside"]["real_mean"]), "PilotOutReal": num(leak["outside"]["real_mean"]),
+        "PilotInPerm": num(leak["inside"]["perm_mean"]), "PilotOutPerm": num(leak["outside"]["perm_mean"]),
+        "PilotAucMin": num(min(r["auc"] for r in z)), "PilotAucMax": num(max(r["auc"] for r in z)),
+        "PilotBaMin": num(min(r["bacc"] for r in z)), "PilotBaMax": num(max(r["bacc"] for r in z)),
+        "PilotRawSingle": sum(r["bacc"] == 0.5 for r in raw),
+        "PilotTallMA": pct(m_a["tall_error"]), "PilotBallMA": pct(m_a["ball_error"]),
+        "PilotTallGM": pct(g_m["tall_error"]), "PilotBallGM": pct(g_m["ball_error"]),
+        "PilotNTallM": int(g_m["n_tall"]),
+    }
+
+
+def pilot_table(f: dict) -> None:
+    """Transfer pilot, one row per train -> test direction."""
+    rows = f["transfer_rows"]
+    get = {(r["train"], r["test"], r["mode"]): r for r in rows}
+    out = [r"\begin{tabular}{@{}lcccc@{}}", r"\toprule",
+           r"Eğitim $\to$ test & AUC ($z$) & DD ham & DD $z$ & DD sıra\\ \midrule"
+           if TR else r"Train $\to$ test & AUC ($z$) & BA raw & BA $z$ & BA rank\\ \midrule"]
+    pairs = [(a, b) for a in ("Golub", "MILE", "Andersson") for b in ("Golub", "MILE", "Andersson") if a != b]
+    for a, b in pairs:
+        z = get[(a, b, "zscore")]
+        out.append(rf"{a} $\to$ {b} & {num(z['auc'])} & {num(get[(a, b, 'raw')]['bacc'])} & "
+                   rf"{num(z['bacc'])} & {num(get[(a, b, 'rank')]['bacc'])}\\")
+    out += [r"\bottomrule", r"\end{tabular}"]
+    (GEN / "pilot_transfer.tex").write_text("\n".join(out) + "\n", encoding="utf-8")
 
 
 def write_macros(M: dict) -> None:
@@ -257,6 +293,11 @@ def main() -> None:
     bib_with_doi()
     d = json.loads((RES / "eda_numbers.json").read_text())
     M = build_macros(d)
+    pilot = RES / "feasibility.json"
+    if pilot.exists():
+        f = json.loads(pilot.read_text())
+        M.update(pilot_macros(f))
+        pilot_table(f)
     write_macros(M)
     literature_table()
     top_gene_table()
