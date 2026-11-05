@@ -17,8 +17,9 @@ CV_SEEDS = (42, 7, 123, 2024, 31337)
 LABELS = {"ALL": 0, "AML": 1}
 CLASS_NAMES = ("ALL", "AML")
 
-# Hu6800 (MAS4/GeneChip average-difference) preprocessing used by Dudoit et al.
-# (2002): clip to [20, 16000] and keep genes with max/min > 5 and max-min > 500.
+# Clipping window from the course guide. Dudoit et al. (2002) used the same ceiling
+# with a floor of 100 and log10; their filter keeps genes with max/min > 5 and
+# max-min > 500, which gives 3,571 genes at floor 100 and 3,859 at floor 20.
 CLIP_FLOOR = 20.0
 CLIP_CEIL = 16000.0
 FOLD_MIN = 5.0

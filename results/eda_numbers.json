@@ -112,6 +112,7 @@
       ]
     },
     "n_after_fold_filter": 3859,
+    "n_after_fold_filter_floor100": 3571,
     "logdist": {
       "skew_raw": 7.075644546423721,
       "skew_log": 0.5487706402243133,

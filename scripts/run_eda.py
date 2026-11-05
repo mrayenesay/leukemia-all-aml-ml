@@ -70,6 +70,9 @@ def run_golub(numbers: dict) -> dict:
     filt = FoldChangeFilter().fit(Xc)
     Xlog = np.log2(Xc)
     out["n_after_fold_filter"] = int(filt.support_.sum())
+    # same filter at Dudoit et al.'s floor of 100: reproduces their 3,571 genes
+    out["n_after_fold_filter_floor100"] = int(
+        FoldChangeFilter().fit(Clipper(floor=100.0).fit_transform(ds.X)).support_.sum())
     out["logdist"] = eda.log_distributions(ds, Xc, Xlog, "golub")
 
     Xf = pd.DataFrame(Xlog[:, filt.support_], index=ds.X.index, columns=ds.X.columns[filt.support_])
