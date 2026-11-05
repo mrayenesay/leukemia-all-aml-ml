@@ -42,6 +42,7 @@ def main() -> None:
     if not args.skip_download:
         run([PY, "scripts/download_data.py"])
     run([PY, "scripts/run_eda.py"])
+    run([PY, "scripts/run_feasibility.py"])
     run([PY, "scripts/make_report_assets.py"])
     build_pdf(ROOT / "reports" / "ara_rapor")
     build_pdf(ROOT / "reports" / "genai")
