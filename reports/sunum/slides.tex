@@ -65,17 +65,17 @@
 \column{0.48\textwidth}
 \begin{itemize}\small
 \item Crossref, Europe PMC, PubMed; keşif 2021--2026 + klasikler
-\item 152 kayıt $\to$ 24 özet $\to$ 5 tam metin
-\item \textbf{38 kaynak}, hepsi hakemli, 11'i 2021+; tüm DOI'ler Crossref ile doğrulandı
+\item 152 kayıt $\to$ 24 özet; 31 kaynak tam metin, 6 özet, 1 künye (yapay zekâ destekli okuma)
+\item \textbf{38 kaynak}, hepsi hakemli, 11'i 2021+; DOI'ler Crossref ile, iddialar kaynak metinle denetlendi
 \item Klasikler: Golub 1999, SVM, SVM-RFE, DLDA, RF
 \item Yeni: TabPFN, GenePT, swarm learning
 \end{itemize}
 \column{0.5\textwidth}
 \textbf{Boşluk}
 \begin{itemize}\small
-\item Golub'da \%97--99,9 doğruluk, ama protokoller karşılaştırılamaz
-\item Gen seçimi çoğu zaman CV \emph{dışında} $\Rightarrow$ seçim yanlılığı
-\item Güven aralığı ve bağımsız kohort testi nadir
+\item Yeni 4 çalışmada \%97--99,9 doğruluk, ama protokoller karşılaştırılamaz
+\item Bazı çalışmalarda gen seçimi CV \emph{dışında} $\Rightarrow$ seçim yanlılığı
+\item Yeni 4 çalışmada güven aralığı yok; okunan Golub çalışmalarında model başka kohorta aktarılmıyor
 \end{itemize}
 \end{columns}
 \end{frame}
@@ -176,14 +176,14 @@ Rol & ana & benzer 1 & benzer 2 (B4) \\
 \textbf{Yöntemler:} elastic-net LR, SVM (lineer/RBF), random forest (+ karar ağacı tabanı)\\[1mm]
 \textbf{Protokol:} (a) 38/34, test \emph{bir kez}; (b) 72 örnekte 5$\times$5 nested CV, 5 seed\\[1mm]
 \textbf{Metrikler:} Acc, BAcc, Precision, Recall, Specificity, F1, ROC-AUC, karışıklık matrisi\\[1mm]
-\textbf{İstatistik:} Friedman/Nemenyi, düzeltilmiş $t$, McNemar
+\textbf{İstatistik:} düzeltilmiş $t$ + Holm, kohortlar arası ortalama sıra, McNemar
 \column{0.48\textwidth}
 \small
 \textbf{Bonuslar}
 \begin{itemize}
 \item B1: MLP / autoencoder (+ MILE ön eğitim)
-\item B2: TabPFN v2, GenePT gömmeleri
-\item B3: IEEE konferansına gönderim
+\item B2: TabPFN, GenePT tarzı gömmeler
+\item B3: uluslararası IEEE konferansına İngilizce makale
 \item B4: Andersson (3.\ veri seti)
 \end{itemize}
 \textbf{Tekrarlanabilirlik:} \texttt{python run\_all.py}, seed 42, rapordaki her sayı betikten

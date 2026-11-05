@@ -80,8 +80,8 @@ EDA are descriptive and are never reused for model feature selection.
 1. Nested CV (5×5 outer, 5-fold inner) + 38/34 split for elastic-net LR, SVM, random forest (decision tree baseline)
 2. Same protocol on MILE and Andersson; cross-cohort transfer on common genes
 3. Ablations: number of genes *k*, filters vs. PCA, imputation, scaling
-4. B1: MLP / autoencoder (+ MILE pre-training); B2: TabPFN v2, GenePT embeddings
-5. Statistical comparison (Friedman/Nemenyi, corrected resampled *t*, McNemar), SHAP / permutation importance
+4. B1: MLP / autoencoder (+ MILE pre-training); B2: TabPFN, GenePT-style embeddings
+5. Statistical comparison (corrected resampled *t* with Holm, McNemar, average ranks across cohorts), SHAP / permutation importance
 
 ## GenAI disclosure
 

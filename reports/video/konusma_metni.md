@@ -53,20 +53,23 @@ onları okuma.
 
 [EKRAN: Slayt 3 — Literatür taraması.]
 
-> Literatürü Crossref, Europe PMC ve PubMed üzerinden taradım. Yeni çalışmalar için
-> 2021–2026 aralığını kullandım, klasik çalışmaları da tanımlayıcılarıyla ekledim.
-> 152 kaydı başlıktan eledim, 24 özete ve 5 tam metne baktım. Sonuçta 38 kaynak var;
-> hepsi hakemli ve 11'i son beş yıldan. Her kaynağın DOI'sini Crossref'te tek tek
-> doğruladım. Bu sırada bir kaynağın ilk bulunan DOI'sinin aslında başka bir makaleye
-> ait olduğunu yakaladık ve düzelttik.
+> Literatür taramasını yapay zekâ desteğiyle yürüttüm. Crossref, Europe PMC ve PubMed
+> üzerinden 2021–2026 aralığında arama yapıldı, klasik çalışmalar da tanımlayıcılarıyla
+> eklendi. 152 kayıt başlıktan, 24 kayıt özetten değerlendirildi. Sonuçta 38 kaynak var;
+> hepsi hakemli ve 11'i son beş yıldan. Bunların 31'inin tam metnine erişildi, 6'sında
+> yalnızca özet, birinde yalnızca künye görüldü. Rapordaki iddiaları tek tek kaynak
+> metinlerle karşılaştırdık; bu denetim gerçek hatalar yakaladı. Örneğin Dudoit'nun
+> alt eşiği 20 değil 100'müş, Golub'un hastalarının çoğu da yetişkin değil, çocukmuş.
+> Bunları düzelttim; bütün notlar depoda duruyor.
 >
 > Klasik çalışmalar SVM, SVM-RFE, diyagonal diskriminant analizi ve random forest
-> gibi yöntemleri kullanıyor. Literatürde gördüğüm asıl boşluk şu: Golub verisinde
+> gibi yöntemleri kullanıyor. Literatürde gördüğüm asıl boşluk şu: Son dört çalışmada
 > yüzde 97 ile 99,9 arasında doğruluklar raporlanmış, ama bu sayılar birbiriyle
-> karşılaştırılamıyor. Bazı çalışmalar gen seçimini çapraz doğrulamanın dışında, yani
-> tüm veri üzerinde yapıyor. Ambroise ve McLachlan bunun iyimser, yanlı sonuç
-> verdiğini 2002'de göstermişti. Ayrıca güven aralığı ve bağımsız bir kohortta test
-> neredeyse hiç yok. Bu proje tam olarak bu üç eksiği hedefliyor.
+> karşılaştırılamıyor. Bazı çalışmalar gen seçimini çapraz doğrulamanın dışında yapıyor
+> görünüyor. Ambroise ve McLachlan bunun iyimser, yanlı sonuç verdiğini 2002'de
+> göstermişti. Bu dört çalışmada güven aralığı yok; okuduğumuz Golub çalışmalarında da
+> model ya da gen listesi bağımsız bir kohorta aktarılmıyor. Bu proje bu eksikleri
+> hedefliyor.
 
 ## 4. Veri setleri — 2:45–3:45
 
@@ -132,7 +135,7 @@ onları okuma.
 
 [EKRAN: Slayt 6 — Dönüşüm.]
 
-> Bu yüzden değerleri 20 ile 16.000 arasına kırpıp log2 dönüşümü uyguladım. Çarpıklık
+> Bu yüzden değerleri rehberdeki gibi 20 ile 16.000 arasına kırpıp log2 dönüşümü uyguladım. Çarpıklık
 > 7,08'den 0,55'e düştü. Genin ortalaması ile standart sapması arasındaki korelasyon da
 > 0,95'ten 0,18'e indi. Yani dönüşüm, parlak birkaç genin SVM veya PCA gibi mesafeye
 > dayalı yöntemlere baskın çıkmasını engelliyor.
@@ -197,12 +200,13 @@ onları okuma.
 > forest; modüldeki karar ağacı da taban model olarak kalacak. İki protokol olacak: 38'e
 > 34'lük sabit bölmede test seti yalnızca bir kez kullanılacak, 72 örneğin tamamında da
 > beş farklı seed ile tekrarlanan 5×5 iç içe çapraz doğrulama yapılacak. Bonus olarak MLP
-> ve autoencoder, TabPFN, IEEE konferansına gönderim ve üçüncü veri seti planlıyorum.
+> ve autoencoder, TabPFN, üçüncü veri seti ve uluslararası bir IEEE konferansına İngilizce
+> makale gönderimi planlıyorum.
 
 [EKRAN: Slayt 13 — Teşekkürler. Webcam büyütülebilir.]
 
 > Kod deposu GitHub'da ve tek komutla bütün sonuçlar yeniden üretilebiliyor. Bu
-> çalışmada Anthropic'in Claude modelini yardımcı araç olarak kullandım; nasıl
+> çalışmada kod, literatür okuması ve metin için Anthropic'in Claude modelini kullandım; nasıl
 > kullandığımı ve neleri doğruladığımı GenAI beyanında ayrıntılı olarak yazdım.
 > Dinlediğiniz için teşekkür ederim.
 
@@ -215,4 +219,5 @@ onları okuma.
 - **Neden iç içe CV?** Hiperparametre ve gen seçimi aynı katlarda hem ayarlanıp hem değerlendirilirse skor iyimser olur (Varma & Simon 2006).
 - **Welch t-testi neden?** Sınıf varyansları eşit varsayılmıyor; Mann–Whitney ise dağılım varsayımı yapmıyor.
 - **ARI nedir?** Kümeleme ile gerçek sınıfların uyumu; 1 tam uyum, 0 rastgele.
+- **Neden taban 20, Dudoit'nun 100'ü değil?** 20 rehberden; taban 100 ile aynı süzgeç Dudoit'nun 3.571 genini birebir veriyor, 20 ile 3.859.
 - **KS testi neyi gösteriyor?** Bir genin eğitim ve testteki dağılımlarının aynı olup olmadığını; kayma yoksa p-değerleri düzgün dağılır.
