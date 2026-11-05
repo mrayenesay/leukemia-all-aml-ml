@@ -50,7 +50,7 @@
 \item Golub: 72 hasta, \GolubP{} prob $\Rightarrow$ $p \gg n$.
 \end{itemize}
 \column{0.42\textwidth}
-\textbf{Araştırma soruları}
+\textbf{Araştırma soruları (AS)}
 \begin{enumerate}\small
 \item Nested CV'de 3 yöntem farklı mı?
 \item 38/34 tek bölme CV ile tutarlı mı?
@@ -90,7 +90,7 @@ Platform & Hu6800 & U133 Plus 2.0 & 27K cDNA (2 renk) \\
 Ölçü & MAS4 avg.\ diff. & ölçekli log [0,1] & $\log_2$ oran \\
 $n$ (ALL/AML) & 72 (47/25) & \MileN{} (\MileALL/\MileAML) & \AndN{} (\AndALL/\AndAML) \\
 $p$ & \GolubP{} & \MileP{} & \AndP{} \\
-Eksik değer & 0 & \MileMissingPct\% & \AndMissingPct\% \\
+Eksik değer & 0 & \%\MileMissingPct & \%\AndMissingPct \\
 Rol & ana & benzer 1 & benzer 2 (B4) \\
 \bottomrule
 \end{tabular}
@@ -102,8 +102,8 @@ Rol & ana & benzer 1 & benzer 2 (B4) \\
 \begin{frame}{Veri kalitesi (Golub)}
 \fig[width=\textwidth]{fig_golub_quality.pdf}
 \begin{itemize}\small
-\item NaN/INF yok; ama değerlerin \textbf{\GolubNegPct\%}'i negatif (PM $-$ MM).
-\item Absent çağrıları (\GolubCallA\%) negatif/düşük değerlerle örtüşüyor.
+\item NaN/INF yok; ama değerlerin \textbf{\%\GolubNegPct}'si negatif (PM $-$ MM).
+\item Absent çağrıları (\%\GolubCallA) negatif/düşük değerlerle örtüşüyor.
 \item Hasta sütunları sırasız $\Rightarrow$ etiketler hasta numarasıyla eşlendi, \texttt{assert} ile doğrulandı.
 \end{itemize}
 \end{frame}
@@ -130,7 +130,7 @@ Rol & ana & benzer 1 & benzer 2 (B4) \\
 \column{0.48\textwidth}
 \begin{itemize}\small
 \item Welch $t$, Mann--Whitney, BH-FDR, SNR
-\item $q<0.05$: \GolubSig{} gen
+\item $q<0{,}05$: \GolubSig{} gen
 \item AML: CST3, CD33, MPO, ZYX
 \item ALL: TCF3, CD79B, CD19, DNTT
 \item Kümeleme sınıfları buluyor (ARI \GolubARI)
@@ -143,8 +143,8 @@ Rol & ana & benzer 1 & benzer 2 (B4) \\
 \fig[width=\textwidth]{fig_golub_batch.pdf}
 \begin{itemize}\small
 \item Test dizileri daha sönük (75.\ yüzdelik \GolubQTest{} vs.\ \GolubQTrain, $p=\GolubQP$).
-\item Sınıf içi KS: ALL'de genlerin \GolubKSAll\%'i $p<0.05$ (beklenen \%5).
-\item $\Rightarrow$ tek 34 örneklik test skoru nested CV'den sapabilir (RQ2).
+\item Sınıf içi KS: ALL'de genlerin \%\GolubKSAll'si $p<0{,}05$ (beklenen \%5).
+\item $\Rightarrow$ tek 34 örneklik test skoru nested CV'den sapabilir (AS2).
 \end{itemize}
 \end{frame}
 
@@ -152,7 +152,7 @@ Rol & ana & benzer 1 & benzer 2 (B4) \\
 \fig[width=\textwidth]{fig_cross_dataset.pdf}
 \begin{itemize}\small
 \item $t$ istatistikleri: $\rho=\RhoGM$ (Golub--MILE), $\rho=\RhoGA$ (Golub--Andersson); ortak üst genler şanstan fazla.
-\item Birleşik PCA'da PC1'i \textbf{kohort} belirliyor ($\eta^2=\EtaRawDataset\%$); kohort içi $z$-skor sonrası sınıf ekseni ortaya çıkıyor.
+\item Birleşik PCA'da PC1'i \textbf{kohort} belirliyor ($\eta^2=\%\EtaRawDataset$); kohort içi $z$-skor sonrası sınıf ekseni ortaya çıkıyor.
 \end{itemize}
 \end{frame}
 

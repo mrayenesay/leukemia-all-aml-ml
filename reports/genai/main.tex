@@ -51,7 +51,7 @@ Claude Opus 5.5 & Veri yükleyiciler, hasta no.\ üzerinden etiket eşleştirme,
 Claude Opus 5.5 & Sızıntısız sklearn dönüştürücüleri (clip, log2, filtre) & \url{src/leukemia/preprocessing.py} & Kod modelce yazıldı; öğrenci değişiklik yapmadı & M: \texttt{fit}/\texttt{transform} ayrımı; Ö: \cb{} \texttt{FoldChangeFilter}'ın yalnızca \texttt{fit}'te öğrendiğini kodda gördü \\
 Claude Opus 5.5 & EDA analizleri ve şekiller & \url{eda.py}, \url{cross.py}, \url{stats.py}, \url{run_eda.py} & Kod modelce yazıldı; öğrenci değişiklik yapmadı & M: şekillerin görsel kontrolü; Ö: \cb{} \texttt{run\_eda.py --only golub} çalıştırıp rapordaki 3 sayıyı JSON ile karşılaştırdı \\
 Claude Opus 5.5 (alt ajan) & Literatür taraması: Crossref, Europe PMC, PubMed sorguları; \texttt{references.bib}, özet tablo & \url{reports/literature/} & Öğrenci kaynak eklemedi/çıkarmadı; okumanın ve denetimin yapılmasını istedi & M: 38 DOI Crossref'te kontrol edildi; 31 tam metin okunup 76 iddia denetlendi (\url{claim_audit.md}), ajan özetleri örneklem olarak kontrol edildi; Ö: \cb{} okuma notlarını ve temel makaleleri okudu \\
-Claude Opus 5.5 & Rapor taslağı (İngilizce, IEEEtran), sunum & \url{reports/ara_rapor/}, \url{reports/sunum/} & Video bağlantısı ve üniversite bilgisini öğrenci ekledi & M: sayılar \LaTeX{} makrolarıyla betik çıktısından; Ö: \cb{} raporu baştan sona okudu \\
+Claude Opus 5.5 & Rapor taslağı (IEEEtran; önce İngilizce yazıldı, öğrencinin kararıyla Türkçeye çevrildi), şekil etiketlerinin Türkçeleştirilmesi, sunum & \url{reports/ara_rapor/}, \url{reports/sunum/} & Üniversite bilgisini verdi, rapor dilini seçti; video bağlantısını kendisi ekleyecek & M: sayılar \LaTeX{} makrolarıyla betik çıktısından, çeviri sonrası \texttt{eda\_numbers.json} değişmedi; Ö: \cb{} raporu baştan sona okudu \\
 Claude Opus 5.5 & Video senaryosu ve konuşma metni & \url{reports/video/} & Videoyu kendi sesiyle, metni kendi cümleleriyle anlatarak kaydetti & Ö: \cb{} video süresi ve bağlantı erişimi kontrol edildi \\
 \bottomrule
 \end{tabularx}}
@@ -71,7 +71,8 @@ gönderilmesi onaylandı; ``gönderime hazır mı'' sorusu ve video için konuş
 son olarak bu beyandaki öğrenci alanlarının doldurulması istendi. Model, öğrencinin yapmadığı
 işleri yazmayı reddederek yalnızca gerçekte olanları yazdı ve aşağıdaki doğrulama listesini ekledi.
 Öğrenci ayrıca 15 makalenin gerçekten incelenip incelenmediğini sordu; bunun üzerine tam metin
-okuması ve iddia denetimi yapıldı.
+okuması ve iddia denetimi yapıldı. Ardından ara raporun Türkçe olmasını istedi; final makalesi
+İngilizce kalacaktır.
 \end{enumerate}
 
 \section*{4. GenAI çıktısında yakalanan hatalar (doğrulamanın kanıtı)}

@@ -37,9 +37,9 @@ Ders rehberinin "4. Ara Rapor isterleri" bölümündeki her madde ve nerede kar�
 | 4. Veri analitik aracı (Python) ve her şeklin yorumlanması | A1 | ✅ | Ana metin + ek şekil altyazıları |
 | 4. Bulguların numaralı özeti ve modelleme çıkarımları | A1 | ✅ | Bölüm IV-G (7 madde) |
 | 5. 3 ML yöntemi ve gerekçesi, hedeflenen bonuslar, takvim, riskler | – | ✅ | Bölüm V, Ek Şekil 5 (pipeline) |
-| 6. GenAI beyanı (A4) | A4 | ✅ / ⬜ | `reports/genai/main.pdf` + raporda Acknowledgment |
+| 6. GenAI beyanı (A4) | A4 | ✅ / ⬜ | `reports/genai/main.pdf` + raporda "Yapay Zekâ Kullanım Beyanı" bölümü |
 | 6. Tanıtım videosu (A5) | A5 | ⬜ | yukarıya bak |
-| IEEE şablonu, ≤6 sayfa + kaynaklar + ekler | – | ✅ | IEEEtran; ana metin 6. sayfada bitiyor |
+| IEEE şablonu, ≤6 sayfa + kaynaklar + ekler | – | ✅ | IEEEtran, Türkçe; ana metin 6. sayfada bitiyor |
 
 ## Yeniden üretme (hoca kontrol ederse)
 
