@@ -1,6 +1,6 @@
 # Literatür iddiaları denetimi
 
-Tarih: 2026-11-05. Denetlenen dosya: `reports/ara_rapor/main.tex` (commit 1df4dee). Düzeltmeler aynı gün rapora, tabloya, sunuma ve video metnine işlendi. Farklı karar: taban 20 için Ramaswamy eklenmedi (tam metni doğrulanamadı); atıf ders rehberine bağlandı, kaynak sayısı 38 kaldı. Erişim düzeyleri için `reading_notes.md` dosyasına bakınız.
+Tarih: 2026-11-05. Denetlenen dosya: `reports/ara_rapor/main.tex` (commit 1df4dee). Rapor sonradan Türkçeye çevrildi; aşağıdaki satır numaraları ve İngilizce cümleler bu commit'e aittir. Düzeltmeler aynı gün rapora, tabloya, sunuma ve video metnine işlendi. Farklı karar: taban 20 için Ramaswamy eklenmedi (tam metni doğrulanamadı); atıf ders rehberine bağlandı, kaynak sayısı 38 kaldı. Erişim düzeyleri için `reading_notes.md` dosyasına bakınız.
 
 **Kararlar:** DOĞRU: kaynak iddiayı destekliyor. KISMEN: özü doğru ama eksik, geniş veya karışık. YANLIŞ: kaynak iddiayla çelişiyor ya da iddia kaynağın kapsamında değil. DOĞRULANAMADI: okunabilen metin iddiayı sınamaya yetmiyor.
 

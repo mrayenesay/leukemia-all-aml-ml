@@ -1,36 +1,36 @@
 \begin{longtable}{@{}p{0.9cm}p{0.5cm}p{2.3cm}p{2.6cm}p{2.6cm}p{2.3cm}p{2.6cm}p{2.4cm}@{}}
-\caption{Full literature summary table (all 30 included studies, chronological).}\label{tab:litfull}\\
-\toprule Ref. & Year & Data set & Pre-proc./feature sel. & Method & Validation & Best result & Note\\ \midrule\endfirsthead
-\toprule Ref. & Year & Data set & Pre-proc./feature sel. & Method & Validation & Best result & Note\\ \midrule\endhead
-\cite{golub1999} & 1999 & Golub ALL/AML (Affymetrix Hu6800) & Informative-gene selection by class correlation & Class discovery + weighted-vote class predictor & LOOCV on 38 plus fixed 34 & LOOCV 36/38 called; test 29/34 called, all correct; 5 uncertain & Original dataset; mostly paediatric\\
-\cite{furey2000} & 2000 & Ovarian, Golub, colon & n/r & SVM & Hold-one-out plus 38/34 & Golub test 30-32/34 correct & No clear difference between techniques\\
-\cite{armstrong2002} & 2002 & MLL/ALL/AML leukemias & n/r & Expression profiling of MLL-rearranged leukemia & n/r & n/r & Common 3-class leukemia benchmark\\
-\cite{guyon2002} & 2002 & Leukemia and colon microarrays & SVM-RFE gene ranking & Linear SVM & LOO and 38/34 & Golub test 0/34 errors with 8 or 16 genes & Selection not stated to be inside LOO\\
-\cite{dudoit2002} & 2002 & Golub, NCI60, lymphoma & Floor 100, ceiling 16000, filter, log10 & LDA/DLDA, kNN, trees, aggregation & 150 repeated 2:1 splits & DLDA median error 0 (two-class leukemia) & Technical report 576 read, not the JASA version\\
-\cite{tibshirani2002} & 2002 & SRBCT and leukemia & Shrunken centroid soft-thresholding & Nearest shrunken centroids (PAM) & 10-fold CV on 38 plus fixed 34 & CV 1/38, test 2/34, 21 genes & Nearest shrunken centroids\\
-\cite{ambroise2002} & 2002 & Colon and Golub & Gene selection inside vs outside CV & SVM-RFE; Fisher with forward selection & External 10-fold CV; .632+ bootstrap & Selection bias about 5\% (38/34), 2-3\% (all 72) & Selection bias; CV error not zero\\
-\cite{statnikov2005} & 2005 & 11 datasets incl. leukemia & Several gene selection methods & Multicategory SVMs vs kNN/NNs/ensembles & Two cross-validation designs & n/r & MC-SVMs best; GEMS system\\
-\cite{zou2005} & 2005 & Methodology (incl. microarray example) & Elastic net penalty & Penalized regression & n/r & 10-fold CV 3/38, test 0/34, 45 genes & Squared loss on 0-1 response\\
-\cite{diazuriarte2006} & 2006 & Golub train 38 x 3,051 + 8 other sets & RF backward gene elimination & Random forest vs SVM/kNN/DLDA/SC & .632+ bootstrap & SVM .014; RF .051 without, .075-.087 with selection & Leukemia RF selects 2 genes\\
-\cite{varma2006} & 2006 & Simulation only (40 samples, 6,000 features) & Tuning within CV & Nested CV & Nested vs non-nested CV & Nested estimates close to true error & Almost unbiased, slightly pessimistic\\
-\cite{andersson2007} & 2007 & 121 childhood leukemias (GSE7186) & n/r & k-nearest neighbor predictors & Independent data set validation & T-ALL MRD status classified with 100\% accuracy & External validation source (pediatric)\\
-\cite{johnson2007} & 2007 & Two example data sets & Empirical Bayes location/scale adjustment & ComBat & n/a & n/r & Name ComBat not in the paper\\
-\cite{kohlmann2008} & 2008 & MILE pre-phase (multi-lab) & Standardized protocols across labs & Inter-laboratory reproducibility study & Cross-lab comparison & n/r & Linked to GSE13159 in GEO\\
-\cite{haferlach2010} & 2010 & MILE stage I/II (GSE13159 = stage I) & Whole-genome HG-U133 Plus 2.0 profiling & All-pairs linear SVM & Stage I CV; stage II prospective, custom chip & Stage I 3x30-fold CV 92.2\%; stage II 88.1\% & External validation source; 11 labs\\
-\cite{cawley2010} & 2010 & 13 benchmark sets plus one synthetic & Hyperparameter selection & KRR, KLR, GPC & Model-selection overfitting analysis & n/r & Selection variance matters; no DOI\\
-\cite{leek2010} & 2010 & Review plus reanalysis of nine data sets & Batch effect diagnostics & Review & n/a & n/r & Motivates cross-cohort batch handling\\
-\cite{feltes2019} & 2019 & CuMiDa (78 curated GEO sets) & Background correction + normalization + QC & Benchmark ML baselines & n/r & n/r & Curated microarray benchmark repository\\
-\cite{warnatherresthal2020} & 2020 & 12,029 samples from 105 studies & High-dimensional genome-wide input & ML for AML prediction & 100 random 80/20 splits; study-disjoint; cross-platform & n/r & AML vs all others including ALL\\
-\cite{warnatherresthal2021} & 2021 & >16,400 blood transcriptomes (incl. leukaemia) & n/r & Swarm Learning (decentralized ML) & Simulated silos of pooled data; global test node & n/r & Central model slightly better on AML\\
-\cite{gorishniy2021} & 2021 & 11 data sets, n 20,640 to 1.2M & n/r & FT-Transformer / ResNet vs GBDT & Benchmark protocol & n/r & Best deep model on most; GBDT wins some\\
-\cite{grinsztajn2022} & 2022 & 45 data sets, n>=3,000, d<500 & n/r & Tree models vs deep learning & Benchmark protocol & n/r & Regime excludes p>>n microarrays\\
-\cite{alhenawi2022} & 2022 & 132 reviewed studies & Feature selection methods & Systematic review & n/a & n/r & Most frequent research direction (34.9\%)\\
-\cite{xie2022} & 2022 & Golub leukemia (72 x 7129) + 3 others & GNN-based feature ranking aggregation & SVM classifier & 10-fold CV & Leukemia Acc 0.971 with 2 genes & Selection described before 10-fold CV\\
-\cite{rezaee2022} & 2022 & Golub leukemia (72 x 7129) + DLBCL + prostate & Soft-ensemble wrapper gene selection (kNN) & Stacked deep neural network & k-fold CV (K=5-20) & Leukaemia average accuracy 99.6\% & Gene selection vs CV order unclear\\
-\cite{awotunde2022} & 2022 & Golub leukemia (72 x 7129; UCI) & PSO selected 2323 of 7129 genes & HORD-optimized CNN & Random 70/30 and 80/20 splits & Leukemia accuracy 99.9\% (comparison table) & No CV; CML, CLL, healthy classes reported, not in Golub\\
-\cite{alharbi2023} & 2023 & Microarray and RNA-seq (review) & Feature engineering + preprocessing & Review of ML/DL classifiers & n/a & n/r & Covers MLP/CNN/RNN/GNN/transformers\\
-\cite{selvaraj2024} & 2024 & Golub ALL/AML + CuMiDa leukemia & RF feature importance (FI >= 0.04) & Super learner (RF meta-learner) & Stratified 10-fold CV with 20\% test & AML-ALL accuracy 0.98 (Table 2) & FI ranking appears done before CV\\
-\cite{hollmann2025} & 2025 & Up to 10,000 samples, 500 features, 10 classes & n/r & TabPFN foundation model & Benchmark comparisons & n/r & n around 72 untested\\
-\cite{chen2025genept} & 2025 & Gene-level and scRNA-seq tasks & NCBI summaries, text-embedding-ada-002 & GenePT embedding model & Downstream task benchmarks & n/r & Preprint read, not journal version\\
+\caption{Tam literatür özet tablosu (dahil edilen 30 çalışmanın tamamı, kronolojik).}\label{tab:litfull}\\
+\toprule Kaynak & Yıl & Veri seti & Ön işleme/öznitelik seçimi & Yöntem & Doğrulama & En iyi sonuç & Not\\ \midrule\endfirsthead
+\toprule Kaynak & Yıl & Veri seti & Ön işleme/öznitelik seçimi & Yöntem & Doğrulama & En iyi sonuç & Not\\ \midrule\endhead
+\cite{golub1999} & 1999 & Golub ALL/AML (Affymetrix Hu6800) & Sınıf korelasyonuyla bilgilendirici gen seçimi & Sınıf keşfi + ağırlıklı oylama sınıf öngörücüsü & 38 örnekte LOOCV ve sabit 34 & LOOCV 36/38 tahmin; test 29/34 tahmin, tümü doğru; 5 belirsiz & Özgün veri seti; çoğunlukla pediatrik\\
+\cite{furey2000} & 2000 & Yumurtalık, Golub, kolon & bildirilmedi & SVM & Birini dışarıda bırakma ve 38/34 & Golub testi 30-32/34 doğru & Teknikler arasında belirgin fark yok\\
+\cite{armstrong2002} & 2002 & MLL/ALL/AML lösemileri & bildirilmedi & MLL yeniden düzenlenmiş lösemide ifade profili & bildirilmedi & bildirilmedi & Yaygın 3 sınıflı lösemi kıyas seti\\
+\cite{guyon2002} & 2002 & Lösemi ve kolon mikrodizileri & SVM-RFE gen sıralaması & Doğrusal SVM & LOO ve 38/34 & Golub testi 8 veya 16 genle 0/34 hata & Seçimin LOO içinde yapıldığı belirtilmemiş\\
+\cite{dudoit2002} & 2002 & Golub, NCI60, lenfoma & Taban 100, tavan 16000, filtre, log10 & LDA/DLDA, kNN, ağaçlar, birleştirme & 150 tekrarlı 2:1 bölme & DLDA ortanca hata 0 (iki sınıflı lösemi) & Teknik rapor 576 okundu, JASA sürümü değil\\
+\cite{tibshirani2002} & 2002 & SRBCT ve lösemi & Küçültülmüş merkez yumuşak eşikleme & En yakın küçültülmüş merkezler (PAM) & 38 örnekte 10 kat CV ve sabit 34 & CV 1/38, test 2/34, 21 gen & En yakın küçültülmüş merkezler\\
+\cite{ambroise2002} & 2002 & Kolon ve Golub & CV içinde ve dışında gen seçimi & SVM-RFE; Fisher ve ileri seçim & Dış 10 kat CV; .632+ bootstrap & Seçim yanlılığı yaklaşık \%5 (38/34), \%2-3 (72 örnek) & Seçim yanlılığı; CV hatası sıfır değil\\
+\cite{statnikov2005} & 2005 & Lösemi dahil 11 veri seti & Çeşitli gen seçim yöntemleri & Çok kategorili SVM; kNN/sinir ağları/topluluklar & İki çapraz doğrulama tasarımı & bildirilmedi & Çok kategorili SVM en iyi; GEMS sistemi\\
+\cite{zou2005} & 2005 & Metodoloji (mikrodizi örneği dahil) & Elastic net cezası & Cezalı regresyon & bildirilmedi & 10 kat CV 3/38, test 0/34, 45 gen & 0-1 yanıtta kare kayıp\\
+\cite{diazuriarte2006} & 2006 & Golub eğitim 38 x 3.051 + 8 diğer set & RF geriye gen eleme & Rastgele orman; SVM/kNN/DLDA/SC & .632+ bootstrap & SVM 0,014; RF seçimsiz 0,051, seçimle 0,075-0,087 & Lösemide RF 2 gen seçiyor\\
+\cite{varma2006} & 2006 & Yalnızca benzetim (40 örnek, 6.000 öznitelik) & CV içinde ayar & İç içe CV & İç içe ve iç içe olmayan CV & İç içe tahminler gerçek hataya yakın & Neredeyse yansız, hafif kötümser\\
+\cite{andersson2007} & 2007 & 121 çocukluk çağı lösemisi (GSE7186) & bildirilmedi & k en yakın komşu öngörücüleri & Bağımsız veri setiyle doğrulama & T-ALL MRD durumu \%100 doğrulukla sınıflandı & Dış doğrulama kaynağı (pediatrik)\\
+\cite{johnson2007} & 2007 & İki örnek veri seti & Deneysel Bayes konum/ölçek düzeltmesi & ComBat & uygulanamaz & bildirilmedi & ComBat adı makalede geçmiyor\\
+\cite{kohlmann2008} & 2008 & MILE ön aşaması (çok laboratuvarlı) & Laboratuvarlar arası standart protokoller & Laboratuvarlar arası tekrarlanabilirlik çalışması & Laboratuvarlar arası karşılaştırma & bildirilmedi & GEO'da GSE13159 ile bağlantılı\\
+\cite{haferlach2010} & 2010 & MILE aşama I/II (GSE13159 = aşama I) & Tüm genom HG-U133 Plus 2.0 profili & Tüm çiftler doğrusal SVM & Aşama I CV; aşama II ileriye dönük, özel çip & Aşama I 3x30 kat CV \%92,2; aşama II \%88,1 & Dış doğrulama kaynağı; 11 laboratuvar\\
+\cite{cawley2010} & 2010 & 13 kıyas seti ve bir sentetik set & Hiperparametre seçimi & KRR, KLR, GPC & Model seçimi aşırı uyum analizi & bildirilmedi & Seçim varyansı önemli; DOI yok\\
+\cite{leek2010} & 2010 & Derleme ve dokuz veri setinin yeniden analizi & Batch etkisi tanılaması & Derleme & uygulanamaz & bildirilmedi & Kohortlar arası batch işlemeyi gerekçelendirir\\
+\cite{feltes2019} & 2019 & CuMiDa (78 derlenmiş GEO seti) & Arka plan düzeltmesi + normalizasyon + kalite kontrol & Kıyas ML taban modelleri & bildirilmedi & bildirilmedi & Derlenmiş mikrodizi kıyas deposu\\
+\cite{warnatherresthal2020} & 2020 & 105 çalışmadan 12.029 örnek & Yüksek boyutlu tüm genom girdi & AML tahmini için ML & 100 rastgele 80/20 bölme; çalışma-ayrık; platformlar arası & bildirilmedi & ALL dahil diğer tüm örneklere karşı AML\\
+\cite{warnatherresthal2021} & 2021 & >16.400 kan transkriptomu (lösemi dahil) & bildirilmedi & Swarm Learning (merkeziyetsiz ML) & Birleşik verinin benzetimli siloları; genel test düğümü & bildirilmedi & Merkezî model AML'de biraz daha iyi\\
+\cite{gorishniy2021} & 2021 & 11 veri seti, n 20.640 ile 1,2M & bildirilmedi & FT-Transformer / ResNet ve GBDT & Kıyas protokolü & bildirilmedi & Çoğunda en iyi derin model; bazılarında GBDT kazanıyor\\
+\cite{grinsztajn2022} & 2022 & 45 veri seti, n>=3.000, d<500 & bildirilmedi & Ağaç modelleri ve derin öğrenme & Kıyas protokolü & bildirilmedi & Rejim p>>n mikrodizileri kapsamıyor\\
+\cite{alhenawi2022} & 2022 & 132 incelenen çalışma & Öznitelik seçim yöntemleri & Sistematik derleme & uygulanamaz & bildirilmedi & En sık araştırma yönü (\%34,9)\\
+\cite{xie2022} & 2022 & Golub lösemi (72 x 7129) + 3 diğer & GNN tabanlı öznitelik sıralaması birleştirme & SVM sınıflandırıcı & 10 kat CV & Lösemi doğruluğu 2 genle 0,971 & Seçim 10 kat CV'den önce anlatılıyor\\
+\cite{rezaee2022} & 2022 & Golub lösemi (72 x 7129) + DLBCL + prostat & Yumuşak topluluk sarmalayıcı gen seçimi (kNN) & Yığılmış derin sinir ağı & k kat CV (K=5-20) & Lösemi ortalama doğruluğu \%99,6 & Gen seçimi ile CV sırası belirsiz\\
+\cite{awotunde2022} & 2022 & Golub lösemi (72 x 7129; UCI) & PSO 7129 genden 2323'ünü seçti & HORD ile optimize CNN & Rastgele 70/30 ve 80/20 bölmeler & Lösemi doğruluğu \%99,9 (karşılaştırma tablosu) & CV yok; CML, CLL, sağlıklı sınıfları bildiriliyor, Golub'da yok\\
+\cite{alharbi2023} & 2023 & Mikrodizi ve RNA-seq (derleme) & Öznitelik mühendisliği + ön işleme & ML/DL sınıflandırıcı derlemesi & uygulanamaz & bildirilmedi & MLP, CNN, RNN, GNN, transformer kapsanıyor\\
+\cite{selvaraj2024} & 2024 & Golub ALL/AML + CuMiDa lösemi & RF öznitelik önemi (FI >= 0,04) & Süper öğrenici (RF üst öğrenici) & \%20 testle tabakalı 10 kat CV & AML-ALL doğruluğu 0,98 (Tablo 2) & FI sıralaması CV'den önce yapılmış görünüyor\\
+\cite{hollmann2025} & 2025 & 10.000 örnek, 500 öznitelik, 10 sınıfa kadar & bildirilmedi & TabPFN temel modeli & Kıyas karşılaştırmaları & bildirilmedi & n yaklaşık 72 sınanmamış\\
+\cite{chen2025genept} & 2025 & Gen düzeyi ve scRNA-seq görevleri & NCBI özetleri, text-embedding-ada-002 & GenePT gömme modeli & Alt görev kıyasları & bildirilmedi & Ön baskı okundu, dergi sürümü değil\\
 \bottomrule
 \end{longtable}
