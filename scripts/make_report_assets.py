@@ -69,6 +69,7 @@ def build_macros(d: dict) -> dict:
             "GolubNeverPresent": intc(q["genes_never_present"]),
             "GolubPresMin": pct(q["pct_present_min"]), "GolubPresMax": pct(q["pct_present_max"]),
             "GolubFilt": intc(g["n_after_fold_filter"]),
+            "GolubFiltDudoit": intc(g["n_after_fold_filter_floor100"]),
             "GolubSkewRaw": num(ld["skew_raw"]), "GolubSkewLog": num(ld["skew_log"]),
             "GolubRhoLin": num(ld["rho_meansd_linear"]), "GolubRhoLog": num(ld["rho_meansd_log"]),
             "GolubPCOne": pct(e["evr_pc1"]), "GolubPCTwo": pct(e["evr_pc2"]),
