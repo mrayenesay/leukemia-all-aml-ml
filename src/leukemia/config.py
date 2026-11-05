@@ -1,4 +1,5 @@
 """Project-wide constants: paths, random seeds and preprocessing defaults."""
+import os
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -7,6 +8,10 @@ DATA_PROCESSED = ROOT / "data" / "processed"
 RESULTS = ROOT / "results"
 FIGURES = RESULTS / "figures"
 TABLES = RESULTS / "tables"
+
+# Language of generated figures, tables and number macros: "tr" for the interim
+# report and slides, "en" for the final paper.
+REPORT_LANG = os.environ.get("REPORT_LANG", "tr")
 
 # One global seed for everything that is stochastic (t-SNE, CV splits, models).
 SEED = 42

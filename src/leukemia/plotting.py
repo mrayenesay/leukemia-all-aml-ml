@@ -7,6 +7,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 from .config import FIGURES
+from .i18n import localize
 
 # Validated categorical slots (dataviz reference palette, light mode).
 BLUE, ORANGE, AQUA, VIOLET = "#2a78d6", "#eb6834", "#1baf7a", "#6250d6"
@@ -54,6 +55,7 @@ def set_style() -> None:
 
 def save(fig, name: str) -> None:
     FIGURES.mkdir(parents=True, exist_ok=True)
+    localize(fig)
     fig.savefig(FIGURES / f"{name}.pdf")
     fig.savefig(FIGURES / f"{name}.png")
     plt.close(fig)
