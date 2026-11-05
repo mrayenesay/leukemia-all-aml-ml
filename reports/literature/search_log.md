@@ -89,3 +89,11 @@ Lookups by known identifier:
 - **GenePT.** Cited as Chen & Zou, Nat. Biomed. Eng. 9(4):483–493 (2025). The journal title differs from the bioRxiv title.
 - **Armstrong 2002.** Crossref gives online publication 2001-12-03 and print 2002-01 (vol. 30, no. 1). The bib uses 2002.
 - **Values in "best_result".** These were copied from the text that was actually fetched: an abstract or a PMC full-text table. Where the fetched text did not report a Golub-specific number, the cell says "n/r".
+
+## Data and venue checks for the final paper (2026-11-06)
+
+- **MILE stage II, GEO GSE13164.** Roche AmpliChip Leukemia (GPL7473, 1,480 probe sets), 1,152 samples. The series-matrix metadata give 436 ALL and 257 AML (693 acute leukemias, matching Haferlach 2010). Expression values were not inspected: this set stays locked until the final evaluation.
+- **TARGET, NCI GDC API.** Open STAR-count files: TARGET-ALL-P2 532, TARGET-AML 3,227 (the latter includes normal, relapse and model samples; primary-sample filtering is a final-phase step). Class equals project here, so the set is used only to test models trained elsewhere.
+- **IEEE EMBC 2027.** Official page, read 2026-11-06: full papers due 24 January 2027; 5-page limit, up to 4 pages of content and a 5th page of references only, at most 20 references.
+- **Not confirmed.** No official 2027 call was found for CBMS, SIU, CIBCB, BHI or ICHI. AMLDS 2027 and ICBET 2027 appeared only on third-party listings.
+
