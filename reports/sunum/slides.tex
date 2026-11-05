@@ -28,7 +28,7 @@
 \setbeamertemplate{footline}{\hfill\scriptsize\color{gray}\insertframenumber/\inserttotalframenumber\hspace*{4mm}\vspace*{2mm}}
 \setbeamerfont{frametitle}{series=\bfseries}
 
-\title{ALL ve AML Lösemi Alt Tip Sınıflandırması}
+\title{ALL ve AML Lösemi Alt Tip Sınıflandırmasında Sızıntısız Değerlendirme ve Platformlar Arası Aktarım}
 \subtitle{Ara Rapor: Literatür, Veri Setleri ve Keşifsel Veri Analizi}
 \author{Enes AY \quad 503020260092}
 \institute{Eskişehir Osmangazi Üniversitesi, Fen Bilimleri Enstitüsü, Yapay Zeka Programı\\Makine Öğrenmesi ve Anomali Tespiti}
@@ -169,6 +169,31 @@ Rol & ana & benzer 1 & benzer 2 (B4) \\
 \end{enumerate}
 \end{frame}
 
+\begin{frame}{Fizibilite pilotu: makalenin iki iddiası ölçülebilir mi?}
+\begin{columns}[T]
+\column{0.46\textwidth}
+\small
+\textbf{Sızıntı} (38 Golub eğitim örneği, DD)
+\begin{itemize}
+\item Gerçek etiket: içeride \PilotInReal, dışarıda \PilotOutReal
+\item Rastgele etiket: içeride \PilotInPerm, dışarıda \textbf{\PilotOutPerm}
+\end{itemize}
+\vspace{1mm}
+\textbf{Sıralama taşınıyor, eşik taşınmıyor}
+\begin{itemize}
+\item AUC \PilotAucMin--\PilotAucMax, DD \PilotBaMin--\PilotBaMax{} ($z$-skor)
+\end{itemize}
+\vspace{1mm}
+\footnotesize Sabit ayar, ön bulgu; kilitli setlere dokunulmadı.
+\column{0.52\textwidth}
+\scriptsize
+\input{../ara_rapor/generated/pilot_transfer.tex}
+
+\vspace{2mm}
+\small\textbf{Kilitli dış testler:} Golub 34 örnek; MILE aşama 2 (693 akut lösemi, özel çip); TARGET (RNA-seq)
+\end{columns}
+\end{frame}
+
 \begin{frame}{Final planı}
 \begin{columns}[T]
 \column{0.5\textwidth}
@@ -183,7 +208,7 @@ Rol & ana & benzer 1 & benzer 2 (B4) \\
 \begin{itemize}
 \item B1: MLP / autoencoder (+ MILE ön eğitim)
 \item B2: TabPFN, GenePT tarzı gömmeler
-\item B3: uluslararası IEEE konferansına İngilizce makale
+\item B3: İngilizce makale; aday IEEE EMBC 2027 (son tarih 24 Ocak 2027), hocanın yazılı onayıyla
 \item B4: Andersson (3.\ veri seti)
 \end{itemize}
 \textbf{Tekrarlanabilirlik:} \texttt{python run\_all.py}, seed 42, rapordaki her sayı betikten

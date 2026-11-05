@@ -17,7 +17,9 @@ cohort and two independent open cohorts for external validation.
 ## Status
 
 - [x] **Interim report** (literature, data sets, EDA; in Turkish): `reports/ara_rapor/main.pdf`
+- [x] Feasibility pilot for the final paper (leakage inflation, cross-cohort transfer)
 - [ ] Final report: nested CV, 3 ML methods, statistical comparison, bonuses B1/B2/B3/B4
+- [ ] Locked external tests: Golub 34 samples, MILE stage II (GSE13164), TARGET RNA-seq
 
 ## Reproduce
 
@@ -32,6 +34,7 @@ Individual steps:
 ```bash
 python scripts/download_data.py        # ~870 MB, resumable (GEO throttles; MILE can take a while)
 python scripts/run_eda.py              # all figures/tables -> results/
+python scripts/run_feasibility.py      # leakage and transfer pilot (fixed settings)
 python scripts/make_report_assets.py   # results -> LaTeX macros/tables
 ```
 
@@ -56,6 +59,7 @@ run_all.py                     one-command pipeline
 scripts/
   download_data.py             resumable/parallel downloader (Kaggle + GEO)
   run_eda.py                   exploratory analysis of the three cohorts
+  run_feasibility.py           pilot for the final paper; locked test sets are not touched
   make_report_assets.py        numbers.tex, literature + gene tables, DOI-annotated bib
 src/leukemia/
   config.py                    paths, seeds, preprocessing constants
@@ -67,7 +71,7 @@ src/leukemia/
 results/figures, results/tables generated outputs (PDF vector + 300 dpi PNG)
 reports/
   ara_rapor/                   interim report (IEEEtran LaTeX, Turkish)
-  literature/                  references.bib, literature_table.csv (+ _tr), search_log.md
+  literature/                  references.bib, literature_table.csv (+ _tr), search_log.md, okuma_rehberi.md
   genai/                       GenAI usage declaration (A4)
   video/                       script for the interim video (A5)
 ```
