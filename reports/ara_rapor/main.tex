@@ -49,9 +49,9 @@ enes.ay.910@gmail.com}
 Acute lymphoblastic (ALL) and acute myeloid leukemia (AML) need different therapies, and the
 Golub et al.\ microarray data set (72 patients, \GolubP{} probes) is the classic benchmark for
 separating them from gene expression. Because the data are tiny and very high-dimensional
-($p \gg n$), many published accuracies near 100\% rest on validation designs that leak
-information. This interim report lays the foundation for a leakage-free comparison of machine
-learning (ML) methods. We (i) review 38 verified references with a documented search protocol,
+($p \gg n$), several published accuracies near 100\% rest on validation designs that appear to
+leak information. This interim report lays the foundation for a leakage-free comparison of machine
+learning (ML) methods. We (i) review 38 references with a documented search protocol,
 (ii) select two independent open cohorts with the same clinical question---the multicentre MILE
 study (GSE13159, \MileN{} ALL/AML samples, Affymetrix HG-U133 Plus 2.0) and a paediatric
 cohort of Andersson et al.\ (GSE7186, \AndN{} samples, two-colour cDNA arrays)---and (iii) run a
@@ -94,7 +94,8 @@ co-hybridise the sample (Cy3) with a common reference RNA (Cy5) and report a $\l
 \item \RQ{1} (method comparison): Under a leakage-free $5\times5$ nested stratified
 cross-validation (CV) on all 72 Golub samples, do penalised logistic regression, a support vector
 machine (SVM) and a random forest differ in balanced accuracy? $H_0$: equal mean balanced
-accuracy (Friedman test, corrected resampled $t$-test~\cite{nadeau2003,demsar2006}).
+accuracy, tested pairwise with the corrected resampled $t$-test~\cite{nadeau2003} and Holm
+adjustment.
 \item \RQ{2} (protocol): Does the single 38/34 split of the course module yield an estimate inside
 the 95\% confidence interval of nested CV, or is it optimistic or pessimistic?
 \item \RQ{3} (generalisability): Is the ALL/AML signal shared across cohorts and platforms, i.e.\ is
@@ -107,9 +108,9 @@ outperform the best classical model under the identical protocol?
 \RQ{3} is answered in part already by the exploratory analysis in Section~\ref{sec:eda}.
 
 \textbf{Contributions of this interim report.}
-(1) a documented review of 38 verified references (Sec.~\ref{sec:lit}); (2) two harmonised
+(1) a documented review of 38 references (Sec.~\ref{sec:lit}); (2) two harmonised
 external cohorts, three data sets in total (Sec.~\ref{sec:data}); (3) a scripted exploratory data
-analysis (EDA) with numbered modelling implications (Sec.~\ref{sec:eda}); (4) a pre-registered
+analysis (EDA) with numbered modelling implications (Sec.~\ref{sec:eda}); (4) a pre-specified
 plan for the final report (Sec.~\ref{sec:plan}).
 
 % ===========================================================================
@@ -124,51 +125,61 @@ Queries were, e.g., \textit{``golub leukemia gene expression classification''},
 query \textit{``7129'' AND ``72 samples'' AND (leukemia OR leukaemia) AND classification}.
 \emph{Inclusion:} peer-reviewed journal or conference papers about the data sets used,
 classification or feature selection on expression data, validation bias, batch effects, or recent
-small-sample tabular learning. For papers with a reported Golub result, the full text had to
-confirm the 72$\times$7129 data. \emph{Exclusion:} conference abstracts, image-based leukemia
-studies, papers whose leukemia data were not the Golub set, and unindexed venues. Of 152 records
-screened by title, 24 abstracts and 5 full texts were assessed; 30 studies were included, plus
-8 method/statistics references cited in the analysis plan. All 38 entries are peer-reviewed
-and 11 were published in 2021 or later. Every DOI was checked against the Crossref record
-(title, authors, venue, year); the log is \texttt{reports/literature/search\_log.md}.
+tabular learning. For papers with a Golub result we recorded the sample and gene counts they
+report. \emph{Exclusion:} conference abstracts, image-based leukemia studies, papers whose
+Golub-labelled result could not be confirmed, and unindexed venues. Of 152 records screened by
+title, 24 abstracts were assessed; 30 studies and 8 method/statistics references were included.
+All 38 are peer-reviewed and 11 date from 2021 or later. DOIs were verified against Crossref;
+31 works were consulted in full text, 6 at abstract level and 1 at citation level, and the
+claims below were checked against them with AI assistance
+(\texttt{reports/literature/claim\_audit.md}).
 
 \textbf{Data sets and early studies.} Golub et al.~\cite{golub1999} introduced class discovery and
 class prediction with a 50-gene weighted-voting predictor learnt on 38 samples and applied to 34
-independent samples. Armstrong et al.~\cite{armstrong2002} showed that MLL-rearranged leukemias
-form a distinct expression class, and the MILE study~\cite{kohlmann2008,haferlach2010}
-standardised expression profiling across laboratories, reaching 92.2\% accuracy over 18 classes.
+independent samples. Armstrong et al.~\cite{armstrong2002} showed that lymphoblastic leukemias with MLL translocations
+form a distinct expression class. MILE standardised protocols across 11
+laboratories~\cite{kohlmann2008} and reached 92.2\% cross-validated concordance with the gold
+standard over 18 classes and 88.1\% in an independent prospective cohort~\cite{haferlach2010}.
 Andersson et al.~\cite{andersson2007} classified 121 consecutive childhood leukemias with
 $k$-nearest neighbours. CuMiDa~\cite{feltes2019} curates such data sets for benchmarking.
 
-\textbf{Classifiers and gene selection.} SVMs~\cite{cortes1995} became the default for
-microarrays~\cite{furey2000}, and SVM-RFE introduced wrapper gene selection~\cite{guyon2002}.
-Dudoit et al.~\cite{dudoit2002} found that simple diagonal discriminant analysis and $k$-NN rival
-complex methods, Tibshirani et al.~\cite{tibshirani2002} proposed nearest shrunken centroids, and
-Díaz-Uriarte and Alvarez de Andrés~\cite{diazuriarte2006} used random forests~\cite{breiman2001}
-for gene selection (.632+ error on Golub: SVM 0.014, RF 0.051). Statnikov et
-al.~\cite{statnikov2005} found multicategory SVMs strongest across 11 data sets, and the elastic
-net~\cite{zou2005} offers sparse, correlated-feature-aware linear models. Reviews from 2022--2023
-summarise hybrid filter--wrapper selection as the dominant approach~\cite{alhenawi2022,alharbi2023}.
+\textbf{Classifiers and gene selection.} SVMs~\cite{cortes1995} were applied early to microarray
+classification~\cite{furey2000,guyon2002}, and SVM-RFE introduced recursive backward elimination
+of genes~\cite{guyon2002}. Dudoit et al.~\cite{dudoit2002} found that simple diagonal discriminant
+analysis and $k$-NN rival complex methods, Tibshirani et al.~\cite{tibshirani2002} proposed nearest
+shrunken centroids, and Díaz-Uriarte and Alvarez de Andrés~\cite{diazuriarte2006} used random
+forests~\cite{breiman2001} for gene selection. Statnikov et al.~\cite{statnikov2005} found
+multicategory SVMs strongest across 11 data sets, and the elastic net~\cite{zou2005} offers sparse
+models that group correlated predictors. A review of 132 papers found hybrid feature selection the
+most frequent research direction (34.9\%)~\cite{alhenawi2022}; another groups selection into
+filter, wrapper, embedded and hybrid methods~\cite{alharbi2023}.
 
 \textbf{Validation bias and batch effects.} Selecting genes on all samples before CV produces
-optimistic error rates~\cite{ambroise2002}, and so does tuning hyper-parameters on the
-evaluation folds; nested CV removes this bias~\cite{varma2006,cawley2010}. Inference on CV
-estimates needs a variance correction for overlapping training sets~\cite{nadeau2003}, and
-multiple classifiers should be compared with rank tests~\cite{demsar2006}. Batch effects can
-dominate expression data~\cite{leek2010} and are commonly corrected with ComBat~\cite{johnson2007}.
+optimistic error rates~\cite{ambroise2002}, and so does tuning hyper-parameters on the evaluation
+folds. Nested CV avoids this bias and gave almost unbiased, slightly pessimistic estimates in
+simulation~\cite{varma2006}; the variance of the selection criterion remains a
+concern~\cite{cawley2010}. Tests on resampled estimates must account for overlapping training
+sets; the correction of~\cite{nadeau2003} was derived for random subsampling, and rank tests are
+recommended across multiple data sets~\cite{demsar2006}. Batch effects can dominate expression
+data~\cite{leek2010} and can be adjusted with an empirical Bayes location/scale method
+(ComBat)~\cite{johnson2007}.
 
-\textbf{Recent work.} Large-scale transcriptome studies show that AML can be predicted across
-105 studies~\cite{warnatherresthal2020} and that decentralised ``swarm'' learning works on
-multi-site leukemia data~\cite{warnatherresthal2021}. Recent Golub results are very
-high~\cite{xie2022,rezaee2022,awotunde2022,selvaraj2024}, but in our reading two of them rank
-genes outside the CV loop or rely on random hold-out splits only (\tabref{tab:lit}). For
-tabular data, tree ensembles often beat deep networks~\cite{grinsztajn2022}; FT-Transformer~\cite{gorishniy2021}
-and the tabular foundation model TabPFN~\cite{hollmann2025} are the strongest neural
-alternatives, and GenePT~\cite{chen2025genept} builds gene embeddings from language-model text
-representations.
+\textbf{Recent work.} AML can be separated from all other samples, including ALL, in 12,029
+transcriptomes from 105 studies, also with study-disjoint splits~\cite{warnatherresthal2020},
+and swarm learning outperforms single-node models on simulated multi-site partitions of such
+data~\cite{warnatherresthal2021}. Recent results labelled as Golub are very
+high~\cite{xie2022,rezaee2022,awotunde2022,selvaraj2024}. As far as the papers describe their
+protocols, however,~\cite{xie2022,selvaraj2024} select genes before the CV loop,~\cite{awotunde2022}
+uses random hold-outs with selection and tuning on the same data (and lists CML, CLL and healthy
+classes that Golub does not contain), and~\cite{rezaee2022} does not state whether selection is
+repeated in each fold. On medium-sized, low-dimensional tabular benchmarks, tree ensembles beat
+deep networks~\cite{grinsztajn2022}, a regime that excludes $p\gg n$ microarrays. FT-Transformer was
+the best deep model on most of 11 data sets without always beating boosted trees~\cite{gorishniy2021},
+TabPFN outperformed tuned tree ensembles on up to 10,000 samples and 500 features~\cite{hollmann2025},
+and GenePT embeds gene text summaries with a language model~\cite{chen2025genept}.
 
 \begin{table*}[!t]
-\caption{Literature summary (subset; the full 30-study table is in Appendix~A). ``n/r'': no Golub-specific number in the text we could access.}
+\caption{Literature summary (subset; the full 30-study table is in Appendix~A). Leakage risk is our reading of the reported protocol order.}
 \label{tab:lit}
 \centering\scriptsize
 \setlength{\tabcolsep}{3pt}
@@ -176,26 +187,30 @@ representations.
 \toprule
 Ref. (year) & Data set & Pre-processing / feature selection & Method & Validation & Best result & Leakage risk\\
 \midrule
-\cite{golub1999} (1999) & Golub 38/34 & class-correlation (SNR) gene selection & 50-gene weighted voting & fixed independent test & n/r & low (selection on train) \\
-\cite{dudoit2002} (2002) & Golub, NCI60, lymphoma & clip, log, univariate filter & DLDA, $k$-NN, trees & repeated 2:1 splits & n/r & low \\
-\cite{ambroise2002} (2002) & colon, leukemia & selection inside vs.\ outside CV & SVM-RFE & external 10-fold, .632+ & shows bias & -- (studies leakage) \\
-\cite{diazuriarte2006} (2006) & Golub + 8 & RF backward elimination & RF vs.\ SVM, $k$-NN & .632+ bootstrap & error: SVM .014, RF .051 & low \\
-\cite{haferlach2010} (2010) & MILE stage I+II & standardised U133+2 & multiclass classifier & multi-centre + prospective & 92.2\% (18 classes) & low \\
-\cite{xie2022} (2022) & Golub + 3 & GNN-based ranking & SVM & 10-fold CV & acc.\ 0.971 (2 genes) & unclear \\
+\cite{golub1999} (1999) & Golub 38/34 & class-correlation (SNR) gene selection & 50-gene weighted voting & LOOCV + fixed independent test & test: 29/34 called, all correct & low (selection on train) \\
+\cite{dudoit2002} (2002) & Golub, NCI60, lymphoma & clip, log, univariate filter & DLDA, $k$-NN, trees & 150 repeated 2:1 splits & DLDA median error 0 & low \\
+\cite{ambroise2002} (2002) & colon, Golub & selection inside vs.\ outside CV & SVM-RFE; Fisher + forward selection & external 10-fold, .632+ & selection bias about 5\% & -- (studies leakage) \\
+\cite{diazuriarte2006} (2006) & Golub train (38$\times$3,051) + 8 & RF backward elimination & RF vs.\ SVM, $k$-NN & .632+ bootstrap & error: SVM .014; RF .051 (no selection) & low \\
+\cite{haferlach2010} (2010) & MILE stage I+II & standardised U133+2 & all-pairs linear SVM & 3$\times$30-fold CV + prospective cohort & CV 92.2\%, stage II 88.1\% (18 classes) & low \\
+\cite{xie2022} (2022) & Golub + 3 & GNN-based ranking & SVM & 10-fold CV & acc.\ 0.971 (2 genes) & likely high (selection before CV) \\
 \cite{rezaee2022} (2022) & Golub + 2 & ensemble wrapper ($k$-NN) & stacked DNN & $k$-fold CV & acc.\ 99.6\% & unclear (selection order) \\
-\cite{awotunde2022} (2022) & Golub (UCI) & PSO (2,323 genes) & optimised CNN & random 70/30, 80/20 & acc.\ 99.9\% & high (no CV) \\
+\cite{awotunde2022} (2022) & ``Golub'' (UCI)$^\dagger$ & PSO (2,323 genes) & optimised CNN & random 70/30, 80/20 & acc.\ 99.9\% & high (no CV) \\
 \cite{selvaraj2024} (2024) & Golub + CuMiDa & RF importance $\geq0.04$ & super learner & 10-fold CV + 20\% test & acc.\ 0.98 & high (ranking before CV) \\
 \bottomrule
+\multicolumn{7}{@{}l}{$^\dagger$The paper also lists CML, CLL and healthy classes, which the Golub data do not contain.}
 \end{tabularx}
 \end{table*}
 
-\textbf{Gap.} Reported Golub accuracies range from 97\% to almost 100\%, but they are hard to
-compare: protocols mix LOOCV, $k$-fold CV, the fixed 38/34 split and random hold-outs. Gene
-selection is often done on the full data, and confidence intervals are rarely reported.
-Moreover, almost all studies evaluate on Golub alone, so it remains unclear whether the
-selected genes or the method rankings transfer to other platforms and patient groups. This
-project addresses all three issues: one leakage-free nested protocol for every method, interval
-estimates with statistical tests, and the same pipeline applied to two external cohorts.
+\textbf{Gap.} In the four recent studies of \tabref{tab:lit}, accuracies lie between 97\% and almost
+100\%, whereas earlier work with fixed or external validation reports lower figures (e.g.\ 2/34
+test errors~\cite{tibshirani2002}, about 5\% error after correcting for selection
+bias~\cite{ambroise2002}). The numbers are hard to compare: protocols mix LOOCV, $k$-fold CV, the
+fixed split and random hold-outs, some studies select genes on the full
+data~\cite{guyon2002,xie2022,selvaraj2024}, and none of the four recent studies reports a confidence
+interval. Most evaluate further data sets, but separately: in the Golub-based classification
+papers we read, no classifier or gene list is transferred to an independent leukemia cohort or
+platform. This project addresses these issues with one leakage-free nested protocol, interval
+estimates and the same pipeline on two external cohorts.
 
 % ===========================================================================
 \section{Data Sets}\label{sec:data}
@@ -207,15 +222,16 @@ Appendix~C (\figref{fig:classes}).
 obtained from the Kaggle mirror of the original Broad Institute files (``Gene expression data set
 (Golub et al.)'', licence CC0). Platform: Affymetrix Hu6800/HuGeneFL (GEO GPL80), \GolubP{}
 probe sets (\GolubAffx{} AFFX controls; \GolubMapped{} map to a gene symbol), MAS~4 average
-difference with P/M/A calls. Mostly adult patients and bone-marrow samples; the independent set is more
-heterogeneous (it also contains peripheral-blood samples)~\cite{golub1999}. The reference
+difference with P/M/A calls. Most patients were children (all 47 ALL and 10 of the 25 AML cases)
+and 62 of the 72 samples are bone marrow; the independent set is more heterogeneous (peripheral
+blood, childhood AML, different reference laboratories)~\cite{golub1999}. The reference
 split has 38 training samples (\GolubTrainALL{} ALL / \GolubTrainAML{} AML) and 34
 independent samples (\GolubTestALL{} / \GolubTestAML{}), 65\%/35\% overall.
 
 \textbf{MILE (similar data set 1).} Microarray Innovations in LEukemia, stage~1, GEO GSE13159
 (DOIs 10.1200/JCO.2009.23.4732, 10.1111/j.1365-2141.2008.07261.x)~\cite{haferlach2010,kohlmann2008}.
 It contains \MileTotal{} diagnostic samples in \MileClassesTotal{} classes, profiled with standardised protocols in
-several centres on Affymetrix HG-U133 Plus 2.0 (GPL570, \MileP{} probe sets) from quantile-normalised
+11 laboratories on Affymetrix HG-U133 Plus 2.0 (GPL570, \MileP{} probe sets) from quantile-normalised
 signal~\cite{liu2006}. We map the \MileNSubtypes{} ALL and AML
 classes to the binary label and exclude CLL, CML, MDS and non-leukemic samples. This leaves
 \MileN{} samples (\MileALL{} ALL / \MileAML{} AML; \MileBM{} bone marrow, \MilePB{} peripheral
@@ -226,24 +242,21 @@ data set large enough for pre-training (bonus B1).
 \textbf{Andersson (similar data set 2, bonus B4).} 121 consecutive childhood acute leukemias from
 Lund, Sweden, GEO GSE7186 (DOI 10.1038/sj.leu.2404688)~\cite{andersson2007}: \AndBALL{} B-lineage ALL,
 \AndTALL{} T-cell ALL and \AndAML{} AML (\AndExcluded{} normal bone-marrow controls excluded).
-Most samples are bone marrow (108), the rest peripheral blood (13). Platform: Swegene Human 27K
+According to GEO, 108 samples are bone marrow and 13 peripheral blood. Platform: Swegene Human 27K
 RAP two-colour spotted cDNA array (GPL4861, \AndP{} reporters). Values are lowess-normalised
 $\log_2$(sample/Universal Human Reference) ratios, centred per hospital and pre-filtered for
 40\% presence, so \AndMissingPct\% of the values are missing. \emph{Why it was chosen:} same
-question but a different technology, an all-paediatric population and real missing values,
-which makes it a demanding external test.
+question but a different technology, a fully paediatric series and real missing values.
 
-\emph{Licences.} GEO data are public; NCBI places no restrictions on their use, although
-submitters may hold rights to the original data. All three sets are used for non-commercial
-academic research with citation of the original publications.
+\emph{Licences.} NCBI places no restrictions on GEO data, although submitters may hold rights;
+all sets are used for academic research with citation.
 
 \textbf{Harmonisation.} Probes were mapped to HGNC symbols with the GEO platform annotations
 (GPL80/GPL570/GPL4861). Ambiguous probes (``\texttt{A///B}'') were removed and multiple probes
 per gene were collapsed to the probe with the highest mean expression. This gives
 \GenesGolub{}, \GenesMile{} and \GenesAnd{} genes, with \CommonGM{} genes shared by Golub and
-MILE, \CommonGA{} by Golub and Andersson, and \CommonAll{} by all three. The platforms differ in
-scale (linear intensity vs.\ log ratio), probe design and number of genes, so cross-cohort
-modelling will use per-cohort standardisation on the common genes (Section~\ref{sec:cross}).
+MILE, \CommonGA{} by Golub and Andersson, and \CommonAll{} by all three; the platforms differ in
+scale, probe design and gene coverage (Section~\ref{sec:cross}).
 
 \begin{table}[!t]
 \caption{The three data sets side by side.}
@@ -258,7 +271,7 @@ Source & \cite{golub1999}, Kaggle (CC0) & GSE13159 & GSE7186 \\
 Platform & Hu6800 (GPL80) & U133 Plus 2.0 (GPL570) & 27K cDNA (GPL4861) \\
 Technology & 1-colour oligo & 1-colour oligo & 2-colour cDNA \\
 Measure & MAS4 avg.\ diff. & range-scaled log & $\log_2$ ratio \\
-Population & mostly adult & multicentre & paediatric \\
+Population & mostly paediatric & multicentre & paediatric \\
 Samples $n$ & \GolubN{} & \MileN{} & \AndN{} \\
 Features $p$ & \GolubP{} & \MileP{} & \AndP{} \\
 ALL / AML & 47 / 25 & \MileALL{} / \MileAML{} & \AndALL{} / \AndAML{} \\
@@ -315,14 +328,16 @@ training folds.
 \end{figure*}
 
 \subsection{Distributions and transformation}
-Following~\cite{dudoit2002}, values were clipped to $[20, 16000]$ and $\log_2$-transformed.
+Values were clipped to the window $[20, 16000]$ given in the course guide and $\log_2$-transformed
+(Dudoit et al.~\cite{dudoit2002} used a floor of 100, the same ceiling and base-10 logs).
 The pooled skewness falls from \GolubSkewRaw{} to \GolubSkewLog{}, and the Spearman
 correlation between gene mean and standard deviation drops from \GolubRhoLin{} to
 \GolubRhoLog{} (Appendix, \figref{fig:logdist}). The transform thus removes most of the mean--variance
 dependence that would otherwise let a few high-intensity genes dominate distance-based methods
 (SVM, $k$-NN, PCA). After clipping, about one third of the values sit at the floor
-($\log_2 20$), visible as a spike in the density. A fold-change filter
-(max/min $>5$, max$-$min $>500$) keeps \GolubFilt{} of the \GolubP{} probes. MILE (range-scaled
+($\log_2 20$), visible as a spike in the density. The filter of~\cite{dudoit2002}
+(max/min $>5$ and max$-$min $>500$) keeps \GolubFilt{} of the \GolubP{} probes; with a floor of
+100 it keeps \GolubFiltDudoit{}, exactly the gene count of~\cite{dudoit2002}. MILE (range-scaled
 log) and Andersson ($\log_2$ ratio, median \AndMedian{}) are already on log scales.
 
 
@@ -338,7 +353,7 @@ training samples. In MILE (top 5,000 variable probes) the best single PC reaches
 
 \begin{figure*}[!t]
 \centering
-\fig[width=0.86\textwidth]{fig_embeddings_overview.pdf}
+\fig[width=0.8\textwidth]{fig_embeddings_overview.pdf}
 \caption{Unsupervised embeddings of the three cohorts (top: PCA, bottom: t-SNE; colour/marker: class). Golub independent-set samples have black edges. All cohorts show a dominant ALL/AML axis; scree plots are in Appendix~C.}
 \label{fig:embed}
 \end{figure*}
@@ -351,7 +366,7 @@ Benjamini--Hochberg FDR~\cite{benjamini1995}) and Golub's signal-to-noise ratio 
 SNR and $t$ rank genes almost identically ($\rho=\GolubRhoSNR$; Appendix~C). The top genes
 (Appendix, \tabref{tab:genes}) agree with known biology: myeloid genes (CST3, CD33, MPO, ZYX, MGST1) are
 higher in AML, and lymphoid/B-cell genes (TCF3, CD79B, CD19, DNTT, VPREB1, CCND3) are higher in
-ALL. CST3, ZYX and CD33 are also among the markers highlighted by~\cite{golub1999}. Hierarchical
+ALL. CST3, ZYX and CD33 are also among the 50 informative genes of~\cite{golub1999}. Hierarchical
 clustering of the samples on the top-30 genes (\figref{fig:heat}) recovers the classes
 (adjusted Rand index ARI $=\GolubARI$). In Andersson the ARI is only \AndARI{}: the T-ALL samples
 cluster next to AML, because they lack the B-cell programme that drives most ALL-high genes. With
@@ -371,20 +386,15 @@ the ranking.
 The mean Present rate is \GolubPresTrain\% in the training set and \GolubPresTest\% in the
 independent set (Mann--Whitney $p=\GolubPresP$). The 75th-percentile intensity, a proxy for
 array brightness, is lower in the independent set (median \GolubQTest{} vs.\ \GolubQTrain{},
-$p=\GolubQP$; \figref{fig:batch}a,b). To separate batch from class composition we compared
+$p=\GolubQP$; Appendix, \figref{fig:batch}). To separate batch from class composition we compared
 train and test \emph{within} each class with per-gene Kolmogorov--Smirnov tests. Under no shift,
 5\% of the genes would have $p<0.05$. We observe \GolubKSAll\% for ALL (\GolubKSqAll{} genes
-significant after FDR) and \GolubKSAml\% for AML (\GolubKSqAml{} genes) (\figref{fig:batch}c).
+significant after FDR) and \GolubKSAml\% for AML (\GolubKSqAml{} genes).
 So there is a moderate, ALL-specific shift. This is consistent with the more heterogeneous
-collection of the independent samples, and it is one reason why a single 34-sample test score
-can differ from CV estimates (\RQ{2}).
+collection of the independent samples and may be one reason why a single 34-sample test score
+can differ from CV estimates (\RQ{2}), although~\cite{dudoit2002} saw no clear loss of accuracy
+on this split.
 
-\begin{figure*}[!t]
-\centering
-\fig[width=\textwidth]{fig_golub_batch.pdf}
-\caption{Golub train vs.\ independent set. (a) Present-call rate and (b) array brightness by split and class. (c) Per-gene KS $p$-values comparing train and test within each class; the excess near 0 for ALL indicates a distribution shift.}
-\label{fig:batch}
-\end{figure*}
 
 \subsection{Cross-cohort comparison}\label{sec:cross}
 On the common genes, the gene-wise $t$ statistics are positively correlated between cohorts
@@ -397,8 +407,9 @@ Andersson ($p=\OvGAp$). \SharedTopN{} genes are in the top \OvN{} of all three c
 explains $\eta^2=\EtaRawDataset\%$ of PC1 and class only \EtaRawClass\% (\figref{fig:cross}c).
 After per-cohort gene-wise $z$-scoring, cohort explains \EtaStdDataset\% and class
 \EtaStdClass\% (\figref{fig:cross}d). The biology transfers across cohorts but the measurement
-scale does not, so cross-cohort models need per-cohort standardisation (or ComBat~\cite{johnson2007}),
-always estimated without test labels.
+scale does not, so cross-cohort models will use per-cohort standardisation or
+ComBat~\cite{johnson2007}, estimated without test labels; because class proportions differ between
+cohorts, these adjustments can remove class signal, which will be checked.
 
 \begin{figure*}[!t]
 \centering
@@ -435,11 +446,11 @@ and will be analysed.
 \section{Plan for the Final Report}\label{sec:plan}
 % ===========================================================================
 \textbf{Methods (no results yet).} Three ML methods, chosen to cover different inductive biases:
-(M1) \emph{elastic-net logistic regression}, a sparse linear model that copes with correlated
-genes and yields interpretable coefficients~\cite{zou2005}; (M2) an \emph{SVM} with linear and
+(M1) \emph{logistic regression with the elastic-net penalty}~\cite{zou2005}, a sparse linear
+model with interpretable coefficients; (M2) an \emph{SVM} with linear and
 RBF kernels, the historical reference for microarrays~\cite{furey2000,guyon2002}; and (M3) a
-\emph{random forest}, which is non-linear, scale-invariant and has built-in importance
-measures~\cite{breiman2001,diazuriarte2006}. The module's decision tree is kept as a baseline.
+\emph{random forest}, which models interactions, is invariant to monotone
+transformations~\cite{diazuriarte2006} and offers permutation importance~\cite{breiman2001}. The module's decision tree is kept as a baseline.
 
 
 \textbf{Pipeline and validation.} Every data-dependent step of the pipeline (Appendix~B, \figref{fig:pipeline}) is a
@@ -457,20 +468,22 @@ by cost and inner-CV score.
 
 \textbf{Metrics and statistics.} Accuracy, balanced accuracy, precision, recall (sensitivity),
 specificity, F1, ROC-AUC and confusion matrices, as mean $\pm$ SD over 25 outer folds with
-95\% CIs from the corrected resampled $t$~\cite{nadeau2003}; Friedman/Nemenyi~\cite{demsar2006}
-across methods and McNemar on the fixed split; ROC/PR, loss and $k$--performance curves.
+approximate 95\% CIs from the corrected resampled $t$~\cite{nadeau2003}; pairwise tests with Holm
+adjustment within a cohort, descriptive average ranks across the three cohorts~\cite{demsar2006},
+and McNemar on the fixed split (two trained models only); ROC/PR, loss and $k$--performance curves.
 
 \textbf{Bonuses.} \emph{B1:} MLP (dropout, weight decay) and autoencoder + classifier, with early
 stopping and architecture choice in the inner folds and optional pre-training on MILE.
-\emph{B2:} TabPFN v2~\cite{hollmann2025} after in-fold selection of $\leq 500$ genes, and
-GenePT-style embeddings~\cite{chen2025genept}. \emph{B3:} submission to an IEEE-sponsored
-conference open in the final week (e.g.\ SIU, TIPTEKNO; with the instructor's approval).
+\emph{B2:} TabPFN~\cite{hollmann2025} (pinned version) after in-fold selection of $\leq 500$ genes,
+the upper end of its evaluated range, and GenePT-style embeddings~\cite{chen2025genept}, an
+untested adaptation to bulk microarrays. \emph{B3:} an English paper for an international
+IEEE-sponsored conference open in the final week (with the instructor's approval).
 \emph{B4:} Andersson as the third data set.
 \textbf{Timeline:} weeks 1--2 Golub nested CV (\RQ{1},\RQ{2}); 3--4 MILE/Andersson, transfer
 and ablations (\RQ{3}); 5--6 B1/B2 (\RQ{4}) and interpretability; 7 paper, video, B3.
 \textbf{Risks:} variance at $n=72$ (repeated nested CV, CIs); batch/platform effects (per-cohort
-scaling, ComBat check); neural overfitting (early stopping); TabPFN's feature limit (in-fold
-selection); LLM memorisation of the famous Golub data (B2).
+scaling, ComBat check); neural overfitting (early stopping); TabPFN's validated range (in-fold
+selection); disease information leaking through gene text summaries (B2).
 
 % ===========================================================================
 \section{Reproducibility and Conclusion}\label{sec:repro}
@@ -483,9 +496,8 @@ scale differences. The final report will test \RQ{1}--\RQ{4} with the protocol a
 
 \section*{Acknowledgment}
 Following IEEE policy on AI-generated content: Anthropic's Claude (Opus 5.5) assisted with
-code, literature-metadata verification and drafting. All code was executed and all references
-were verified against Crossref; the author reviewed the content and takes full responsibility
-(full declaration submitted separately).
+code, literature search, reading and claim checking, and drafting. The author reviewed the
+content and takes full responsibility (full declaration submitted separately).
 
 \bibliographystyle{IEEEtran}
 \bibliography{generated/references}
@@ -528,6 +540,12 @@ were verified against Crossref; the author reviewed the content and takes full r
 \end{figure}
 
 \section{Additional EDA figures}\label{app:figs}
+\begin{figure}[!h]
+\centering
+\fig[width=0.95\textwidth]{fig_golub_batch.pdf}
+\caption{Golub train vs.\ independent set. (a) Present-call rate and (b) array brightness by split and class. (c) Per-gene KS $p$-values comparing train and test within each class; the excess near 0 for ALL indicates a distribution shift.}
+\label{fig:batch}
+\end{figure}
 \begin{table}[!h]
 \caption{Top 12 genes by Welch $p$ in each cohort ($\Delta$: mean difference AML$-$ALL on the cohort's log scale; $t>0$: higher in AML).}
 \label{tab:genes}
