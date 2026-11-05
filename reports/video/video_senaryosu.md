@@ -18,10 +18,10 @@ terminal.
 - Mikrodizi tek cümleyle: binlerce genin mRNA düzeyini aynı anda ölçen çip.
 
 ## 0:45–1:30 — Araştırma soruları (rapor Bölüm I)
-- RQ1: Sızıntısız nested CV'de üç yöntem (elastic-net LR, SVM, RF) anlamlı farklı mı?
-- RQ2: Modüldeki 38/34 tek bölme, nested CV güven aralığının içinde mi?
-- RQ3: Sinyal kohortlar/platformlar arası taşınıyor mu?
-- RQ4 (bonus): Derin öğrenme ve TabPFN klasik yöntemleri geçiyor mu?
+- AS1: Sızıntısız nested CV'de üç yöntem (elastic-net LR, SVM, RF) anlamlı farklı mı?
+- AS2: Modüldeki 38/34 tek bölme, nested CV güven aralığının içinde mi?
+- AS3: Sinyal kohortlar/platformlar arası taşınıyor mu?
+- AS4 (bonus): Derin öğrenme ve TabPFN klasik yöntemleri geçiyor mu?
 
 ## 1:30–3:00 — Literatür (Tablo I)
 - Arama protokolü: Crossref, Europe PMC, PubMed; 2021–2026 keşif + klasikler; 152 kayıt,
@@ -57,7 +57,7 @@ terminal.
    CD19, DNTT (ALL) — bilinen biyolojiyle uyumlu. Uyarı: bu sıralama sadece betimseldir,
    modelde öznitelik seçimi için kullanılırsa sızıntı olur.
 7. **Ek Şekil 6 (batch etkisi):** test seti daha "sönük"; sınıf içi KS testinde ALL için genlerin
-   %17,7'si p<0,05 (beklenen %5) → tek 34 örneklik test skoru yanıltıcı olabilir (RQ2).
+   %17,7'si p<0,05 (beklenen %5) → tek 34 örneklik test skoru yanıltıcı olabilir (AS2).
 8. **Şekil 4 (kohortlar arası):** t istatistikleri kohortlar arası pozitif korelasyonlu, ortak
    üst genler şanstan fazla; ama ölçekler farklı → birleşik PCA'da PC1'i kohort belirliyor,
    kohort içi z-skor sonrası sınıf ekseni ortaya çıkıyor.

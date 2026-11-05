@@ -16,7 +16,7 @@ cohort and two independent open cohorts for external validation.
 
 ## Status
 
-- [x] **Interim report** (literature, data sets, EDA): `reports/ara_rapor/main.pdf`
+- [x] **Interim report** (literature, data sets, EDA; in Turkish): `reports/ara_rapor/main.pdf`
 - [ ] Final report: nested CV, 3 ML methods, statistical comparison, bonuses B1/B2/B3/B4
 
 ## Reproduce
@@ -45,6 +45,10 @@ Every number in the PDF is a macro written by `scripts/make_report_assets.py` fr
 `results/eda_numbers.json`; nothing is typed by hand. Raw data are never committed
 (`data/` is git-ignored) and are re-created by the download script.
 
+**Language.** The interim report, slides and figures are in Turkish. Set
+`REPORT_LANG=en` before `run_eda.py` and `make_report_assets.py` to get English figure
+labels, tables and number formats; the English interim text is in commit `2a02bd0`.
+
 ## Repository layout
 
 ```
@@ -59,10 +63,11 @@ src/leukemia/
   preprocessing.py             sklearn transformers (Clipper, Log2, FoldChangeFilter, VarianceTopK)
   stats.py                     Welch / Mann-Whitney / SNR / BH-FDR
   eda.py, cross.py, plotting.py figures (IEEE column widths, colour-blind-safe palette)
+  i18n.py                      Turkish figure labels and number notation
 results/figures, results/tables generated outputs (PDF vector + 300 dpi PNG)
 reports/
-  ara_rapor/                   interim report (IEEEtran LaTeX)
-  literature/                  references.bib, literature_table.csv, search_log.md
+  ara_rapor/                   interim report (IEEEtran LaTeX, Turkish)
+  literature/                  references.bib, literature_table.csv (+ _tr), search_log.md
   genai/                       GenAI usage declaration (A4)
   video/                       script for the interim video (A5)
 ```
