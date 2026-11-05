@@ -10,24 +10,32 @@ from __future__ import annotations
 
 import csv
 import json
+import os
 import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+TR = os.environ.get("REPORT_LANG", "tr") == "tr"  # same switch as leukemia.config
 RES = ROOT / "results"
 GEN = ROOT / "reports" / "ara_rapor" / "generated"
 
 
+def dec(s: str) -> str:
+    """Decimal mark of the report language (braces keep math spacing right)."""
+    return s.replace(".", "{,}").replace("-", r"\ensuremath{-}") if TR else s
+
+
 def pct(x, d=1):
-    return f"{100 * x:.{d}f}"
+    return dec(f"{100 * x:.{d}f}")
 
 
 def num(x, d=2):
-    return f"{x:.{d}f}"
+    return dec(f"{x:.{d}f}")
 
 
 def intc(x):
-    return f"{int(x):,}".replace(",", "{,}")
+    s = f"{abs(int(x)):,}".replace(",", "{.}" if TR else "{,}")
+    return r"\ensuremath{-}" + s if x < 0 else s
 
 
 def sci(p):
@@ -35,7 +43,7 @@ def sci(p):
     if p == 0:
         return r"<10^{-300}"
     m, e = f"{p:.1e}".split("e")
-    return rf"{m}\times10^{{{int(e)}}}"
+    return rf"{dec(m)}\times10^{{{int(e)}}}"
 
 
 def tex_escape(s: str) -> str:
@@ -182,12 +190,23 @@ def write_macros(M: dict) -> None:
 
 def literature_table() -> None:
     """Full literature table (appendix) from reports/literature/literature_table.csv."""
-    rows = list(csv.DictReader(open(ROOT / "reports" / "literature" / "literature_table.csv", encoding="utf-8")))
+    lit = ROOT / "reports" / "literature"
+    rows = list(csv.DictReader(open(lit / "literature_table.csv", encoding="utf-8")))
+    if TR:  # Turkish cells live in their own file; the English table serves the final paper
+        tr = {r["key"]: r for r in csv.DictReader(open(lit / "literature_table_tr.csv", encoding="utf-8"))}
+        assert set(tr) == {r["key"] for r in rows}
+        assert all(None not in r for r in tr.values()), "unquoted comma in literature_table_tr.csv"
+        rows = [{**r, **tr[r["key"]]} for r in rows]
     rows.sort(key=lambda r: int(r["year"]))
+    head = (r"\toprule Kaynak & Yıl & Veri seti & Ön işleme/öznitelik seçimi & Yöntem & Doğrulama & En iyi sonuç & Not\\ \midrule"
+            if TR else
+            r"\toprule Ref. & Year & Data set & Pre-proc./feature sel. & Method & Validation & Best result & Note\\ \midrule")
+    caption = ("Tam literatür özet tablosu (dahil edilen 30 çalışmanın tamamı, kronolojik)." if TR else
+               "Full literature summary table (all 30 included studies, chronological).")
     out = [r"\begin{longtable}{@{}p{0.9cm}p{0.5cm}p{2.3cm}p{2.6cm}p{2.6cm}p{2.3cm}p{2.6cm}p{2.4cm}@{}}",
-           r"\caption{Full literature summary table (all 30 included studies, chronological).}\label{tab:litfull}\\",
-           r"\toprule Ref. & Year & Data set & Pre-proc./feature sel. & Method & Validation & Best result & Note\\ \midrule\endfirsthead",
-           r"\toprule Ref. & Year & Data set & Pre-proc./feature sel. & Method & Validation & Best result & Note\\ \midrule\endhead"]
+           rf"\caption{{{caption}}}\label{{tab:litfull}}\\",
+           head + r"\endfirsthead",
+           head + r"\endhead"]
     for r in rows:
         cells = [rf"\cite{{{r['key']}}}", r["year"]] + [tex_escape(r[k]) for k in
                  ("dataset", "preprocessing_feature_selection", "method", "validation", "best_result", "note")]
@@ -207,15 +226,16 @@ def top_gene_table(n: int = 12) -> None:
         rows = list(csv.DictReader(open(f, encoding="utf-8")))[:n]
         cols.append([(tex_escape((r["symbol"] or "--").split("///")[0]), float(r["log2FC"]), float(r["t"]))
                      for r in rows])
+    gene = "gen" if TR else "gene"
     out = [r"\begin{tabular}{@{}r lrr lrr lrr@{}}", r"\toprule",
            r" & \multicolumn{3}{c}{Golub} & \multicolumn{3}{c}{MILE} & \multicolumn{3}{c}{Andersson}\\",
            r"\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(l){8-10}",
-           r"\# & gene & $\Delta$ & $t$ & gene & $\Delta$ & $t$ & gene & $\Delta$ & $t$\\ \midrule"]
+           rf"\# & {gene} & $\Delta$ & $t$ & {gene} & $\Delta$ & $t$ & {gene} & $\Delta$ & $t$\\ \midrule"]
     for i in range(n):
         cells = [str(i + 1)]
         for c in cols:
             s, fc, t = c[i]
-            cells += [s, "--", "--"] if s == "--" else [s, f"{fc:+.2f}", f"{t:+.1f}"]
+            cells += [s, "--", "--"] if s == "--" else [s, dec(f"{fc:+.2f}"), dec(f"{t:+.1f}")]
         out.append(" & ".join(cells) + r"\\")
     out += [r"\bottomrule", r"\end{tabular}"]
     (GEN / "top_genes.tex").write_text("\n".join(out) + "\n", encoding="utf-8")
