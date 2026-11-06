@@ -64,7 +64,7 @@ mikrodizi veri seti (72 hasta, \GolubP{} prob) bu iki sınıfı gen ifadesinden 
 kıyas setidir. Veri çok küçük ve çok yüksek boyutlu olduğundan ($p \gg n$), yayımlanmış ve
 \%100'e yakın bazı doğruluklar bilgi sızdırıyor görünen doğrulama tasarımlarına dayanır. Bu ara
 rapor, makine öğrenmesi (ML) yöntemlerinin sızıntısız karşılaştırmasının temelini atar:
-(i) belgelenmiş bir arama protokolüyle 38 kaynak incelenmiş, (ii) aynı klinik soruyu taşıyan iki
+(i) belgelenmiş bir arama protokolüyle 52 kaynak incelenmiş, (ii) aynı klinik soruyu taşıyan iki
 bağımsız açık kohort seçilmiş---çok merkezli MILE çalışması (GSE13159, \MileN{} ALL/AML örneği,
 Affymetrix HG-U133 Plus 2.0) ve Andersson vd.\ pediatrik kohortu (GSE7186, \AndN{} örnek, iki
 renkli cDNA dizileri)---ve (iii) tümüyle betiklenmiş bir keşifsel analiz yürütülmüştür. Golub
@@ -75,9 +75,9 @@ istatistikleri kohortlar arasında koreledir (Spearman $\rho=\RhoGM$ Golub--MILE
 Golub--Andersson); her kohort standartlaştırılana kadar birleşik varyansa sınıf değil, veri seti
 kimliği hâkimdir. Sabit ayarlı bir fizibilite pilotunda, gen seçimini çapraz doğrulama dışına almak
 rastgele etiketlerde bile dengeli doğruluğu \PilotInPerm{} düzeyinden \PilotOutPerm{} düzeyine
-çıkarmış; kohortlar arası aktarımda AUC \PilotAucMin--\PilotAucMax{} kalırken dengeli doğruluk
-\PilotBaMin--\PilotBaMax{} aralığına yayılmıştır. Bu bulgular, kilitli dış test setlerini de içeren
-final makalesinin tasarımını belirler.
+çıkarmış; sabit kohortlar arası aktarımda altı yönün \PilotRawSingle'ünde AUC
+\PilotRawAucMin--\PilotRawAucMax{} iken dengeli doğruluk 0,50 olmuştur. Bu bulgular, kilitli dış test
+setlerini de içeren final makalesinin tasarımını belirler.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -123,7 +123,7 @@ protokolde en iyi klasik modeli geçer mi?
 \AS{3}, Bölüm~\ref{sec:eda}'teki keşifsel analizle kısmen yanıtlanmıştır.
 
 \textbf{Bu ara raporun katkıları.}
-(1) 38 kaynağın belgelenmiş taraması (Bölüm~\ref{sec:lit}); (2) uyumlaştırılmış iki dış kohort,
+(1) 52 kaynağın belgelenmiş taraması (Bölüm~\ref{sec:lit}); (2) uyumlaştırılmış iki dış kohort,
 toplam üç veri seti (Bölüm~\ref{sec:data}); (3) numaralı modelleme çıkarımları içeren betiklenmiş
 keşifsel veri analizi (EDA) (Bölüm~\ref{sec:eda}); (4) makalenin ana iddialarını sınayan fizibilite
 pilotu ve önceden belirlenmiş plan (Bölüm~\ref{sec:plan}).
@@ -141,57 +141,69 @@ sorgusu \textit{``7129'' AND ``72 samples'' AND (leukemia OR leukaemia) AND clas
 doğrulama yanlılığı, batch etkileri ya da güncel tablosal öğrenme üzerine hakemli dergi veya
 konferans makaleleri. Golub sonucu olan makalelerde bildirilen örnek ve gen sayıları kaydedilmiştir.
 \emph{Dışlama:} konferans özetleri, görüntü tabanlı lösemi çalışmaları, Golub etiketli sonucu
-doğrulanamayan makaleler ve dizinlenmeyen yayın organları. Başlığına göre taranan 152 kayıttan
-24'ünün özeti değerlendirilmiş; 30 çalışma ile 8 yöntem/istatistik kaynağı dahil edilmiştir. 38 kaynağın tamamı
-hakemlidir ve 11'i 2021 veya sonrasına aittir. DOI'ler Crossref ile doğrulanmış; 31 çalışmaya tam
-metin, 6'sına özet, 1'ine künye düzeyinde başvurulmuş ve aşağıdaki iddialar yapay zekâ desteğiyle
-bu metinlere göre denetlenmiştir (\texttt{reports/literature/claim\_audit.md}).
+doğrulanamayan makaleler ve dizinlenmeyen yayın organları. İlk taramada başlığına göre 152 kayıt elenmiş,
+24 özet değerlendirilmiştir. 6 Kasım 2026'da sızıntı, dış doğrulama, platform aktarımı ve lösemi
+transkriptomu için Europe PMC ve Crossref'te yaklaşık 35 sorguyla hedefli ek tarama yapılmıştır. Sonuçta
+46 çalışma ve 6 yöntem kaynağı dahil edilmiştir: 52 kaynağın 31'i 2021 ve sonrasına, 28'i 2022 ve
+sonrasına aittir; klasikler veri ve özgün yöntemlerle sınırlı tutulmuştur. DOI'ler Crossref ile
+doğrulanmış; 47 çalışmaya tam metin, 4'üne özet, 1'ine künye düzeyinde başvurulmuş ve aşağıdaki
+iddialar yapay zekâ desteğiyle bu metinlere göre denetlenmiştir (\texttt{reports/literature/}).
 
-\textbf{Veri setleri ve erken çalışmalar.} Golub vd.~\cite{golub1999}, 38 örnekte öğrenilip 34
-bağımsız örneğe uygulanan 50 genli ağırlıklı oylama öngörücüsüyle sınıf keşfi ve sınıf tahminini
-tanıtmıştır. Armstrong vd.~\cite{armstrong2002}, MLL translokasyonlu lenfoblastik lösemilerin ayrı
-bir ifade sınıfı oluşturduğunu göstermiştir. MILE, protokolleri 11 laboratuvarda
-standartlaştırmış~\cite{kohlmann2008}; 18 sınıfta altın standartla \%92,2 çapraz doğrulanmış uyuma,
+\textbf{Veri setleri ve lösemi sınıflandırması.} Golub vd.~\cite{golub1999}, 38 örnekte öğrenilip 34
+bağımsız örneğe uygulanan 50 genli ağırlıklı oylama öngörücüsünü tanıtmıştır. MILE, protokolleri 11
+laboratuvarda standartlaştırmış~\cite{kohlmann2008}; 18 sınıfta \%92,2 çapraz doğrulanmış uyuma,
 bağımsız ileriye dönük kohortta \%88,1'e ulaşmıştır~\cite{haferlach2010}. Andersson
-vd.~\cite{andersson2007}, ardışık 121 çocukluk çağı lösemisini $k$ en yakın komşuyla
-sınıflandırmıştır. CuMiDa~\cite{feltes2019} bu tür veri setlerini kıyaslama için derler.
+vd.~\cite{andersson2007} ardışık 121 çocukluk çağı lösemisini $k$-NN ile sınıflandırmıştır. Güncel
+çalışmalar RNA-seq'e geçmiştir: AML, B-ALL ve T-ALL'yi ayıran bir sınıflandırıcı dış veride \%97,5
+duyarlılık ve \%93,7 kesinlik~\cite{mulet2025}, ALLCatchR dışarıda tutulan kohortlarda 21 B-ALL alt
+tipinde 0,957 doğruluk~\cite{beder2023}, sıra dönüşümlü bir derin model AML içermeyen görülmemiş bir
+kohortta \%99,38 soy doğruluğu bildirmiştir~\cite{cui2026}. AML'de IDH tahmininde yüksek ayrıma
+rağmen yüksek olasılıklar fazla tahmin edilmiştir~\cite{jung2026}.
 
-\textbf{Sınıflandırıcılar ve gen seçimi.} SVM'ler~\cite{cortes1995} mikrodizi sınıflandırmasına
-erken dönemde uygulanmış~\cite{furey2000,guyon2002}; SVM-RFE genlerin özyinelemeli geriye doğru
-elenmesini getirmiştir~\cite{guyon2002}. Dudoit vd.~\cite{dudoit2002} basit diyagonal diskriminant
-analizi ve $k$-NN'nin karmaşık yöntemlerle yarıştığını bulmuş, Tibshirani vd.~\cite{tibshirani2002}
-en yakın küçültülmüş merkezleri önermiş, Díaz-Uriarte ve Alvarez de Andrés~\cite{diazuriarte2006}
-gen seçiminde rastgele ormanları~\cite{breiman2001} kullanmıştır. Statnikov vd.~\cite{statnikov2005}
-11 veri setinde çok kategorili SVM'leri en güçlü bulmuş; elastic net~\cite{zou2005} ise ilişkili
-öngörücüleri gruplayan seyrek modeller sunmuştur. 132 makalelik bir derleme hibrit öznitelik seçimini
-en sık araştırma yönü olarak saptamış (\%34,9)~\cite{alhenawi2022}; bir başkası seçimi filtre,
-sarmalayıcı, gömülü ve hibrit olarak gruplamıştır~\cite{alharbi2023}.
+\textbf{Sınıflandırıcılar ve gen seçimi.} Golub verisinde SVM~\cite{furey2000}, SVM-RFE~\cite{guyon2002},
+diyagonal diskriminant analizi~\cite{dudoit2002}, küçültülmüş merkezler~\cite{tibshirani2002}, elastic
+net~\cite{zou2005} ve rastgele orman~\cite{diazuriarte2006} denenmiş; basit yöntemler karmaşık
+olanlarla yarışmıştır~\cite{dudoit2002}. Bir derleme 132 makalede hibrit seçimi en sık araştırma yönü
+bulmuş (\%34,9)~\cite{alhenawi2022}, bir başkası seçimi filtre, sarmalayıcı, gömülü ve hibrit olarak
+gruplamıştır~\cite{alharbi2023}.
 
-\textbf{Doğrulama yanlılığı ve batch etkileri.} Genleri CV'den önce tüm örneklerde seçmek iyimser
-hata oranları üretir~\cite{ambroise2002}; hiperparametreleri değerlendirme katlarında ayarlamak da
-öyle. İç içe CV bu yanlılığı önler ve benzetimde neredeyse yansız, hafif kötümser tahminler
-vermiştir~\cite{varma2006}; seçim ölçütünün varyansı ise sorun olmaya devam eder~\cite{cawley2010}.
-Yeniden örnekleme tahminleri üzerindeki testler, örtüşen eğitim setlerini hesaba katmalıdır;
-\cite{nadeau2003} düzeltmesi rastgele alt örnekleme için türetilmiştir, çoklu veri setlerinde ise
-sıra testleri önerilir~\cite{demsar2006}. Batch etkileri ifade verisine hâkim olabilir~\cite{leek2010}
-ve deneysel Bayes konum/ölçek yöntemiyle (ComBat) düzeltilebilir~\cite{johnson2007}.
+\textbf{Sızıntı ve doğrulama yanlılığı.} Genleri CV'den önce tüm örneklerde seçmek iyimser hata
+üretir~\cite{ambroise2002}; iç içe CV benzetimde neredeyse yansız, hafif kötümser tahminler
+vermiştir~\cite{varma2006}. Bir tarama sızıntının 17 alanda en az 294 makaleyi etkilediğini ve tüm
+veride öznitelik seçiminin bir sızıntı türü olduğunu bildirir~\cite{kapoor2023}; biyolojik verideki
+bağımlılıklar yanlılığı fark etmeyi zorlaştırır~\cite{whalen2022,bernett2024}. On radyomik veri setinde
+CV öncesi seçim AUC'de 0,15'e kadar yanlılık üretmiş~\cite{demircioglu2021}, bağlantısal modellerde
+dikkat sorunları tahmininde $r$ değerini 0,01'den 0,48'e çıkarmıştır~\cite{rosenblatt2024}. Doğrusal
+modelde CV, eldeki modelin değil başka eğitim kümeleriyle kurulan modellerin ortalama hatasını tahmin
+eder ve olağan aralıklar fazla dar olabilir~\cite{bates2024}. \cite{nadeau2003} düzeltmesi rastgele alt
+örnekleme için türetilmiştir; çoklu veri setlerinde sıra testleri önerilir~\cite{demsar2006}.
 
-\textbf{Güncel çalışmalar.} 105 çalışmadan 12.029 transkriptomda AML, ALL dahil diğer tüm
-örneklerden, çalışma-ayrık bölmelerde de ayrılabilmektedir~\cite{warnatherresthal2020}; swarm learning
-böyle verilerin benzetimli çok merkezli bölümlerinde tek düğümlü modelleri geçmektedir~\cite{warnatherresthal2021}.
-Golub etiketli güncel sonuçlar çok yüksektir~\cite{xie2022,rezaee2022,awotunde2022,selvaraj2024}.
-Ancak makalelerin protokol anlatımına göre~\cite{xie2022,selvaraj2024} genleri CV döngüsünden önce
-seçmekte,~\cite{awotunde2022} aynı veride seçim ve ayar yapan rastgele ayırmalar kullanmakta (ve
-Golub'da bulunmayan CML, CLL ve sağlıklı sınıflarını listelemekte),~\cite{rezaee2022} ise seçimin her
-katta tekrarlanıp tekrarlanmadığını belirtmemektedir. Orta büyüklükte, düşük boyutlu tablosal
-kıyaslarda ağaç toplulukları derin ağları geçmektedir~\cite{grinsztajn2022}; bu rejim $p\gg n$
-mikrodizileri kapsamaz. FT-Transformer 11 veri setinin çoğunda en iyi derin model olmuş, ama her
-zaman artırılmış ağaçları geçememiştir~\cite{gorishniy2021}; TabPFN 10.000 örnek ve 500 özniteliğe
-kadar ayarlanmış ağaç topluluklarını geçmiş~\cite{hollmann2025}, GenePT ise gen metin özetlerini
-dil modeliyle gömmüştür~\cite{chen2025genept}.
+\textbf{Dış doğrulama ve platform aktarımı.} Klinik modellerde kalibrasyon, heterojenliğe ayrımdan daha
+açıktır~\cite{vancalster2023}; dış doğrulamada tek ölçüt yetmez~\cite{collins2024part1,riley2024part2}
+ve TRIPOD+AI eşiğin nasıl belirlendiğini raporlamayı ister~\cite{collins2024tripod}. Batch etkileri
+ifade verisine hâkim olabilir~\cite{leek2010}; ComBat bunları düzeltmek için önerilmiştir~\cite{johnson2007},
+karışık platform eğitiminde ise $z$-skor en değişken yöntem olmuştur~\cite{foltz2023}. 12.029
+transkriptomda AML diğer tüm örneklerden ayrılmış, U133A'dan RNA-seq'e ham aktarım başarısız kalmış,
+gen bazlı sıra dönüşümü bunu çözmüştür~\cite{warnatherresthal2020}. Sepsis sınıflandırıcılarında
+mikrodiziden RNA-seq'e aktarımda AUROC 0,999 iken 0,5 eşiğinde dengeli doğruluk 0,50 bulunmuş, örnek içi
+sıra dönüşümü eşiği kurtarmıştır~\cite{zheng2026}. Akciğerde harmonizasyonsuz aktarımda AUROC da çökmüş
+(0,58)~\cite{kervanci2026}, eşleşmiş pankreas örneklerinde olasılıklar kaymış~\cite{lee2025}, meme
+kanserinde kalibrasyon eğimi 0,96'dan 1,57--2,74'e çıkmış~\cite{botan2026}, sepsiste karşılaştırma grubu
+değişince dengeli doğruluk 0,527'ye inmiştir~\cite{kolev2026}.
+
+\textbf{Golub ve tablosal öğrenmede güncel sonuçlar.} Golub etiketli güncel sonuçlar çok
+yüksektir~\cite{xie2022,rezaee2022,awotunde2022,selvaraj2024}. Ancak protokol anlatımlarına
+göre~\cite{xie2022,selvaraj2024} genleri CV'den önce seçmekte,~\cite{awotunde2022} aynı veride seçim ve
+ayar yapan rastgele ayırmalar kullanmakta (ve Golub'da bulunmayan CML, CLL ve sağlıklı sınıflarını
+listelemekte),~\cite{rezaee2022} seçimin her katta yinelenip yinelenmediğini belirtmemektedir. Swarm
+learning benzetimli çok merkezli bölümlerde tek düğümlü modelleri geçmiştir~\cite{warnatherresthal2021}.
+Tablosal kıyaslarda ağaçlar orta boyutlu, düşük boyutlu veride derin ağları geçmiş~\cite{grinsztajn2022},
+FT-Transformer en iyi derin model olmuş ama her zaman artırılmış ağaçları geçememiş~\cite{gorishniy2021},
+TabPFN 10.000 örnek ve 500 özniteliğe kadar ayarlı ağaçları geçmiş~\cite{hollmann2025}, GenePT ise gen
+metin özetlerini dil modeliyle gömmüştür~\cite{chen2025genept}.
 
 \begin{table*}[!t]
-\caption{Literatür özeti (alt küme; 30 çalışmalık tam tablo Ek~A'dadır). Sızıntı riski, bildirilen protokol sırasına ilişkin bizim okumamızdır.}
+\caption{Literatür özeti (alt küme; 46 çalışmalık tam tablo Ek~A'dadır). Sızıntı riski, bildirilen protokol sırasına ilişkin bizim okumamızdır.}
 \label{tab:lit}
 \centering\scriptsize
 \setlength{\tabcolsep}{3pt}
@@ -212,15 +224,14 @@ Kaynak (yıl) & Veri seti & Ön işleme / öznitelik seçimi & Yöntem & Doğrul
 \end{table*}
 
 \textbf{Boşluk.} \tabref{tab:lit}'deki dört güncel çalışmada doğruluklar \%97 ile neredeyse \%100
-arasındadır; sabit veya dış doğrulama kullanan önceki çalışmalar ise daha düşük değerler bildirir
-(ör.\ 34 testte 2 hata~\cite{tibshirani2002}, seçim yanlılığı düzeltildikten sonra yaklaşık \%5
-hata~\cite{ambroise2002}). Sayıları karşılaştırmak güçtür: protokoller LOOCV, $k$ kat CV, sabit bölme
-ve rastgele ayırmaları karıştırır; bazı çalışmalar genleri tüm veride seçer~\cite{guyon2002,xie2022,selvaraj2024}
-ve dört güncel çalışmanın hiçbiri güven aralığı bildirmez. Çoğu başka veri setlerini de
-değerlendirir, ancak ayrı ayrı: okuduğumuz Golub tabanlı sınıflandırma makalelerinde hiçbir
-sınıflandırıcı veya gen listesi bağımsız bir lösemi kohortuna ya da platforma aktarılmamaktadır. Bu
-proje, tek bir sızıntısız iç içe protokol, aralık tahminleri ve iki dış kohortta aynı işlem hattıyla
-bu sorunları ele alır.
+arasındadır; önceki çalışmalar daha düşük değerler bildirir (ör.\ 34 testte 2 hata~\cite{tibshirani2002},
+seçim yanlılığı düzeltildikten sonra yaklaşık \%5 hata~\cite{ambroise2002}). Sayıları karşılaştırmak
+güçtür: protokoller farklıdır, bazı çalışmalar genleri tüm veride seçer~\cite{guyon2002,xie2022,selvaraj2024}
+ve dört güncel çalışmanın hiçbiri güven aralığı bildirmez. Okuduğumuz Golub tabanlı sınıflandırma
+makalelerinde hiçbir model veya gen listesi bağımsız bir lösemi kohortuna ya da platforma aktarılmaz.
+AUC ile karar eşiğinin ayrışması sepsiste gösterilmiştir~\cite{zheng2026}, ama taramamızda ALL/AML için
+ikisini birlikte raporlayan bir çalışma bulunmamıştır (bu ``ilk'' anlamına gelmez). Proje bu boşlukları tek
+bir sızıntısız protokol, aralık tahminleri ve dış kohortlarla ele alır.
 
 % ===========================================================================
 \section{Veri Setleri}\label{sec:data}
@@ -241,7 +252,7 @@ referans laboratuvarları)~\cite{golub1999}. Referans bölme 38 eğitim (\GolubT
 (DOI 10.1200/JCO.2009.23.4732, 10.1111/j.1365-2141.2008.07261.x)~\cite{haferlach2010,kohlmann2008}.
 \MileClassesTotal{} sınıfta \MileTotal{} tanı örneği içerir; örnekler 11 laboratuvarda standart
 protokollerle Affymetrix HG-U133 Plus 2.0 (GPL570, \MileP{} prob seti) üzerinde profillenmiş ve
-kantil normalize sinyalden türetilmiştir~\cite{liu2006}. \MileNSubtypes{} ALL ve AML sınıfı ikili
+kantil normalize sinyalden türetilmiştir~\cite{haferlach2010}. \MileNSubtypes{} ALL ve AML sınıfı ikili
 etikete eşlenmiş; CLL, CML, MDS ve lösemik olmayan örnekler dışlanmıştır. Geriye \MileN{} örnek
 kalır (\MileALL{} ALL / \MileAML{} AML; \MileBM{} kemik iliği, \MilePB{} periferik kan).
 \emph{Seçilme nedeni:} aynı klinik soru, çok daha büyük çok merkezli kohort, Affymetrix teknolojisi
@@ -356,7 +367,7 @@ oran, ortanca \AndMedian{}) zaten log ölçeğindedir.
 
 
 \subsection{Boyut indirgeme}
-Merkezlenmiş, filtrelenmiş $\log_2$ veri üzerindeki PCA (\figref{fig:embed}) varyansın dağınık
+Merkezlenmiş, filtrelenmiş $\log_2$ veri üzerindeki PCA (Ek~C, \figref{fig:embed}) varyansın dağınık
 olduğunu gösterir: PC1 \%\GolubPCOne{}, ilk on PC \%\GolubCumTen{} açıklar ve \%80 için
 \GolubNEighty{} PC gerekir. Yine de PC1 tek başına ALL ve AML'yi AUC \GolubPCOneAUC{} ile sıralar;
 yani sınıf farkı en büyük tekil varyasyon kaynağıdır. t-SNE (perplexity 10)~\cite{vandermaaten2008}
@@ -364,12 +375,6 @@ iki belirgin grup gösterir (siluet \GolubSilTSNE{}; 10 boyutlu PCA uzayında \G
 örnekler (siyah kenarlı) eğitim örnekleriyle karışır. MILE'da (en değişken 5.000 prob) en iyi tek PC
 AUC \MileBestPCAUC{} verir. Andersson'da PC1 \%\AndPCOne{} açıklar ve AUC \AndPCOneAUC{} verir.
 
-\begin{figure*}[!t]
-\centering
-\fig[width=0.72\textwidth]{fig_embeddings_overview.pdf}
-\caption{Üç kohortun denetimsiz gömmeleri (üst: PCA, alt: t-SNE; renk/işaret: sınıf). Golub bağımsız set örnekleri siyah kenarlıdır. Tüm kohortlarda baskın bir ALL/AML ekseni görülür; varyans grafikleri Ek~C'dedir.}
-\label{fig:embed}
-\end{figure*}
 
 \subsection{Ayırt edici genler}
 Her gen için Welch $t$ testi, Mann--Whitney $U$ testi (ikisi de Benjamini--Hochberg FDR~\cite{benjamini1995}
@@ -456,31 +461,35 @@ yapıldığında dengeli doğruluk (DD) \PilotInReal, CV'den önce tüm örnekle
 olmamasına rağmen dışarıda seçim \PilotOutPerm{}, içeride seçim şans düzeyinde \PilotInPerm{}
 vermiştir: sızıntılı protokol, sinyal yokken de yüksek skor üretebilir.
 \emph{Aktarım.} Tek kohortta eğitilen sabit lojistik regresyon (\PilotKT{} gen) diğer kohortlarda
-denenmiştir (\tabref{tab:pilot}; Golub yalnızca 38 eğitim örneğidir). Kohort içi $z$-skorla AUC
-\PilotAucMin--\PilotAucMax{} kalırken DD \PilotBaMin--\PilotBaMax{} aralığına yayılır. Ham ölçekte altı
-yönün \PilotRawSingle'ünde model tek sınıfa yığılır (DD 0,50), ancak bu ölçek farkından beklenen bir
-sonuçtur. Etiket kullanmayan $z$-skor çoğu yönü düzeltir, Andersson'la eğitimde yetersiz kalır; örnek
-içi sıra dönüşümü, \cite{warnatherresthal2020}'deki RNA-seq aktarımının aksine burada yardımcı olmaz
-(Andersson değerleri referansa oran olduğundan bu beklenebilir). Özetle \emph{sıralama taşınıyor,
-karar eşiği taşınmıyor}: yalnızca AUC raporlamak klinik kullanılabilirliği olduğundan iyi gösterebilir.
-T-ALL'de hata daha yüksektir (MILE$\to$Andersson \%\PilotTallMA, B soylu ALL'de \%\PilotBallMA, $n=11$;
-Golub$\to$MILE \%\PilotTallGM{} ve \%\PilotBallGM, $n=\PilotNTallM$). Tek çalışmadır ve kohort içi
-$z$-skor hedef setin sınıf oranına bağlıdır; bu sonuçlar ön bulgudur.
+denenmiştir (\tabref{tab:pilot}; Golub yalnızca 38 eğitim örneğidir). Yalnızca eğitim istatistikleriyle
+ölçeklenen sabit aktarımda altı yönün \PilotRawSingle'ünde model tek sınıfa yığılır: AUC
+\PilotRawAucMin--\PilotRawAucMax{} iken DD 0,50'dir; kalan iki yönde DD \PilotRawOtherMin{} ve
+\PilotRawOtherMax'dir. Bu desen sepsiste bildirilenle aynıdır~\cite{zheng2026} ve ölçek farkından da
+beklenir; yeni bulgu değildir. Hedef kohortun kendi istatistiklerini kullanan $z$-skor, etiketsiz bir
+kohort uyarlamasıdır: DD'yi \PilotBaMin--\PilotBaMax'e çıkarır, ama tek hastaya uygulanamaz ve hedef
+setin sınıf oranına bağlıdır. Örnek içi sıra dönüşümü \cite{zheng2026}'da eşiği kurtarırken (0,95--1,00)
+burada kurtarmaz (DD \PilotRankMin--\PilotRankMax; MILE$\to$Golub AUC \PilotRankAucMG). Göreli gen
+sırasının platforma göre değişmesi~\cite{lee2025} olası bir açıklamadır; Andersson'un oran ölçeği de
+ayrıca etkili olabilir. T-ALL'de hata daha yüksek görünür (MILE$\to$Andersson $z$-skorda \%\PilotTallMA,
+B soylu ALL'de \%\PilotBallMA, $n=11$; Golub$\to$MILE \%\PilotTallGM{} ve \%\PilotBallGM,
+$n=\PilotNTallM$). Bunlar tek çalışmalık ön bulgudur; kalibrasyon henüz ölçülmemiştir.
 
 \begin{table}[!t]
-\caption{Aktarım pilotu. DD: dengeli doğruluk; ham, $z$, sıra: normalizasyon. Sabit model, ayar yok.}
+\caption{Aktarım pilotu. Ham: yalnızca eğitim istatistikleri; $z$: hedef kohort istatistikleri; sıra: örnek içi. DD: dengeli doğruluk. Sabit model, ayar yok.}
 \label{tab:pilot}
 \centering\scriptsize\setlength{\tabcolsep}{4pt}
 \input{generated/pilot_transfer.tex}
 \end{table}
 
-\textbf{Makale hedefi ve özgün katkı.} Çalışma ``en iyi modeli'' aramaz; ALL/AML ayrımının kolay
-olduğunu kabul eder ve \emph{bildirilen başarının ne kadarının protokolden geldiğini ve başarının
-platform değişince nerede kırıldığını} ölçer. Katkılar: (K1) aynı işlem hattında sızıntının şişirme
-miktarı; (K2) iç içe CV ve güven aralıklarıyla yöntem karşılaştırması; (K3) kilitli dış setlerde
-sıralama ile karar eşiğinin ayrı değerlendirilmesi ve etiketsiz düzeltmelerin sınanması; (K4) $n=72$
-düzeyinde TabPFN ve derin modeller. \cite{warnatherresthal2020} AML'yi diğer tüm örneklerden ayırır ve
-MILE'ı kapsıyor olabilir; bizim görevimiz ikili ALL/AML, odağımız protokol şişmesi ve eşik aktarımıdır.
+\textbf{Makale hedefi ve özgün katkı.} Çalışma ne ``en iyi modeli'' ne de sızıntı şişmesini veya
+AUC--eşik ayrışmasını ilk kez gösterdiğini iddia eder; ikisi de başka alanlarda
+gösterilmiştir~\cite{demircioglu2021,rosenblatt2024,zheng2026}. Katkılar: (K1) ALL/AML'de sızıntı şişmesinin
+tek işlem hattında ölçümü; (K2) iç içe CV ve güven aralıklarıyla yöntem karşılaştırması; (K3) kilitli dış
+setlerde sabit aktarım, etiketsiz uyarlama ve sıra dönüşümünün karşılaştırılması; (K4) \cite{zheng2026}'nın
+ayıramadığını belirttiği eşik kaymasının kaynağı: prevalansı sabitleyen alt örnekleme ile platform ve
+sınıf bileşimi etkisinin ayrılması; (K5) $n=72$ düzeyinde TabPFN ve derin modeller. Eşik gerekçesi ve
+kalibrasyon eğimi, kesişimi ile O/E de raporlanacaktır~\cite{collins2024tripod,riley2024part2}.
+\cite{warnatherresthal2020} GSE13159'u içerir, ama görevi AML'ye karşı diğerleridir ve AUC bildirmez.
 Birincil sonlanım noktaları önceden sabittir: kilitli setlerde \%95 güven aralıklı DD ve AUC. Kilitli
 setler model seçimi bittikten sonra bir kez açılır; olumsuz sonuç da aynen raporlanır.
 \textbf{Hedef konferans:} IEEE EMBC 2027 adaydır (son tarih 24 Ocak 2027; 4 sayfa içerik + 1 sayfa
@@ -519,8 +528,8 @@ doğrulanmış aralığı; gen metinlerinden hastalık bilgisi sızması (B2); k
 % ===========================================================================
 \texttt{python run\_all.py} bu PDF'i ham veriden yeniden üretir (tohum 42, sabit
 \texttt{requirements.txt}); metindeki her sayı kodun yazdığı bir \LaTeX{} makrosudur. Üç kohort da
-güçlü bir ALL/AML sinyali taşır; engeller $p\gg n$, eğitim/test kayması ve platform farklarıdır. Pilot,
-makalenin iki ana iddiasının ölçülebilir olduğunu gösterir; final \AS{1}--\AS{4}'ü kilitli setlerle
+güçlü bir ALL/AML sinyali taşır; engeller $p\gg n$, eğitim/test kayması ve platform farklarıdır. Pilot, ölçümlerin mümkün olduğunu gösterir;
+ final \AS{1}--\AS{4}'ü kilitli setlerle
 sınayacaktır.
 
 \section*{Yapay Zekâ Kullanım Beyanı}
@@ -585,6 +594,12 @@ Optuna TPE (sinir ağları) maliyet ve iç CV skoruyla karşılaştırılacaktı
 \fig[width=0.95\textwidth,height=0.3\textheight,keepaspectratio]{fig_golub_heatmap.pdf}
 \caption{Golub: AML'de en yüksek 15 ve ALL'de en yüksek 15 genin (Welch $t$) $z$-skorlu ifadesi; ortalama bağlantı, $1-$Pearson uzaklığı. Sütun çubukları: sınıf (mavi ALL, turuncu AML) ve bölme (yeşil eğitim, mor test). Tabana kırpılmış değerler tekdüze açık mavi bloklar olarak görünür.}
 \label{fig:heat}
+\end{figure}
+\begin{figure}[!h]
+\centering
+\fig[width=0.8\textwidth]{fig_embeddings_overview.pdf}
+\caption{Üç kohortun denetimsiz gömmeleri (üst: PCA, alt: t-SNE; renk/işaret: sınıf). Golub bağımsız set örnekleri siyah kenarlıdır. Tüm kohortlarda baskın bir ALL/AML ekseni görülür; varyans grafikleri Ek~C'dedir.}
+\label{fig:embed}
 \end{figure}
 \begin{table}[!h]
 \caption{Her kohortta Welch $p$ değerine göre ilk 12 gen ($\Delta$: kohortun log ölçeğinde AML$-$ALL ortalama farkı; $t>0$: AML'de yüksek).}
