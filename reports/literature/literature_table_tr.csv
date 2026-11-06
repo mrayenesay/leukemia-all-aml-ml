@@ -3,22 +3,18 @@ golub1999,Golub ALL/AML (Affymetrix Hu6800),Sınıf korelasyonuyla bilgilendiric
 haferlach2010,MILE aşama I/II (GSE13159 = aşama I),Tüm genom HG-U133 Plus 2.0 profili,Tüm çiftler doğrusal SVM,"Aşama I CV; aşama II ileriye dönük, özel çip","Aşama I 3x30 kat CV %92,2; aşama II %88,1",Dış doğrulama kaynağı; 11 laboratuvar
 kohlmann2008,MILE ön aşaması (çok laboratuvarlı),Laboratuvarlar arası standart protokoller,Laboratuvarlar arası tekrarlanabilirlik çalışması,Laboratuvarlar arası karşılaştırma,bildirilmedi,GEO'da GSE13159 ile bağlantılı
 andersson2007,121 çocukluk çağı lösemisi (GSE7186),bildirilmedi,k en yakın komşu öngörücüleri,Bağımsız veri setiyle doğrulama,T-ALL MRD durumu %100 doğrulukla sınıflandı,Dış doğrulama kaynağı (pediatrik)
-armstrong2002,MLL/ALL/AML lösemileri,bildirilmedi,MLL yeniden düzenlenmiş lösemide ifade profili,bildirilmedi,bildirilmedi,Yaygın 3 sınıflı lösemi kıyas seti
-feltes2019,CuMiDa (78 derlenmiş GEO seti),Arka plan düzeltmesi + normalizasyon + kalite kontrol,Kıyas ML taban modelleri,bildirilmedi,bildirilmedi,Derlenmiş mikrodizi kıyas deposu
 furey2000,"Yumurtalık, Golub, kolon",bildirilmedi,SVM,Birini dışarıda bırakma ve 38/34,Golub testi 30-32/34 doğru,Teknikler arasında belirgin fark yok
 guyon2002,Lösemi ve kolon mikrodizileri,SVM-RFE gen sıralaması,Doğrusal SVM,LOO ve 38/34,Golub testi 8 veya 16 genle 0/34 hata,Seçimin LOO içinde yapıldığı belirtilmemiş
 dudoit2002,"Golub, NCI60, lenfoma","Taban 100, tavan 16000, filtre, log10","LDA/DLDA, kNN, ağaçlar, birleştirme",150 tekrarlı 2:1 bölme,DLDA ortanca hata 0 (iki sınıflı lösemi),"Teknik rapor 576 okundu, JASA sürümü değil"
 tibshirani2002,SRBCT ve lösemi,Küçültülmüş merkez yumuşak eşikleme,En yakın küçültülmüş merkezler (PAM),38 örnekte 10 kat CV ve sabit 34,"CV 1/38, test 2/34, 21 gen",En yakın küçültülmüş merkezler
-diazuriarte2006,"Golub eğitim 38 x 3.051 + 8 diğer set",RF geriye gen eleme,Rastgele orman; SVM/kNN/DLDA/SC,.632+ bootstrap,"SVM 0,014; RF seçimsiz 0,051, seçimle 0,075-0,087",Lösemide RF 2 gen seçiyor
-statnikov2005,Lösemi dahil 11 veri seti,Çeşitli gen seçim yöntemleri,Çok kategorili SVM; kNN/sinir ağları/topluluklar,İki çapraz doğrulama tasarımı,bildirilmedi,Çok kategorili SVM en iyi; GEMS sistemi
+diazuriarte2006,Golub eğitim 38 x 3.051 + 8 diğer set,RF geriye gen eleme,Rastgele orman; SVM/kNN/DLDA/SC,.632+ bootstrap,"SVM 0,014; RF seçimsiz 0,051, seçimle 0,075-0,087",Lösemide RF 2 gen seçiyor
 zou2005,Metodoloji (mikrodizi örneği dahil),Elastic net cezası,Cezalı regresyon,bildirilmedi,"10 kat CV 3/38, test 0/34, 45 gen",0-1 yanıtta kare kayıp
 ambroise2002,Kolon ve Golub,CV içinde ve dışında gen seçimi,SVM-RFE; Fisher ve ileri seçim,Dış 10 kat CV; .632+ bootstrap,"Seçim yanlılığı yaklaşık %5 (38/34), %2-3 (72 örnek)",Seçim yanlılığı; CV hatası sıfır değil
 varma2006,"Yalnızca benzetim (40 örnek, 6.000 öznitelik)",CV içinde ayar,İç içe CV,İç içe ve iç içe olmayan CV,İç içe tahminler gerçek hataya yakın,"Neredeyse yansız, hafif kötümser"
-cawley2010,13 kıyas seti ve bir sentetik set,Hiperparametre seçimi,"KRR, KLR, GPC",Model seçimi aşırı uyum analizi,bildirilmedi,Seçim varyansı önemli; DOI yok
 leek2010,Derleme ve dokuz veri setinin yeniden analizi,Batch etkisi tanılaması,Derleme,uygulanamaz,bildirilmedi,Kohortlar arası batch işlemeyi gerekçelendirir
 johnson2007,İki örnek veri seti,Deneysel Bayes konum/ölçek düzeltmesi,ComBat,uygulanamaz,bildirilmedi,ComBat adı makalede geçmiyor
-warnatherresthal2020,"105 çalışmadan 12.029 örnek",Yüksek boyutlu tüm genom girdi,AML tahmini için ML,100 rastgele 80/20 bölme; çalışma-ayrık; platformlar arası,bildirilmedi,ALL dahil diğer tüm örneklere karşı AML
-warnatherresthal2021,">16.400 kan transkriptomu (lösemi dahil)",bildirilmedi,Swarm Learning (merkeziyetsiz ML),Birleşik verinin benzetimli siloları; genel test düğümü,bildirilmedi,Merkezî model AML'de biraz daha iyi
+warnatherresthal2020,105 çalışmadan 12.029 örnek,Yüksek boyutlu tüm genom girdi,AML tahmini için ML,100 rastgele 80/20 bölme; çalışma-ayrık; platformlar arası,bildirilmedi,ALL dahil diğer tüm örneklere karşı AML
+warnatherresthal2021,>16.400 kan transkriptomu (lösemi dahil),bildirilmedi,Swarm Learning (merkeziyetsiz ML),Birleşik verinin benzetimli siloları; genel test düğümü,bildirilmedi,Merkezî model AML'de biraz daha iyi
 gorishniy2021,"11 veri seti, n 20.640 ile 1,2M",bildirilmedi,FT-Transformer / ResNet ve GBDT,Kıyas protokolü,bildirilmedi,Çoğunda en iyi derin model; bazılarında GBDT kazanıyor
 grinsztajn2022,"45 veri seti, n>=3.000, d<500",bildirilmedi,Ağaç modelleri ve derin öğrenme,Kıyas protokolü,bildirilmedi,Rejim p>>n mikrodizileri kapsamıyor
 hollmann2025,"10.000 örnek, 500 öznitelik, 10 sınıfa kadar",bildirilmedi,TabPFN temel modeli,Kıyas karşılaştırmaları,bildirilmedi,n yaklaşık 72 sınanmamış
@@ -29,3 +25,23 @@ xie2022,Golub lösemi (72 x 7129) + 3 diğer,GNN tabanlı öznitelik sıralamas�
 rezaee2022,Golub lösemi (72 x 7129) + DLBCL + prostat,Yumuşak topluluk sarmalayıcı gen seçimi (kNN),Yığılmış derin sinir ağı,k kat CV (K=5-20),"Lösemi ortalama doğruluğu %99,6",Gen seçimi ile CV sırası belirsiz
 awotunde2022,Golub lösemi (72 x 7129; UCI),PSO 7129 genden 2323'ünü seçti,HORD ile optimize CNN,Rastgele 70/30 ve 80/20 bölmeler,"Lösemi doğruluğu %99,9 (karşılaştırma tablosu)","CV yok; CML, CLL, sağlıklı sınıfları bildiriliyor, Golub'da yok"
 selvaraj2024,Golub ALL/AML + CuMiDa lösemi,"RF öznitelik önemi (FI >= 0,04)",Süper öğrenici (RF üst öğrenici),%20 testle tabakalı 10 kat CV,"AML-ALL doğruluğu 0,98 (Tablo 2)",FI sıralaması CV'den önce yapılmış görünüyor
+kapoor2023,17 alanda 294 makale (22 derleme taraması),Sızıntı sınıflaması; L1.3 tüm veride öznitelik seçimi,Tarama ve yeniden üretim,Düzeltilmiş yeniden çalıştırma (iç savaş tahmini),En az 294 makale etkilenmiş,Dışarıda seçim kolumuzun adı
+whalen2022,Genomik derlemesi,bildirilmedi,ML tuzakları derlemesi,uygulanamaz,bildirilmedi,Yalnızca özet; genel arka plan
+bernett2024,Biyolojik ML örnekleri,bildirilmedi,Yedi yönlendirici soru,uygulanamaz,bildirilmedi,Yalnızca özet; genel arka plan
+rosenblatt2024,"ABCD, HBN, HCPD, PNC bağlantı verileri",Katlar içinde en iyi %5 özellik ve sızıntılı seçim,"Ridge regresyon, 400'den fazla işlem hattı","5 kat CV, 100 tekrar","Dikkat sorunlarında sızıntıyla r 0,01'den 0,48'e",Etki sinyal zayıfken en büyük
+demircioglu2021,10 radyomik veri seti,CV öncesi ve kat içi 7 seçim yöntemi,"Çeşitli sınıflandırıcılar, 50.000'den fazla model",Tabakalı 10 kat CV,"AUC-ROC'ta 0,149'a kadar yanlılık",Başka alan; gerçek etiketler
+bates2024,Kuram ve benzetim,uygulanamaz,İç içe CV varyans tahmini,Kapsama benzetimi,Olağan CV aralıkları fazla dar olabilir,Kabul edilmiş el yazması okundu; ispat doğrusal model için
+zheng2026,"Dört sepsis kohortu, mikrodizi ve RNA-seq","Eğitim ölçekleme, dayanıklı, örnek içi sıra, dış ölçekleme",L2 lojistik regresyon,"Sabit dış test, eşik 0,5","AUROC 0,999 iken DD 0,50; sıra 0,95-1,00",Pilotumuzla aynı AUC-eşik deseni
+lee2025,79 eşleşmiş pankreas örneği; 40'ı NanoString,Gen çiftleri (PurIST),Tek örnek sınıflandırıcı,Eşleşmiş örneklerde karşılaştırma,"Uyum %81,0, kappa 0,402",Göreli gen sırası platformla değişiyor
+kervanci2026,"Akciğer mikrodizi n=774, TCGA RNA-seq n=508","Referanslı ComBat, SHAP 500 gen",Beş öğrenicili topluluk,5 kat CV ve dış test,"ComBat'sız AUROC 0,580, ComBat'lı 0,850",Burada sıralama da çöküyor
+botan2026,Beş meme kanseri kohortu,Kohort içi z-skor; dondurulmuş z-skor duyarlılığı,"Cox elastic net, 24 gen",Dört dış kohort,"Kalibrasyon eğimi 0,96'dan 1,57-2,74'e","Sağkalım görevi, eşik değil"
+kolev2026,"Sepsis GSE65682, GSE57065","İç içe CV, 10 gen",L1 lojistik regresyon,"1.000 permütasyon, rastgele paneller","Sağlıklılara karşı AUROC 1,000; yoğun bakımda 0,730, DD 0,527",Aynı platform; karşılaştırma grubu değişiyor
+foltz2023,"TCGA BRCA ve GBM, eşleşmiş platformlar","LOG, NPN, QN, TDM, z-skor","LASSO, doğrusal SVM, RF","5 kat CV, tek platformlu testler","QN, TDM, NPN iyi; z-skor en değişken",Karışık platform eğitimi
+vancalster2023,Kavramsal; yayımlanmış örnekler,uygulanamaz,Metodolojik tartışma,uygulanamaz,bildirilmedi,Kalibrasyon ayrımdan daha açık
+collins2024part1,Yöntem rehberi,uygulanamaz,İç ve dış doğrulama,uygulanamaz,bildirilmedi,Eğim ve kalibrasyon-büyük-ölçeği tanımlar
+riley2024part2,İki örnekli yöntem rehberi,uygulanamaz,Dış doğrulamanın beş adımı,uygulanamaz,bildirilmedi,Tek ölçüt yetmez
+collins2024tripod,Raporlama kılavuzu,uygulanamaz,27 maddelik liste,uygulanamaz,bildirilmedi,Eşiğin nasıl belirlendiğini ister
+mulet2025,"RNA-seq AML 145, B-ALL 223, T-ALL 85","log TPM, en değişken 8.000 gen",Lasso çok terimli lojistik,İç içe CV ve dış set,"Dış duyarlılık %97,5, kesinlik %93,7",En yakın güncel ALL/AML görevi; tek platform
+cui2026,"St. Jude 1.606, SCMC 1.144, Bld.2020 138","Örnek içi sıra, 229-476 gen",LSTM,%80/%20 ve görülmemiş kohortlar,"SCMC'de soy doğruluğu %99,38",Görülmemiş kohortlarda AML yok
+beder2023,2.998 B-ALL RNA-seq örneği,"LASSO gen seçimi; log, z, 0-1 ölçekleme",Doğrusal SVM ve en yakın komşu,10 kat CV ve dışarıda tutulan kohortlar,"Dışarıda tutulanlarda doğruluk 0,957 (21 alt tip)",RNA-seq içinde; ALL/AML değil
+jung2026,19 AML kohortu; TCGA-LAML n=150,pyComBat,"Sinir ağı, lojistik regresyon",İç içe CV ve TCGA testi,"Lojistik AUC 0,994, DD 0,979",Yüksek olasılıklar fazla tahmin edilmiş
