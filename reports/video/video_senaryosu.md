@@ -24,10 +24,10 @@ terminal.
 - AS4 (bonus): Derin öğrenme ve TabPFN klasik yöntemleri geçiyor mu?
 
 ## 1:30–3:00 — Literatür (Tablo I)
-- Arama protokolü: Crossref, Europe PMC, PubMed; 2021–2026 keşif + klasikler; 152 kayıt,
-  24 özet; 38 kaynak (hepsi hakemli, 11'i 2021 sonrası); 31 tam metin, 6 özet, 1 künye
-  (yapay zekâ destekli okuma); iddialar kaynak metinle denetlendi.
-- Klasikler: Golub 1999, SVM (Furey), SVM-RFE (Guyon), Dudoit karşılaştırması, RF (Díaz-Uriarte).
+- Arama protokolü: Crossref, Europe PMC, PubMed; 6 Kasım'da hedefli ek tarama; 52 kaynak (31'i
+  2021 ve sonrası); 47 tam metin, 4 özet, 1 künye (yapay zekâ destekli okuma).
+- Güncel odak: sızıntı (Kapoor 2023, Rosenblatt 2024), dış doğrulama (Zheng 2026, Riley 2024),
+  lösemi (Mulet 2025). Klasikler veri ve özgün yöntemlerle sınırlı.
 - **Ana mesaj — boşluk:** yeni dört çalışmada %97–99,9 doğruluklar raporlanmış ama protokoller farklı;
   bazıları gen seçimini CV dışında yapıyor (Ambroise & McLachlan seçim yanlılığı). Güven
   aralığı ve bağımsız kohort testi nadir. Bu proje bunları hedefliyor.
@@ -51,20 +51,21 @@ terminal.
    PM − MM; Absent çağrıları negatif/düşük değerlerle örtüşüyor. INF/NaN yok.
 4. **Ek Şekil 8 (log dönüşümü):** clip [20, 16000] + log2 → çarpıklık 7,1'den 0,55'e; ortalama–
    varyans bağımlılığı (ρ 0,95 → 0,18) kayboluyor. Ölçeğe duyarlı modeller için şart.
-5. **Şekil 2 (PCA / t-SNE):** PC1 tek başına AUC 0,98 → güçlü sinyal; yöntem farkları küçük
+5. **Ek Şekil 6 (PCA / t-SNE):** PC1 tek başına AUC 0,98 → güçlü sinyal; yöntem farkları küçük
    olacak, bu yüzden güven aralığı ve istatistiksel test şart.
-6. **Ek Şekil 6 + Ek Tablo V (ayırt edici genler):** CST3, CD33, MPO, ZYX (AML), TCF3, CD79B,
+6. **Ek Şekil 5 + Ek Tablo V (ayırt edici genler):** CST3, CD33, MPO, ZYX (AML), TCF3, CD79B,
    CD19, DNTT (ALL) — bilinen biyolojiyle uyumlu. Uyarı: bu sıralama sadece betimseldir,
    modelde öznitelik seçimi için kullanılırsa sızıntı olur.
-7. **Ek Şekil 5 (batch etkisi):** test seti daha "sönük"; sınıf içi KS testinde ALL için genlerin
+7. **Ek Şekil 4 (batch etkisi):** test seti daha "sönük"; sınıf içi KS testinde ALL için genlerin
    %17,7'si p<0,05 (beklenen %5) → tek 34 örneklik test skoru yanıltıcı olabilir (AS2).
-8. **Şekil 3 (kohortlar arası):** t istatistikleri kohortlar arası pozitif korelasyonlu, ortak
+8. **Şekil 2 (kohortlar arası):** t istatistikleri kohortlar arası pozitif korelasyonlu, ortak
    üst genler şanstan fazla; ama ölçekler farklı → birleşik PCA'da PC1'i kohort belirliyor,
    kohort içi z-skor sonrası sınıf ekseni ortaya çıkıyor.
 
-## 7:15–8:30 — Fizibilite pilotu ve final planı (Tablo III, Ek Şekil 4, Bölüm V)
+## 7:15–8:30 — Fizibilite pilotu ve final planı (Tablo III, Ek Şekil 3, Bölüm V)
 - Pilot (ön bulgu, sabit ayar): rastgele etiketle sızıntılı protokol 0,91, doğru protokol 0,50;
-  kohortlar arası AUC 0,93–0,99 ama dengeli doğruluk 0,59–0,94. Sıralama taşınıyor, eşik taşınmıyor.
+  sabit aktarımda 6 yönün 4'ünde AUC 0,965–0,992, dengeli doğruluk 0,50. Bu desen sepsiste de
+  bildirildi (Zheng 2026); özgün soru sıra dönüşümünün neden kurtarmadığı ve eşik kaymasının kaynağı.
 - Kilitli dış testler: Golub 34 örnek, MILE aşama 2 (693 akut lösemi), TARGET (RNA-seq).
 - Pipeline şeması: clip/log2 durumsuz; filtre, imputasyon, z-skor, SelectKBest **her eğitim
   katında yeniden fit** ediliyor (sklearn Pipeline).

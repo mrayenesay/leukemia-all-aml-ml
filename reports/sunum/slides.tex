@@ -64,18 +64,19 @@
 \begin{columns}[T]
 \column{0.48\textwidth}
 \begin{itemize}\small
-\item Crossref, Europe PMC, PubMed; keşif 2021--2026 + klasikler
-\item 152 kayıt $\to$ 24 özet; 31 kaynak tam metin, 6 özet, 1 künye (yapay zekâ destekli okuma)
-\item \textbf{38 kaynak}, hepsi hakemli, 11'i 2021+; DOI'ler Crossref ile, iddialar kaynak metinle denetlendi
-\item Klasikler: Golub 1999, SVM, SVM-RFE, DLDA, RF
-\item Yeni: TabPFN, GenePT, swarm learning
+\item Crossref, Europe PMC, PubMed; 6 Kasım'da hedefli ek tarama
+\item 47 kaynak tam metin, 4 özet, 1 künye (yapay zekâ destekli okuma)
+\item \textbf{52 kaynak}, 31'i 2021+; DOI'ler Crossref ile doğrulandı
+\item Sızıntı: Kapoor 2023, Rosenblatt 2024
+\item Dış doğrulama: Zheng 2026, Riley 2024; lösemi: Mulet 2025
 \end{itemize}
 \column{0.5\textwidth}
 \textbf{Boşluk}
 \begin{itemize}\small
 \item Yeni 4 çalışmada \%97--99,9 doğruluk, ama protokoller karşılaştırılamaz
 \item Bazı çalışmalarda gen seçimi CV \emph{dışında} $\Rightarrow$ seçim yanlılığı
-\item Yeni 4 çalışmada güven aralığı yok; okunan Golub çalışmalarında model başka kohorta aktarılmıyor
+\item Yeni 4 çalışmada güven aralığı yok; okunan Golub çalışmalarında aktarım yok
+\item AUC--eşik ayrışması sepsiste gösterildi; ALL/AML'de bulamadık
 \end{itemize}
 \end{columns}
 \end{frame}
@@ -169,9 +170,9 @@ Rol & ana & benzer 1 & benzer 2 (B4) \\
 \end{enumerate}
 \end{frame}
 
-\begin{frame}{Fizibilite pilotu: makalenin iki iddiası ölçülebilir mi?}
+\begin{frame}{Fizibilite pilotu: planlanan ölçümler mümkün mü?}
 \begin{columns}[T]
-\column{0.46\textwidth}
+\column{0.40\textwidth}
 \small
 \textbf{Sızıntı} (38 Golub eğitim örneği, DD)
 \begin{itemize}
@@ -179,15 +180,17 @@ Rol & ana & benzer 1 & benzer 2 (B4) \\
 \item Rastgele etiket: içeride \PilotInPerm, dışarıda \textbf{\PilotOutPerm}
 \end{itemize}
 \vspace{1mm}
-\textbf{Sıralama taşınıyor, eşik taşınmıyor}
+\textbf{Sabit aktarım}
 \begin{itemize}
-\item AUC \PilotAucMin--\PilotAucMax, DD \PilotBaMin--\PilotBaMax{} ($z$-skor)
+\item \PilotRawSingle/6 yönde AUC \PilotRawAucMin--\PilotRawAucMax, DD 0,50
+\item Sepsiste de bildirildi (Zheng 2026)
+\item Sıra dönüşümü burada kurtarmıyor: özgün soru
 \end{itemize}
 \vspace{1mm}
 \footnotesize Sabit ayar, ön bulgu; kilitli setlere dokunulmadı.
-\column{0.52\textwidth}
+\column{0.58\textwidth}
 \scriptsize
-\input{../ara_rapor/generated/pilot_transfer.tex}
+{\setlength{\tabcolsep}{2.5pt}\input{../ara_rapor/generated/pilot_transfer.tex}}
 
 \vspace{2mm}
 \small\textbf{Kilitli dış testler:} Golub 34 örnek; MILE aşama 2 (693 akut lösemi, özel çip); TARGET (RNA-seq)
