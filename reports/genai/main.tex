@@ -35,7 +35,7 @@ rehberinin isterlerinin maddeleştirilmesi, veri indirme/ön işleme/EDA kodunun
 literatür meta verilerinin taranması ve doğrulanması ile İngilizce rapor taslağının
 oluşturulmasında kullanılmıştır. Kod model tarafından yazılıp çalıştırılmıştır; tüm şekiller ve sayılar depodaki betiklerin
 çıktısıdır. Kaynak metinlerin okunması ve rapordaki iddiaların denetlenmesi de yapay zekâ ajanlarıyla
-yapılmıştır (31 tam metin, 6 özet, 1 künye); benim kendi doğrulamalarım Bölüm 6'da listelidir. Raporun ve kodun içeriğine ilişkin tüm sorumluluk bana aittir. IEEE'nin
+yapılmıştır (47 tam metin, 4 özet, 1 künye); benim kendi doğrulamalarım Bölüm 6'da listelidir. Raporun ve kodun içeriğine ilişkin tüm sorumluluk bana aittir. IEEE'nin
 yazarlara yönelik GenAI politikası gereği raporun \emph{Acknowledgment} bölümünde de kısa bir
 beyan yer almaktadır.
 
@@ -50,7 +50,7 @@ Claude Opus 5.5 & Devam ettirilebilir paralel veri indirme betiği & \url{script
 Claude Opus 5.5 & Veri yükleyiciler, hasta no.\ üzerinden etiket eşleştirme, prob$\to$gen eşleme & \url{src/leukemia/data.py} & Kod modelce yazıldı; öğrenci değişiklik yapmadı & M: kodda \texttt{assert} (ID 1--38 / 39--72, sınıf 27/11 ve 20/14); Ö: \cb{} \texttt{load\_golub}'u okuyup videoda anlattı \\
 Claude Opus 5.5 & Sızıntısız sklearn dönüştürücüleri (clip, log2, filtre) & \url{src/leukemia/preprocessing.py} & Kod modelce yazıldı; öğrenci değişiklik yapmadı & M: \texttt{fit}/\texttt{transform} ayrımı; Ö: \cb{} \texttt{FoldChangeFilter}'ın yalnızca \texttt{fit}'te öğrendiğini kodda gördü \\
 Claude Opus 5.5 & EDA analizleri ve şekiller & \url{eda.py}, \url{cross.py}, \url{stats.py}, \url{run_eda.py} & Kod modelce yazıldı; öğrenci değişiklik yapmadı & M: şekillerin görsel kontrolü; Ö: \cb{} \texttt{run\_eda.py --only golub} çalıştırıp rapordaki 3 sayıyı JSON ile karşılaştırdı \\
-Claude Opus 5.5 (alt ajan) & Literatür taraması: Crossref, Europe PMC, PubMed sorguları; \texttt{references.bib}, özet tablo & \url{reports/literature/} & Öğrenci kaynak eklemedi/çıkarmadı; okumanın ve denetimin yapılmasını istedi & M: 38 DOI Crossref'te kontrol edildi; 31 tam metin okunup 76 iddia denetlendi (\url{claim_audit.md}), ajan özetleri örneklem olarak kontrol edildi; Ö: \cb{} okuma notlarını ve temel makaleleri okudu \\
+Claude Opus 5.5 (alt ajan) & Literatür taraması: Crossref, Europe PMC, PubMed sorguları; \texttt{references.bib}, özet tablo & \url{reports/literature/} & Öğrenci kaynak eklemedi/çıkarmadı; okumanın ve denetimin yapılmasını istedi & M: 52 kaynak Crossref ve yayıncı kayıtlarında kontrol edildi; ilk taslakta 76 iddia denetlendi (\url{claim_audit.md}), sonradan eklenen 20 kaynak ajan tarafından okundu, sayıların bir bölümü örneklem olarak kontrol edildi; Ö: \cb{} okuma notlarını ve temel makaleleri okudu \\
 Claude Opus 5.5 & Rapor taslağı (IEEEtran; önce İngilizce yazıldı, öğrencinin kararıyla Türkçeye çevrildi), şekil etiketlerinin Türkçeleştirilmesi, sunum & \url{reports/ara_rapor/}, \url{reports/sunum/} & Üniversite bilgisini verdi, rapor dilini seçti; video bağlantısını kendisi ekleyecek & M: sayılar \LaTeX{} makrolarıyla betik çıktısından, çeviri sonrası \texttt{eda\_numbers.json} değişmedi; Ö: \cb{} raporu baştan sona okudu \\
 Claude Opus 5.5 & Fizibilite pilotu; dış kohort ve konferans araştırması; makale kurgusu & \url{scripts/run_feasibility.py}, rapor Bölüm V & Kod modelce yazıldı ve çalıştırıldı; öğrenci raporun finale ve makaleye yeterliliği göstermesini istedi & M: sabit ayar, kilitli setlere dokunulmadı, GDC ve GEO kayıtları sorgulandı, EMBC tarihi resmî sayfada görüldü; Ö: \cb{} betiği kendisi çalıştırıp Tablo III ile karşılaştırdı \\
 Claude Opus 5.5 & Video senaryosu ve konuşma metni & \url{reports/video/} & Videoyu kendi sesiyle, metni kendi cümleleriyle anlatarak kaydetti & Ö: \cb{} video süresi ve bağlantı erişimi kontrol edildi \\
@@ -76,11 +76,15 @@ okuması ve iddia denetimi yapıldı. Ardından ara raporun Türkçe olmasını 
 İngilizce kalacaktır. Son olarak raporun final ve uluslararası makale için yeterliliği göstermesini,
 gerekirse daha güçlü veri setleri bulunmasını ve okuması gereken kaynakların Türkçe ve İngilizce
 sunulmasını istedi; fizibilite pilotu ve okuma rehberi bunun üzerine hazırlandı. Kabul güvencesi
-verilemeyeceği öğrenciye açıkça söylendi.
+verilemeyeceği öğrenciye açıkça söylendi. Öğrenci ayrıca dayanılan kaynakların ağırlıkla son beş yıldan
+olmasını ve raporun Word kopyasını istedi; 20 güncel kaynak eklendi, 6 eski kaynak çıkarıldı.
 \end{enumerate}
 
 \section*{4. GenAI çıktısında yakalanan hatalar (doğrulamanın kanıtı)}
 \begin{itemize}
+\item Model ``sıralama taşınıyor, eşik taşınmıyor'' ifadesini makalenin özgün iddiası olarak kurmuştu.
+Güncel tarama aynı desenin 2026'da sepsiste yayımlandığını gösterdi; özgünlük iddiası daraltıldı, pilotun
+$z$-skor sonuçları da sabit aktarım değil etiketsiz kohort uyarlaması olarak yeniden tanımlandı.
 \item Andersson (2007) için ilk bulunan DOI (\texttt{10.1038/sj.leu.2404657}) başka bir makaleye
 aitti; Crossref kontrolüyle yakalandı ve doğru DOI (\texttt{10.1038/sj.leu.2404688}) GEO GSE7186
 sayfasıyla teyit edildi.

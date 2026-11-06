@@ -54,22 +54,21 @@ onları okuma.
 [EKRAN: Slayt 3 — Literatür taraması.]
 
 > Literatür taramasını yapay zekâ desteğiyle yürüttüm. Crossref, Europe PMC ve PubMed
-> üzerinden 2021–2026 aralığında arama yapıldı, klasik çalışmalar da tanımlayıcılarıyla
-> eklendi. 152 kayıt başlıktan, 24 kayıt özetten değerlendirildi. Sonuçta 38 kaynak var;
-> hepsi hakemli ve 11'i son beş yıldan. Bunların 31'inin tam metnine erişildi, 6'sında
-> yalnızca özet, birinde yalnızca künye görüldü. Rapordaki iddiaları tek tek kaynak
+> üzerinden arama yapıldı, ardından sızıntı ve dış doğrulama için hedefli ek tarama yapıldı.
+> Sonuçta 52 kaynak var ve 31'i 2021 ve sonrasından; klasikleri veri ve özgün yöntemlerle
+> sınırlı tuttum. 47 kaynağın tam metnine erişildi, 4'ünde yalnızca özet, birinde yalnızca
+> künye görüldü. Rapordaki iddiaları kaynak
 > metinlerle karşılaştırdık; bu denetim gerçek hatalar yakaladı. Örneğin Dudoit'nun
 > alt eşiği 20 değil 100'müş, Golub'un hastalarının çoğu da yetişkin değil, çocukmuş.
 > Bunları düzelttim; bütün notlar depoda duruyor.
 >
-> Klasik çalışmalar SVM, SVM-RFE, diyagonal diskriminant analizi ve random forest
-> gibi yöntemleri kullanıyor. Literatürde gördüğüm asıl boşluk şu: Son dört çalışmada
+> Literatürde gördüğüm asıl boşluk şu: Son dört Golub çalışmasında
 > yüzde 97 ile 99,9 arasında doğruluklar raporlanmış, ama bu sayılar birbiriyle
 > karşılaştırılamıyor. Bazı çalışmalar gen seçimini çapraz doğrulamanın dışında yapıyor
-> görünüyor. Ambroise ve McLachlan bunun iyimser, yanlı sonuç verdiğini 2002'de
-> göstermişti. Bu dört çalışmada güven aralığı yok; okuduğumuz Golub çalışmalarında da
-> model ya da gen listesi bağımsız bir kohorta aktarılmıyor. Bu proje bu eksikleri
-> hedefliyor.
+> görünüyor. Bunun iyimser sonuç verdiği 2002'den beri biliniyor; 2023 tarihli bir tarama da
+> sızıntının 17 alanda en az 294 makaleyi etkilediğini bildiriyor. Bu dört çalışmada güven
+> aralığı yok; okuduğumuz Golub çalışmalarında da model bağımsız bir kohorta aktarılmıyor.
+> Bu proje bu eksikleri hedefliyor.
 
 ## 4. Veri setleri — 2:45–3:45
 
@@ -198,14 +197,15 @@ onları okuma.
 
 [EKRAN: Slayt 12 — Fizibilite pilotu.]
 
-> Finalde yazılacak makalenin iki ana iddiası ölçülebilir mi diye sabit ayarlı küçük bir
-> pilot deneme yapıldı. Bu bir model karşılaştırması değil. Birincisi: etiketler tamamen
-> rastgele karıştırıldığında bile, genler çapraz doğrulamadan önce seçilirse dengeli doğruluk
-> 0,91 çıkıyor; doğru protokolde 0,50, yani şans düzeyinde. İkincisi: bir kohortta eğitilen
-> model başka kohortta hastaları iyi sıralıyor, AUC 0,93 ile 0,99 arasında; ama karar eşiği
-> taşınmıyor, dengeli doğruluk 0,59'a kadar düşebiliyor. Makalenin ana mesajı bu olacak.
-> Bu sonuçlar ön bulgu. Golub'un 34 test örneği, MILE'ın ikinci aşaması ve RNA-seq tabanlı
-> TARGET verisi finale kadar kapalı tutuluyor.
+> Finalde planlanan ölçümler mümkün mü diye sabit ayarlı küçük bir pilot deneme yapıldı. Bu
+> bir model karşılaştırması değil. Birincisi: etiketler rastgele karıştırıldığında bile, genler
+> çapraz doğrulamadan önce seçilirse dengeli doğruluk 0,91 çıkıyor; doğru protokolde 0,50, yani
+> şans düzeyinde. İkincisi: bir kohortta eğitilen model yalnızca eğitim istatistikleriyle başka
+> kohorta aktarılınca, altı yönün dördünde AUC 0,965 ile 0,992 arasındayken dengeli doğruluk
+> 0,50'ye düşüyor. Bu desen 2026'da sepsiste de bildirildi, yani yeni değil. Bizim özgün
+> sorumuz şu: orada eşiği kurtaran sıra dönüşümü burada kurtarmıyor, ve eşik kaymasının
+> platformdan mı sınıf oranından mı geldiği ayrılmamış. Bunlar ön bulgu. Golub'un 34 test
+> örneği, MILE'ın ikinci aşaması ve TARGET verisi finale kadar kapalı tutuluyor.
 
 [EKRAN: Slayt 13 — Final planı.]
 

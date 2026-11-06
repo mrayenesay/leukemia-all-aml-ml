@@ -61,6 +61,7 @@ scripts/
   run_eda.py                   exploratory analysis of the three cohorts
   run_feasibility.py           pilot for the final paper; locked test sets are not touched
   make_report_assets.py        numbers.tex, literature + gene tables, DOI-annotated bib
+  make_word_copy.py            editable Word copy of the report (Track Changes on)
 src/leukemia/
   config.py                    paths, seeds, preprocessing constants
   data.py                      loaders; label join by patient id; probe -> gene mapping
@@ -71,7 +72,7 @@ src/leukemia/
 results/figures, results/tables generated outputs (PDF vector + 300 dpi PNG)
 reports/
   ara_rapor/                   interim report (IEEEtran LaTeX, Turkish)
-  literature/                  references.bib, literature_table.csv (+ _tr), search_log.md, okuma_rehberi.md
+  literature/                  references.bib, literature_table.csv (+ _tr), search_log.md, okuma_rehberi.md (bilingual reading guide)
   genai/                       GenAI usage declaration (A4)
   video/                       script for the interim video (A5)
 ```
