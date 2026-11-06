@@ -45,6 +45,7 @@ def main() -> None:
     run([PY, "scripts/run_feasibility.py"])
     run([PY, "scripts/make_report_assets.py"])
     build_pdf(ROOT / "reports" / "ara_rapor")
+    run([PY, "scripts/make_word_copy.py"])
     build_pdf(ROOT / "reports" / "genai")
     build_pdf(ROOT / "reports" / "sunum", "slides.tex")
 
