@@ -4,12 +4,23 @@ Hazırlanma tarihi: 2026-11-05. Bu dosya `reports/ara_rapor/main.tex` içindeki 
 
 ## Erişim özeti
 
+Rapordaki güncel durum (2026-11-06, 52 kaynak):
+
+| Erişim düzeyi | Sayı |
+|---|---:|
+| Tam metin | 47 |
+| Yalnızca özet | 4 (andersson2007, alhenawi2022, whalen2022, bernett2024) |
+| Yalnızca künye | 1 (benjamini1995) |
+
+Güncel kaynaklara ağırlık vermek için 2026-11-06'da armstrong2002, statnikov2005, feltes2019, cawley2010, liu2006 ve cortes1995 rapordan çıkarıldı. Notları aşağıda arşiv olarak duruyor. Yeni 20 kaynağın notları dosyanın sonundadır.
+
+İlk 38 kaynağın 2026-11-05 tarihli dökümü:
+
 | Erişim düzeyi | Sayı | Kaynaklar |
 |---|---:|---|
 | Tam metin | 31 | golub1999, haferlach2010, kohlmann2008, furey2000, guyon2002, dudoit2002, tibshirani2002, diazuriarte2006, zou2005, ambroise2002, varma2006, cawley2010, leek2010, johnson2007, warnatherresthal2020, warnatherresthal2021, gorishniy2021, grinsztajn2022, hollmann2025, chen2025genept, alharbi2023, xie2022, rezaee2022, awotunde2022, selvaraj2024, breiman2001, cortes1995, nadeau2003, demsar2006, vandermaaten2008, pedregosa2011 |
 | Yalnızca özet | 6 | andersson2007, armstrong2002, feltes2019, statnikov2005, alhenawi2022, liu2006 |
 | Yalnızca künye | 1 | benjamini1995 |
-| **Toplam** | **38** | |
 
 Tam metinlerin okuma derinliği:
 
@@ -260,7 +271,7 @@ Bunlar yalnızca taban 20 sorusu için kullanıldı. İkisinin de tam metni okun
 - **Doğrulama protokolü:** %20 test payıyla 100 yinelemeli rastgele ayırma, eğitim ve test çalışmalarının tümüyle ayrık olduğu çapraz-çalışma senaryosu, bir platformda eğitip başka platformda sınama; ayrıca kontrollerin yalnızca diğer lösemiler ve MDS olduğu ayırıcı tanı senaryosu.
 - **Ana sonuç:** Yüksek boyutlu modeller doğru ve sağlam bulunmuş. Çapraz-çalışma başarımı rastgele ayırmadan düşük, fark yalnızca en büyük veri setinde neredeyse kapanıyor; U133A'dan RNA-seq'e aktarım ham haliyle başarısız, sıra dönüşümüyle düzeliyor. Derin ağlar lassoya benzer sonuç vermiş.
 - **Bu projeyle ilgisi:** Görev AML'ye karşı geri kalanlar olduğu için ALL negatif sınıfın yalnızca bir parçası; doğrudan ALL/AML ikili görevi değil. Çapraz-platform bulguları ve sıra dönüşümü RQ3 için yol gösterici.
-- **Sınırlılık:** Ana metinde sayısal doğruluk yok (şekil ve ek tablolarda); yöntem eki ve Tablo S1 elimizde olmadığından GSE13159'un dahil olup olmadığı doğrulanamadı. Veriler farklı amaçlı çalışmalardan havuzlanmış, prospektif doğrulama yok; metindeki alt grup sayılarının toplamı 7.881 ediyor, verilen toplam 7.884.
+- **Sınırlılık:** Ana metinde sayısal doğruluk yok (şekil ve ek tablolarda); 2026-11-06'da ek dosyalar okundu: GSE13159 veri seti 2'de 1.860 örnekle yer alır (AML 538, ALL 520); GSE7186 yoktur. Veriler farklı amaçlı çalışmalardan havuzlanmış, prospektif doğrulama yok; metindeki alt grup sayılarının toplamı 7.881 ediyor, verilen toplam 7.884.
 
 ### warnatherresthal2021
 
@@ -490,3 +501,387 @@ Bunlar yalnızca taban 20 sorusu için kullanıldı. İkisinin de tam metni okun
 - **Bu projeyle ilgisi:** Raporda kullanılan yazılımın doğru atfıdır; Pipeline ve GridSearchCV, her katta yeniden uydurulan adımların teknik temelini oluşturur.
 - **Sınırlılık:** Sınıflandırıcıların istatistiksel geçerliliğine dair kanıt taşımaz; 2011 sürümünü anlatır, güncel API ayrıntıları için kaynak değildir.
 
+## 2026-11-06 eklenen kaynaklar
+
+Bu notları bir yapay zekâ ajanı metinleri okuyarak çıkardı; merkez sayıların bir bölümü kaynak metinde örneklem olarak denetlendi. `patil2015` ve `zhou2025tabpfn` raporda yer almaz. Akciğer çalışmasındaki AUROC değeri özgün tablodan denetlendi.
+
+### Sızıntı ve çapraz doğrulama (İddia 1)
+
+### kapoor2023
+
+- **Künye anahtarı:** `kapoor2023`
+- **Hakemli mi:** evet (Patterns, Crossref journal-article).
+- **Erişim düzeyi:** tam metin, hedefli okuma (özet, öne çıkanlar, sızıntı sınıflandırması, iç savaş bölümünün bir kısmı).
+- **Okunan URL:** https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10499856/fullTextXML
+- **Çalışmanın sorusu:** Makine öğrenmesi kullanan bilimlerde sızıntı ne kadar yaygın, hangi türleri var, nasıl önlenir?
+- **Veri:** 17 alandan 22 derleme makalesinin taraması; bunlar toplam 294 makaleyi etkiliyor. Ayrıca iç savaş tahmini üzerine yeniden üretim çalışması.
+- **Yöntem:** Önceki derlemelerin taranması, sekiz tipli sızıntı sınıflandırması, "model bilgi sayfası" önerisi.
+- **Doğrulama protokolü:** İç savaş makalelerinin hatalar düzeltilerek yeniden çalıştırılması.
+- **Ana sonuç:** 17 alanda en az 294 makale etkilenmiş (Özet, Şekil 1). L1.3 tipi, gen seçiminin tüm veri üzerinde yapılmasıdır (sınıflandırma bölümü). Hatalar düzeltilince karmaşık modeller lojistik regresyondan belirgin biçimde iyi çıkmıyor (Özet).
+- **Bu projeyle ilgisi:** İddia 1 için hata türünü adlandırır: bizim "dışarıda seçim" kolumuz L1.3'tür. L3 tipi (test kümesi hedef dağılımdan gelmiyor) İddia 2 ile kavramsal olarak ilişkilidir ama sıralama/eşik ayrımı yapmaz.
+- **Sınırlılık:** Sayı önceki derlemelere dayanır, sistematik yaygınlık tahmini değildir. Okunan kısımlarda gen ifadesine özgü bir ölçüm yok.
+
+### whalen2022
+
+- **Künye anahtarı:** `whalen2022`
+- **Hakemli mi:** dergi derlemesi (Nature Reviews Genetics). Hakem süreci özetten doğrulanamadı.
+- **Erişim düzeyi:** yalnızca özet. Tam metne yasal erişim bulunamadı.
+- **Okunan URL:** Europe PMC özet kaydı (DOI araması), https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=DOI:%2210.1038/s41576-021-00434-9%22&resultType=core
+- **Çalışmanın sorusu:** Genomikte denetimli makine öğrenmesinin yaygın tuzakları nelerdir?
+- **Veri:** Derleme; özette veri seti bilgisi yok.
+- **Yöntem:** Özette ayrıntı yok.
+- **Doğrulama protokolü:** Uygulanmaz.
+- **Ana sonuç:** Özete göre modellerin ve performans değerlendirmelerinin varsayımları biyolojik sistemlerde sık sık tutmaz ve genomik verinin yapısı değerlendirmeyi yanlı kılabilir. Sayısal sonuç okunmadı.
+- **Bu projeyle ilgisi:** Yalnızca genel arka plan (İddia 1). Belirli bir tuzak türü bu kaynağa bağlanmamalı, çünkü metin okunmadı.
+- **Sınırlılık:** Özet düzeyi; ayrıntılı atıf yapılamaz.
+
+### bernett2024
+
+- **Künye anahtarı:** `bernett2024`
+- **Hakemli mi:** dergi makalesi (Nature Methods). Makale türü ve hakem süreci özetten doğrulanamadı.
+- **Erişim düzeyi:** yalnızca özet. Tam metne yasal erişim bulunamadı.
+- **Okunan URL:** Europe PMC özet kaydı (DOI araması), https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=DOI:%2210.1038/s41592-024-02362-y%22&resultType=core
+- **Çalışmanın sorusu:** Biyolojik makine öğrenmesinde sızıntıyı önlemek için hangi sorular sorulmalı?
+- **Veri:** Özette yalnızca örnekler üzerinde uygulandığı söylenir.
+- **Yöntem:** Yedi yönlendirici soru.
+- **Doğrulama protokolü:** Özette ayrıntı yok.
+- **Ana sonuç:** Sızıntı, eğitim ve test verisi arasında bilgi paylaşımı olarak tanımlanır ve biyolojik verideki bağımlılıklar yüzünden fark edilmesi zordur (Özet). Soruların içeriği okunmadı.
+- **Bu projeyle ilgisi:** İddia 1 için genel gerekçe.
+- **Sınırlılık:** Yedi sorunun içeriğine atıf yapılamaz.
+
+### rosenblatt2024
+
+- **Künye anahtarı:** `rosenblatt2024`
+- **Hakemli mi:** evet (Nature Communications).
+- **Erişim düzeyi:** tam metin, hedefli okuma (özet, giriş, gen seçimi sızıntısı ve örneklem bölümleri, temel model yöntemi, sınırlılıklar).
+- **Okunan URL:** https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10901797/fullTextXML
+- **Çalışmanın sorusu:** Beş sızıntı türü, bağlantısal (connectome) tahmin modellerinin performansını ne kadar değiştirir?
+- **Veri:** ABCD (N=7.822-7.969), HBN (N=1.024-1.201), HCPD (N=424-605), PNC (N=1.104-1.126); üç fenotip.
+- **Yöntem:** Sırt (ridge) regresyonu, 400'den fazla işlem hattı. Altın standart modelde katlar içinde en anlamlı %5 özellik seçilir.
+- **Doğrulama protokolü:** 5 katlı CV, 100 yineleme; hiperparametre için iç katlar. Ayrıca N=100, 200, 300, 400 yeniden örneklemeleri.
+- **Ana sonuç:** HCPD'de özellik sızıntısı yaşta küçük (Δr=0,03), matris akıl yürütmede orta (Δr=0,17), dikkat sorunlarında en büyüktür (Δr=0,47). Dikkat sorunları r=0,01'den r=0,48'e çıkar (Bulgular, "Feature leakage"; Şekil 3). Örneklem küçüldükçe sızıntının etkisi daha değişken olur (Bulgular, "Effect of sample size"; Şekil 9).
+- **Bu projeyle ilgisi:** İddia 1'in en güçlü güncel paraleli: etki, temel sinyal zayıfken en büyüktür. Bizim karıştırılmış etiket deneyimiz bunun uç hali sayılır. n=38 için küçük örneklem uyarısı da işimize yarar.
+- **Sınırlılık:** Nörogörüntüleme ve sürekli fenotip regresyonudur; sınıflandırma ve gen ifadesi değildir. Yazarlar sızıntı türlerinin tamamını kapsayamadıklarını belirtir.
+
+### demircioglu2021
+
+- **Künye anahtarı:** `demircioglu2021`
+- **Hakemli mi:** evet (Insights into Imaging).
+- **Erişim düzeyi:** tam metin, hedefli okuma (özet, veri ve CV yöntemi, Bulgular, Tartışma).
+- **Okunan URL:** https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8613324/fullTextXML
+- **Çalışmanın sorusu:** Özellik seçimi CV'den önce yapılırsa yanlılık ne kadar büyür?
+- **Veri:** PLOS One'dan 10 açık radyomik veri seti.
+- **Yöntem:** 7 özellik seçme yöntemi (LASSO, t-skoru, f-skoru, MRMRe, ReliefF, MIM, SVM-RFE) ve çeşitli sınıflandırıcılar; 50.000'den fazla model.
+- **Doğrulama protokolü:** Tabakalı 10 katlı CV; seçim CV öncesinde ve her katın içinde olmak üzere iki şema.
+- **Ana sonuç:** Yanlılık AUC-ROC'ta en çok 0,149 (Hosny2018C), en az 0,02 (Song2020); AUC-F1'de 0,293'e, doğrulukta 0,17'ye kadar çıkar (Bulgular, Tablo 2; Özet). Özellik başına örnek azaldıkça yanlılık artar (R=-0,72, p=0,02; Şekil 3).
+- **Bu projeyle ilgisi:** İddia 1'in farklı alanda doğrudan ölçümü. Bizim etkimiz daha büyüktür ama bizimki karıştırılmış etiketlerde, bu çalışmaki gerçek etiketlerde ölçülmüştür; sayılar doğrudan karşılaştırılmamalı.
+- **Sınırlılık:** Yazara göre bağımsız doğrulama kümesi olmadığından yanlılığın gerçek boyutu belirlenemez. Normalleştirme ve eksik veri tamamlama CV dışında yapılmıştır.
+
+### bates2024
+
+- **Künye anahtarı:** `bates2024`
+- **Hakemli mi:** evet (JASA). Okunan sürüm kabul edilmiş yazar el yazmasıdır.
+- **Erişim düzeyi:** tam metin, hedefli okuma (özet, giriş, Bölüm 1.1, Bölüm 4 başlangıcı).
+- **Okunan URL:** https://pmc.ncbi.nlm.nih.gov/articles/PMC11412612/
+- **Çalışmanın sorusu:** CV tam olarak neyi tahmin eder ve güven aralıkları ne kadar güvenilirdir?
+- **Veri:** Kuramsal sonuçlar ve benzetimler.
+- **Yöntem:** Sıradan en küçük kareler için ispat; iç içe CV ile varyans tahmini.
+- **Doğrulama protokolü:** Benzetimle kapsama oranı ölçümü.
+- **Ana sonuç:** CV, eldeki modelin hatasını değil, aynı popülasyondan gelen başka eğitim kümeleriyle kurulan modellerin ortalama hatasını tahmin eder (Özet). n=90, p=1000 seyrek lojistik örnekte hedef %10 hatalı kapsama %31 çıkar ve aralıkların yaklaşık 1,6 kat genişlemesi gerekir (Bölüm 1.1).
+- **Bu projeyle ilgisi:** Final aşamasındaki iç içe CV planının gerekçesi; İddia 1'in güven aralıkları için önemli, çünkü n=38 ve p büyük. Sızıntıyı değil, sızıntısız CV'nin aralığını ele alır.
+- **Sınırlılık:** İspat doğrusal model içindir. Uygun aralığın sağlandığı "birçok örnekte" denir, her durumda değil.
+
+### Platformlar arası taşınma ve eşik (İddia 2)
+
+### zheng2026
+
+- **Künye anahtarı:** `zheng2026`
+- **Hakemli mi:** evet (PLOS One, Crossref journal-article). Yenilik değerlendirmesinin merkez kaynağı.
+- **Erişim düzeyi:** tam metin (PMC13541173 XML). Gövdenin tamamı okundu. Ek dosya (S1 File) açılmadı.
+- **Okunan URL:** https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13541173/fullTextXML
+- **Çalışmanın sorusu:** Transkriptom sınıflandırıcıda yüksek AUROC, kohort ve platform aktarımından sonraki sabit eşik başarısızlığını gizler mi? Ön işleme, sonradan kalibrasyondan daha mı önemlidir?
+- **Veri:** Dört GEO tam kan kohortu. GSE65682 keşif (mikrodizi, ana analizde n=93), GSE95233 dış mikrodizi (n=73), GSE154918 RNA-seq (n=79; 39 pozitif, 40 negatif), GSE28750 zorlama kohortu (n=30; ikincil analizde n=21). Ana analizde 9.508 ortak gen.
+- **Yöntem:** L2 lojistik regresyon (C=1, dengeli sınıf ağırlığı). Dört ön işleme: eğitimden standart ölçekleme, eğitimden dayanıklı ölçekleme, örnek içi yüzdelik sıra artı eğitimden ölçekleme, dış kohort istatistikleriyle dayanıklı ölçekleme. Sigmoid ve izotonik kalibrasyon.
+- **Doğrulama protokolü:** Keşif kohortunda 5 katlı CV (imputasyon ve ölçekleme kat içinde). Sabit dış test, eşik 0,5 ve eğitimden türetilen eşik. 2.000 tabakalı bootstrap. Dış etiket hiçbir ayarda kullanılmamış.
+- **Ana sonuç:** İç CV'de AUROC ve dengeli doğruluk 1,00. Eğitimden z-skorda üç dış kohortta dengeli doğruluk 0,50, buna karşılık AUROC 1,00 / 0,999 / 1,00; pozitif tahmin oranı 0,0 (Bulgular, "Diagnostic threshold instability"; Şekil 3). Eğitimden dayanıklı ölçekleme 0,57 / 0,50 / 0,55. Örnek içi sıra 1,00 / 0,974 / 0,95. Dış referanslı ölçekleme 0,961 / 0,949 / 1,00 (Bulgular, "Strict-inductive and adaptive strategies"). Sigmoid ve izotonik kalibrasyon başarısız iş akışlarını kurtarmamış. Zor karşılaştırmada (n=21) AUROC 0,873 ve 0,836 iken dengeli doğruluk 0,50; sıra 0,70 (GA 0,55-0,85), dış referanslı 0,805 (GA 0,614-0,950).
+- **Bu projeyle ilgisi:** İddia 2'nin aynısı, başka hastalıkta. Yazarlar ayrıca dış kohort istatistiği kullanan ölçeklemeyi sabit aktarım değil, etiketsiz kohort uyarlaması sayar; bizim z-skor kolumuz bu sınıfa girer. Eşiğin platformdan mı, prevalanstan mı, vaka karışımından mı kaydığını ayıramadıklarını yazarlar açıkça söyler; bu bizim için boşluktur.
+- **Sınırlılık:** Sınıflar kolay (sepsise karşı sağlıklı, iç AUROC 1,00). Eğitim n=93, zorlama kohortu küçük. Yalnızca lojistik regresyon; kalibrasyon ve eşik taramaları revizyonda eklenmiş tanı analizleridir. Süreç tek 0,5 eşiği üzerinden anlatılır, eğitimden türetilen eşik sonuçları ek tablolardadır ve okunmadı.
+
+### lee2025
+
+- **Künye anahtarı:** `lee2025`
+- **Hakemli mi:** evet (npj Precision Oncology, 10(1):37; Crossref yayın tarihi 2025-12-20).
+- **Erişim düzeyi:** tam metin (PMC12819530 XML). Gövdenin tamamı okundu, ek şekiller okunmadı.
+- **Okunan URL:** https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12819530/fullTextXML
+- **Çalışmanın sorusu:** Pankreas kanseri alt tip sınıflandırıcısı PurIST, tüm transkriptom RNA-seq, ekzon yakalamalı RNA-seq ve NanoString arasında aynı kararı verir mi?
+- **Veri:** Eşleştirilmiş 79 retrospektif örnek (tüm transkriptom ve ekzon yakalama), PANCREAS denemesinden 40 örnek (RNA-seq ve NanoString).
+- **Yöntem:** Sekiz gen çiftine (TSP) dayalı tek örnek sınıflandırıcı; Cohen kappa, eşleştirilmiş Wilcoxon, Kaplan-Meier ve Cox.
+- **Doğrulama protokolü:** Aynı örneklerde kafa kafaya karşılaştırma; referans tüm transkriptom RNA-seq.
+- **Ana sonuç:** Uyum %81,0 (64/79), kappa 0,402. Bazal benzeri oranı %8,9'dan %27,8'e çıkar; 15 uyumsuz örneğin tamamı aynı yöne kayar. Olasılıklar ekzon yakalamada sistematik yüksektir (P=1,491e-13; Bulgular, Şekil 1). NanoString ile uyum %95 (38/40), kappa 0,722 (Şekil 4). Yazarlar seçenekler arasında başka bir olasılık eşiğini de sayar (Tartışma).
+- **Bu projeyle ilgisi:** İddia 2'yi eşleştirilmiş örnekte destekler: olasılık ölçeği kayınca karar değişir. Daha önemlisi, sıra temelli gen çifti yöntemlerinin bile platforma bağışık olmadığını gösterir; genler arası göreli sıra platforma göre değişir. Bu, pilotumuzdaki sıra başarısızlığı için kaynaklı bir mekanizma adayıdır.
+- **Sınırlılık:** AUC raporlanmaz, dolayısıyla "sıralama korundu" sonucu bu kaynaktan çıkarılamaz. Düşük bazal prevalans (%9), küçük örneklem. Yazarlardan ikisi PurIST patent sahibidir.
+
+### kervanci2026
+
+- **Künye anahtarı:** `kervanci2026`
+- **Hakemli mi:** evet (Diagnostics, MDPI).
+- **Erişim düzeyi:** tam metin, hedefli okuma (özet, veri, eşik yöntemi, dış doğrulama, Tablo 10-11).
+- **Okunan URL:** https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13703602/fullTextXML
+- **Çalışmanın sorusu:** Akciğer adenokarsinomunda sürücü mutasyon alt tipleri, mikrodizi ile eğitilip RNA-seq'e aktarılan bir modelle üç sınıflı olarak tahmin edilebilir mi?
+- **Veri:** Mikrodizi iç kohort n=774 (GSE31210, GSE13213, GSE72094), dış RNA-seq TCGA-LUAD n=508.
+- **Yöntem:** Referans partili ComBat, SHAP ile 500 gen, beş öğrenicili topluluk, sınıf bazlı olasılık eşiği (eşikler iç doğrulama alt kümesinde).
+- **Doğrulama protokolü:** 5 katlı CV, dış test, tek kohort dışarıda bırakma, eşik seçiminin beş bölmede tekrarı.
+- **Ana sonuç:** ComBat olmadan model tek sınıfa çöker: F1-makro 0,245, MCC 0,000, AUROC 0,580. ComBat ile F1 0,673, AUROC 0,850; eşik ayarı F1'i 0,700'e çıkarır (Tablo 11). KRAS eşiği 0,15 beş bölme aralığının (0,33-0,50) dışındadır; yazarlar temsilî değeri 0,66-0,68 olarak verir (Tablo 10, Özet).
+- **Bu projeyle ilgisi:** İddia 2'yi yalnızca kısmen destekler. Olasılık dağılımında sistematik kayma bildirilir, ama harmonizasyonsuz durumda AUROC da çöker; yani burada sıralama taşınmaz. Bu, İddia 2'nin evrensel olmadığının kanıtıdır. Eşik kararsızlığı için ayrıca yararlıdır.
+- **Sınırlılık:** İç CV'de ComBat ve seçim bölmeden önce kestirilmiş (yazarlar tek katta ΔF1=-0,019 ölçer). Üç sınıflı görev.
+
+### botan2026
+
+- **Künye anahtarı:** `botan2026`
+- **Hakemli mi:** evet (Breast Cancer Research).
+- **Erişim düzeyi:** tam metin, hedefli okuma (özet, skorlama yöntemi, sabit z-skor ve kalibrasyon bölümleri).
+- **Okunan URL:** https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13474601/fullTextXML
+- **Çalışmanın sorusu:** PAM50'den daha az genle prognostik performans korunabilir mi ve bu skor platformlar arasında geçerli midir?
+- **Veri:** SCAN-B (N=3.069, RNA-seq), TCGA-BRCA (N=1.072), METABRIC (N=1.978), GSE20685 (N=327), GSE1456 (N=159).
+- **Yöntem:** Cox elastik ağ, ön tanımlı eşdeğerlik sınırı (ΔC=0,010). Ana skorlama kohort içi z-skorudur; duyarlılık analizinde eğitim ortalaması ve standart sapması donduruluyor.
+- **Doğrulama protokolü:** Dört dış kohort, rastgele etkili meta-analiz, lojistik yeniden kalibrasyon.
+- **Ana sonuç:** 24 gen, katlar dışı C-indeksi 0,670. Havuzlanmış HR 1,37 (GA 1,24-1,52) (Özet). Dondurulmuş z-skorda C değişimi TCGA'da +0,0002, METABRIC'te +0,0007, GSE20685'te -0,036, GSE1456'da -0,040. Kalibrasyon eğimi eğitimde 0,96, dışta 1,57-2,74 (Bulgular, Tartışma).
+- **Bu projeyle ilgisi:** İddia 2'yi dolaylı destekler: ayrım büyük ölçüde korunurken kalibrasyon bozulur. Ayrıca kohort içi z-skorun tek hasta skorlamasını karşılamadığını gösterir; bizim z-skor kolumuz için aynı uyarı geçerlidir.
+- **Sınırlılık:** Sağkalım görevi, sınıflandırma eşiği değil. TCGA eğimi kısa izlem ve düşük olay oranıyla da ilişkilendirilir, yani yalnızca platforma bağlanamaz.
+
+### kolev2026
+
+- **Künye anahtarı:** `kolev2026`
+- **Hakemli mi:** evet (International Journal of Molecular Sciences, MDPI).
+- **Erişim düzeyi:** tam metin, hedefli okuma (özet, klinik kullanışlılık bölümü, sınırlılıklar, yöntemin eşik kısmı).
+- **Okunan URL:** https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13704978/fullTextXML
+- **Çalışmanın sorusu:** Sepsis gen imzası şanstan ve rastgele gen listelerinden daha iyi midir?
+- **Veri:** GSE65682 (n=359), GSE57065 (n=53; 28 sepsis, 25 sağlıklı); 9.983 ortak gen.
+- **Yöntem:** İç içe CV ile 10 gen, L1 lojistik; 1.000 etiket karıştırma, 2.000 rastgele panel, 200 bootstrap.
+- **Doğrulama protokolü:** Yeniden uydurmadan dış uygulama; enfekte olmayan yoğun bakım hastaları için çapraz uydurma.
+- **Ana sonuç:** Dış AUROC 1,000, karıştırma p=0,001. Rastgele panellerin %12,5'i imzayı yakalar. Enfekte olmayan yoğun bakım karşılaştırmasında AUROC 0,730 (GA 0,642-0,818), 0,5 eşiğinde 75 hastanın 70'i sepsis denir, dengeli doğruluk 0,527, kalibrasyon kesişimi -0,689, eğimi 0,240 (Özet; klinik kullanışlılık bölümü, Tablo 3).
+- **Bu projeyle ilgisi:** İddia 1 için etiket karıştırma kontrolünün çağdaş örneği. İddia 2 için aynı platformda karşılaştırma grubu değişince çalışma noktasının anlamını yitirdiğini gösterir.
+- **Sınırlılık:** Her iki kohort da mikrodizi. Özgüllük sonucu dış kohortta doğrulanmamış (yazarlar söyler). AUROC da düşmüştür, dolayısıyla "sıralama korundu" örneği değildir.
+
+### foltz2023
+
+- **Künye anahtarı:** `foltz2023`
+- **Hakemli mi:** evet (Communications Biology).
+- **Erişim düzeyi:** tam metin, hedefli okuma (giriş, Bulgular, Tartışma, veri ve sınıflandırma yöntemi). Sayısal Kappa değerleri şekillerde ve ek veridedir, okunmadı.
+- **Okunan URL:** https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9968332/fullTextXML
+- **Çalışmanın sorusu:** Mikrodizi ve RNA-seq verisini birlikte eğitmek için hangi normalleştirme uygundur?
+- **Veri:** TCGA, aynı tümörlerin iki platformdaki ölçümleri: BRCA 520, GBM 150 eşleşmiş örnek. Eğitim kümeleri 348 ve 102.
+- **Yöntem:** LOG, NPN, QN, QN (CN), QN-Z, TDM, z-skor ve dönüşümsüz veri; LASSO, doğrusal SVM, rastgele orman. RNA-seq oranı %0'dan %100'e kademeli artırılır.
+- **Doğrulama protokolü:** Eğitimde 5 katlı CV, tek platformlu ayrı test kümeleri, on tekrar. Ana ölçüt Kappa.
+- **Ana sonuç:** QN, TDM ve NPN, RNA-seq oranı orta düzeydeyken iyi çalışır. QN uç oranlarda (%0, %100) referans dağılım olmadığı için kötüleşir. Z-skor en değişken yöntemdir; dönüşümsüz veri her düzeyde kötüdür (Bulgular, Şekil 2).
+- **Bu projeyle ilgisi:** İddia 2 için dolaylı: eğitimi tek platformdan, testi diğerinden alan uç durumun zor olduğunu ve z-skorun değişkenliğini destekler. Yazarlar metrikler arası sonuçların benzer olduğunu söyler; bu, metrikler arası ayrışmanın her düzende beklenmemesi gerektiğini gösterir.
+- **Sınırlılık:** İki TCGA veri seti. Eşik veya kalibrasyon incelenmez. Etiketler mikrodizi verisinden türetilmiştir. Yazarlar doğrusal olmayan modellere ve küçük örneklemlere genellemeyi sınırlar.
+
+### patil2015
+
+- **Künye anahtarı:** `patil2015`
+- **Hakemli mi:** evet (Bioinformatics). Beş yıl dışında; yalnızca yenilik değerlendirmesi için.
+- **Erişim düzeyi:** tam metin, hedefli okuma (özet, giriş, tahmin bölümü, sonuç).
+- **Okunan URL:** https://pmc.ncbi.nlm.nih.gov/articles/PMC4495301/
+- **Çalışmanın sorusu:** Test verisinin başka hastalarla birlikte normalleştirilmesi tek hastanın tahminini değiştirir mi?
+- **Veri:** Küratörlü açık meme kanseri mikrodizi kümeleri (örnek: GSE7390, n=198).
+- **Yöntem:** PAM50 ve sıra temelli sürümü; alt kümelerle yeniden normalleştirme.
+- **Doğrulama protokolü:** Aynı hastanın farklı grup büyüklükleri ve ER bileşimleriyle normalleştirilip tahminlerin karşılaştırılması.
+- **Ana sonuç:** Küçük gruplarda normalleştirilince aynı hastanın tahmini değişir; sonuç ER bileşimine de bağlıdır (Şekil 2). Sıra temelli özellikler bu yanlılığı önler ve platformlar arasında doğru sınıflamayı korur (Özet).
+- **Bu projeyle ilgisi:** Kohort içi z-skor kolumuzun sınıf bileşimine duyarlı olması beklenir. Bu, İddia 2'nin raporlanan 0,59-0,94 aralığı için doğrudan bir tehdittir ve bir deneyle ölçülmelidir.
+- **Sınırlılık:** Eski kaynak. Sıra yönteminin platformlar arası iyi çalıştığı sonucu pilotumuzla ve `lee2025` ile çelişir; tek başına genellenmemeli.
+
+### Kalibrasyon ve dış doğrulama çerçevesi (İddia 2)
+
+### vancalster2023
+
+- **Künye anahtarı:** `vancalster2023`
+- **Hakemli mi:** dergi makalesi (BMC Medicine; görüş niteliğinde metodolojik metin). Hakem bilgisi okunan metinde görülmedi.
+- **Erişim düzeyi:** tam metin (PMC9951847 XML). Gövdenin tamamı okundu.
+- **Okunan URL:** https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9951847/fullTextXML
+- **Çalışmanın sorusu:** İç veya tek dış doğrulama, bir modelin geçerli olduğunu söylemeye yeter mi?
+- **Veri:** Özgün veri yok; yayınlardan örnekler ve bir over kanseri veri seti.
+- **Yöntem:** Üç gerekçeli kavramsal tartışma: popülasyon, ölçüm ve zaman değişir.
+- **Doğrulama protokolü:** Uygulanmaz.
+- **Ana sonuç:** Yazarlara göre kalibrasyon coğrafi ve zamansal heterojenliğe ayrımdan genellikle daha açıktır (Sonuçlar). Wang COVID modeli: havuzlanmış c 0,77, O:E 0,65, eğim 0,50. EuroSCORE: c 0,79-0,85 arasında sistematik bozulma yokken gözlenen ölüm %4,1'den %2,8'e düşer, ortalama tahmin %5,6'dan %7,6'ya çıkar (Neden 1 ve 3 örnekleri). Ölçüm farkı (ör. kit ve cihaz) özellikle kalibrasyonu etkileyebilir (Neden 2). Kabaca en küçük sınıfta 100-200 vaka önerilir (Sonuçlar).
+- **Bu projeyle ilgisi:** İddia 2'nin klinik tahmin alanındaki kuramsal dayanağı: ayrım-kalibrasyon ayrışması alanın bildiği bir olgudur. Ayrıca Golub'un 38 örneği bu ölçütün çok altındadır; test kohortu Golub olan satırlar zayıf okunmalıdır.
+- **Sınırlılık:** Örnekler klinik değişkenlerdir, gen ifadesi değildir. Görüş makalesi.
+
+### collins2024part1
+
+- **Künye anahtarı:** `collins2024part1`
+- **Hakemli mi:** evet (BMJ; metinde dış hakem değerlendirmesinden geçtiği belirtilir).
+- **Erişim düzeyi:** tam metin, hedefli okuma (özet, sözlük kutuları, kalibrasyon ve güncelleme geçen bölümler).
+- **Okunan URL:** https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10772854/fullTextXML
+- **Çalışmanın sorusu:** Klinik tahmin modeli nasıl anlamlı biçimde değerlendirilir?
+- **Veri:** Yok (yöntem rehberi).
+- **Yöntem:** İç, iç-dış ve dış doğrulama ile heterojenlik ve genellenebilirlik anlatımı.
+- **Doğrulama protokolü:** Uygulanmaz.
+- **Ana sonuç:** Ayrım c istatistiğiyle ölçülür; kalibrasyon grafik, eğim (ideal 1) ve kalibrasyon-büyük-ölçek (ideal 0) ile değerlendirilir (sözlük). Değerlendirme sonucunda modelin güncellenmesi, ör. yeniden kalibrasyon, gerekebilir (Giriş).
+- **Bu projeyle ilgisi:** İddia 2'de "kalibrasyon" sözcüğünü kullanacaksak ölçmemiz gerekenleri tanımlar. Bizim pilotta bunlar yok.
+- **Sınırlılık:** Genel rehber, gen ifadesine özgü değil.
+
+### riley2024part2
+
+- **Künye anahtarı:** `riley2024part2`
+- **Hakemli mi:** dergi makalesi (BMJ). Hakem ifadesi okunan metinde görülmedi. Bu kaynak aday listesinde yoktu, `collins2024part1` ile birlikte bulundu.
+- **Erişim düzeyi:** tam metin, hedefli okuma (özet, kalibrasyon ve ayrım bölümleri, Tablo 1).
+- **Okunan URL:** https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10788734/fullTextXML
+- **Çalışmanın sorusu:** Dış doğrulama çalışması nasıl yürütülür?
+- **Veri:** İkili ve sağkalım sonlanımlı iki örnek model.
+- **Yöntem:** Beş adım: veri, tahmin, performans, klinik kullanışlılık, raporlama.
+- **Doğrulama protokolü:** Uygulanmaz.
+- **Ana sonuç:** Tek ölçüt yetmez: ikili örnekte O/E 1,01 ama eğim 0,72 (0,70-0,75); sağkalım örneğinde eğim 1,10 ama O/E 1,27 (1,22-1,32) (Tablo 1 ve ilgili metin). c istatistiği vaka karışımına bağlıdır. Eşik önemliyse klinik yarar o eşikte değerlendirilmelidir.
+- **Bu projeyle ilgisi:** Doğrudan yöntem kılavuzu: AUC ve 0,5 eşiğindeki dengeli doğruluğa eğim, kesişim ve O/E eklenmeli. AUC'nin vaka karışımına bağımlılığı, kohortlar arası AUC karşılaştırmasını da sınırlar.
+- **Sınırlılık:** Genel rehber.
+
+### collins2024tripod
+
+- **Künye anahtarı:** `collins2024tripod`
+- **Hakemli mi:** evet (BMJ, raporlama kılavuzu; metinde dış hakem değerlendirmesinden geçtiği belirtilir). `10.1136/bmj.q902` makale değil, bu kaydın düzeltme bildirimidir; atıf e078378'e yapılmalı.
+- **Erişim düzeyi:** tam metin, hedefli okuma (özet, tanımlar, kontrol listesi öğeleri).
+- **Okunan URL:** https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11019967/fullTextXML
+- **Çalışmanın sorusu:** Regresyon veya makine öğrenmesi kullanan klinik tahmin modelleri nasıl raporlanmalı?
+- **Veri:** Yok (uzlaşı süreci).
+- **Yöntem:** Uzlaşı temelli kılavuz güncellemesi.
+- **Doğrulama protokolü:** Uygulanmaz.
+- **Ana sonuç:** 27 maddelik liste ve 13 maddelik özet listesi; TRIPOD 2015'in yerini alır (Özet ve bulgular). Öğe 12e değerlendirme ölçütlerini, 12f güncellemeyi, 15 sınıflandırma eşiğinin nasıl belirlendiğinin gerekçesini ister.
+- **Bu projeyle ilgisi:** Final makalesinin yöntem bölümünde eşiğin nereden geldiğini yazma gerekçesi.
+- **Sınırlılık:** Raporlama kılavuzudur; bir bulgu kanıtı değildir.
+
+### Lösemi transkriptom sınıflandırma
+
+### mulet2025
+
+- **Künye anahtarı:** `mulet2025`
+- **Hakemli mi:** evet (HemaSphere).
+- **Erişim düzeyi:** tam metin, hedefli okuma (özet, tahmin yöntemi, sınıflandırıcı ve dış kohort bölümleri).
+- **Okunan URL:** https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12362175/fullTextXML
+- **Çalışmanın sorusu:** Transkriptom, belirsiz soylu akut lösemileri AML, B-ALL veya T-ALL'a atamaya yardım eder mi?
+- **Veri:** Eğitim için AML n=145, B-ALL n=223, T-ALL n=85 (RNA-seq). Belirsiz soylu lösemi n=30, dış belirsiz kohort n=24. Munich Leukemia Laboratory dış verisi (büyüklüğü ana metinde okunmadı).
+- **Yöntem:** log TPM, en değişken 8.000 gen; altı algoritma karşılaştırılıp lasso çok terimli lojistik (E-CAL) seçilir. Soy kararı olasılık farkı 0,25'e dayanır.
+- **Doğrulama protokolü:** İç içe CV (5 iç, 10 dış), Munich dış testi, MDACC belirsiz kohortu.
+- **Ana sonuç:** İç içe CV'de %100 kesinlik ve duyarlılık, dış veride %97,5 duyarlılık ve %93,7 kesinlik (Bulgular). Belirsiz lösemilerin 27/30'u soya atanır; dış kohortta %75 uyum (Özet).
+- **Bu projeyle ilgisi:** ALL/AML ayrımının en yakın güncel örneği: RNA-seq içinde ALL ile AML ayrımı dış veride de yüksektir. Bu, eşik sorununun görevin kendisinden değil, platform farkından kaynaklandığı fikrini güçlendirir (dolaylı çıkarım).
+- **Sınırlılık:** Tek platform (RNA-seq). Eşik ve kalibrasyon değerlendirilmez. En değişken gen seçiminin kat içinde mi yapıldığı okunan kısımda görülmedi. Dış metrikler ek tablodadır.
+
+### cui2026
+
+- **Künye anahtarı:** `cui2026`
+- **Hakemli mi:** evet (npj Precision Oncology).
+- **Erişim düzeyi:** tam metin (PMC13594159 XML). Ana metnin tamamı okundu, ek veri okunmadı.
+- **Okunan URL:** https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13594159/fullTextXML
+- **Çalışmanın sorusu:** Sıra dönüşümlü derin öğrenme, akut lösemi soyu ve 20 B-ALL alt tipini platformlar arasında sınıflayabilir mi?
+- **Veri:** St. Jude Cloud n=1.606 (284 AML, 1.223 B-ALL, 99 T-ALL); SCMC n=1.144 (1.009 B-ALL, 135 T-ALL); Bld.2020 n=138 (115 B-ALL, 23 T-ALL); tek hücre RNA-seq.
+- **Yöntem:** Örnek içi sıra dönüşümü, 476 gen, gürültü ile sıra artırımı, LSTM. AL modeli (229 gen) soy ayrımı yapar.
+- **Doğrulama protokolü:** %80/%20 geliştirme ve görülmemiş kohortlar. Gen silme deneyleri.
+- **Ana sonuç:** AL modeli görülmemiş SCMC'de %99,38 (Allspice %94,20), Bld.2020'de %98,56; B-ALL modeli St. Jude'da %93,84, Bld.2020'de %93,04 (Bulgular, Şekil 2). AL modelinde 229 genin 50'si silinince doğruluk %98'in üzerinde kalır (Şekil 2E).
+- **Bu projeyle ilgisi:** Sıra dönüşümünün lösemide işe yaradığı en güncel iddia. Ancak **AL modelinin iki dış kohortunda AML yoktur**; metindeki kohort bileşimlerine göre AML ayrımı dışarıda test edilmemiştir. Bu nedenle bu kaynak, sıra dönüşümünün AML/ALL'da platform aşırı çalıştığının kanıtı olarak kullanılmamalı.
+- **Sınırlılık:** Tümü RNA-seq; "platform" burada büyük ölçüde kuantifikasyon ve hizalama hattıdır, mikrodizi denenmez. Eşik ve kalibrasyon yok. Gen seçiminin bir kısmı literatür ve elle düzenleme içerir.
+
+### beder2023
+
+- **Künye anahtarı:** `beder2023`
+- **Hakemli mi:** evet (HemaSphere).
+- **Erişim düzeyi:** tam metin, hedefli okuma (özet, veri, sınıflandırıcı, doğruluk bölümleri).
+- **Okunan URL:** https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10461941/fullTextXML
+- **Çalışmanın sorusu:** RNA-seq gen ifadesi B-öncül ALL'yi 21 moleküler alt tipe ayırabilir mi?
+- **Veri:** 3.532 örnekten eleme sonrası 2.998; eğitim n=1.869 (4 kohort), üç dışarıda tutulan çalışma n=1.129 (atanmış alt tipli n=1.018).
+- **Yöntem:** LASSO ile gen seçimi, doğrusal SVM ve en yakın komşu birleşimi; log, z-dönüşüm ve 0-1 ölçekleme. Alt tipe özgü eşikler.
+- **Doğrulama protokolü:** Tabakalı 10 katlı CV ve kohort düzeyinde dışarıda tutma.
+- **Ana sonuç:** Doğruluk eğitimde 0,952, dışarıda tutulanlarda 0,957; St Jude 0,978, CLIP 0,965, MLL 0,914 (Bulgular, Şekil 3). Yüksek güvenli tahmin %83,7, doğruluğu %98,9; sınıflanamayan %1,2 (Özet).
+- **Bu projeyle ilgisi:** Karşı örnek olarak değerlidir: aynı teknoloji içinde kohort değişince tanımlı eşiklerle doğruluk yüksek kalıyor. Bu, İddia 2'yi "kohort" değil "platform" üzerinden kurmayı destekler (bizim yorumumuz).
+- **Sınırlılık:** ALL/AML değil, alt tip görevi; yalnızca RNA-seq. Eşiklerin hangi veriden tanımlandığı ek tablolarla netleşir, okunmadı.
+
+### jung2026
+
+- **Künye anahtarı:** `jung2026`
+- **Hakemli mi:** evet (NAR Genomics and Bioinformatics).
+- **Erişim düzeyi:** tam metin, hedefli okuma (özet, veri birleştirme, model ve TCGA doğrulama bölümleri, kalibrasyon geçen kısımlar).
+- **Okunan URL:** https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13244157/fullTextXML
+- **Çalışmanın sorusu:** AML'de IDH mutasyon durumu gen ifadesinden tahmin edilebilir mi?
+- **Veri:** 19 kohort, 5.844 örnek; 1.546 etiketli eğitim örneği (285 mutant, 1.261 yabanıl tip); TCGA-LAML n=150 (29 mutant, 121 yabanıl tip).
+- **Yöntem:** pyComBat ile toplu düzeltme; ileri beslemeli ağ ve lojistik regresyon.
+- **Doğrulama protokolü:** İç içe CV ve TCGA-LAML bağımsız test.
+- **Ana sonuç:** Lojistik regresyon için AUC 0,994±0,007, doğruluk 0,983±0,006, dengeli doğruluk 0,979±0,005 (Özet). TCGA'da 29/29 mutant ve 119/121 yabanıl tip doğru (Bulgular, Şekil 4). Brier 0,015 olmasına rağmen yüksek olasılıklarda sistematik fazla tahmin vardır; yazarlar olasılıkların olabilirlik gibi okunmamasını ister.
+- **Bu projeyle ilgisi:** AML transkriptom verisinde ayrım ile kalibrasyonun ayrışabildiğini gösterir, ama bu iç CV'de görülür, platform aktarımında değil. ComBat ile hizalanmış veride karar iyi çalışır; bu, hizalamanın eşik sorununu çözebileceğine işaret edebilir (bizim yorumumuz).
+- **Sınırlılık:** Metne göre 19 küme birlikte düzeltilmiştir; TCGA-LAML de buna dahilse dış test etiketsiz biçimde de olsa harmonizasyonu görmüştür. Bu ayrıntı açıkça doğrulanamadı. Görev ALL/AML değil.
+
+### TabPFN ve gen ifadesi
+
+### zhou2025tabpfn
+
+- **Künye anahtarı:** `zhou2025tabpfn`
+- **Hakemli mi:** **hayır, bioRxiv preprint** (v1, 2025-08-21; Crossref türü posted-content). Dergi sürümü bulunamadı. Proje rehberindeki bioRxiv 2025 atfıyla konu ve yıl olarak örtüşüyor; rehber künye vermediği için kesin eşleşme doğrulanamaz.
+- **Erişim düzeyi:** tam metin (bioRxiv JATS XML, CC BY-NC). Gövdenin tamamı okundu. Tablo görselleri XML'de yoktu; sayılar metinden alındı.
+- **Okunan URL:** https://www.biorxiv.org/content/early/2025/08/21/2025.08.15.670537.source.xml
+- **Çalışmanın sorusu:** TabPFN, yüksek boyutlu RNA-seq verisine uyarlanabilir mi?
+- **Veri:** Age-ARCHS4 (57.873 örnek, 10.000 gen; regresyon) ve IBD (2.490 örnek, 10.000 gen; üç sınıf).
+- **Yöntem:** Özdenetimli gömmeler, BulkFormer, topluluklar, TabICL, TabFlex ve üstveri ile alt gruplama. Karşılaştırma: rastgele orman, XGBoost, MLP.
+- **Doğrulama protokolü:** 5 katlı tabakalı CV.
+- **Ana sonuç:** 500 özellik ve eşit koşulda TabPFN R²=0,606, rastgele orman 0,541, XGBoost 0,528. Klasik yöntemler tüm genleri kullanınca 3 katmanlı MLP R²=0,75; TabPFN uyarlamaları 0,4606-0,627. IBD'de TabPFN %63,7, TabICL %57,8, TabFlex %51,5, klasik yöntemler 0,74 dengeli doğruluk. Organ ve cinsiyetle alt gruplama R²=0,75 (Bulgular).
+- **Bu projeyle ilgisi:** İki iddiayı doğrudan etkilemez. Golub'daki gen sayısı için TabPFN denenirse özellik sınırının gen seçimini zorunlu kıldığını ve bu seçimin CV içinde yapılması gerektiğini hatırlatır (bu ikinci kısım bizim çıkarımımız).
+- **Sınırlılık:** Hakem görmemiş. Görevler lösemi değil. Yazar kurumu şirkettir (Biostate AI). Preprint TabPFN için Hollmann 2023'ü gösterir; rehber TabPFN v2 der. 500 özellik sınırının projede kullanılacak sürüm için geçerli olup olmadığı `hollmann2025` notundan ayrıca kontrol edilmeli.
+
+## 4. Warnat-Herresthal 2020: GSE13159 dahil mi?
+
+**Yanıt: evet.** Kaynak: Europe PMC ek dosya paketi (`PMC6992905/supplementaryFiles`), `mmc2.xlsx` (Tablo S1), `mmc1.pdf` (Transparent Methods), `mmc3.xlsx` (Tablo S3).
+
+- `Annotation` sayfasında GSE13159 veri seti 2'de **1.860 örnekle** yer alır ve veri setinin (n=8.348) en büyük çalışmasıdır. `Study Search Dataset 2` sayfası da GSE13159 için OK verir.
+- Dağılım: AML 538, ALL 520, KLL 448, MDS 204, KML 76, sağlıklı 74.
+- **Fark:** Projede GSE13159'da 1.292 örnek (750 ALL, 542 AML) var; Warnat ALL'yi 520, AML'yi 538 sayar. Yani yaklaşık 230 ALL örneği Warnat'ta yok. Nedeni okunan dosyalarda görülmedi.
+- GSE7186 dizgesi Tablo S1'in hiçbir sayfasında yok. GSE13164 ve GSE13204 de `Annotation` sayfasında görülmedi.
+
+İddia 2 için bu kaynak sanılandan önemlidir:
+
+- Ana metne göre HG-U133A ile eğitilen modeller RNA-seq verisinde tahmin yapamaz, sıra dönüşümüyle bu çözülür ve ntrain arttıkça sonuç kötüleşir (Translation of Classifiers across Technical Platforms, Şekil 5).
+- Tablo S3'te veri seti 1'den 3'e, ntrain=2.500: ham doğruluk %45,3, sıra dönüşümlü %95,43.
+- **Uyarı 1:** Ham satırdaki değerler kendi içinde tutarsız görünüyor. Duyarlılık 44,01, özgüllük 96,55 ve veri seti 3'ün 508 AML / 673 kontrol dağılımıyla doğruluk yaklaşık %74 olmalıydı, %45,3 değil. Ayrıca veri seti 2'den 3'e ham ve sıra satırlarının ortalamaları birebir aynı. Tablo S3'ün ham sayılarına dayanılmamalı; yalnızca ana metindeki nitel ifade kullanılmalı.
+- **Uyarı 2:** Warnat'ın sıra dönüşümü **gen bazlı ve veri seti içindedir**: her gen tüm örnekler üzerinde sıralanıp normal dağılıma çevrilir (Transparent Methods, "Rank transformation to normality"). Bu, örnek içi sıra değildir; test kohortunun dağılımını kullanır ve bizim kohort içi z-skor kolumuzun yakın akrabasıdır. Dolayısıyla Warnat'ın bulgusu bizim z-skor sonucumuzla uyumlu, sıra sonucumuzla çelişmez.
+- **AUC yoktur.** Tablo S3'te yalnızca doğruluk, duyarlılık, özgüllük var; "sıralama korunurken eşik bozuldu" sonucu bu kaynaktan çıkarılamaz.
+
+## 5. Yenilik değerlendirmesi: İddia 2 ne kadar yeni?
+
+**Soru:** Gen ifadesi sınıflandırıcılarında AUC'nin platformlar arasında taşındığını, karar eşiğinin veya kalibrasyonun taşınmadığını daha önce gösteren oldu mu?
+
+**Yanıt: Evet, genel haliyle gösterildi.** `zheng2026` bunu ana bulgu olarak verir: "High AUROC can mask fixed-threshold failure" (Zheng ve Chen 2026, Özet). Mikrodizi ile eğitilen model RNA-seq kohortunda AUROC 0,999 iken 0,5 eşiğinde dengeli doğruluk 0,50 verir. Bu, bizim sonucumuzun neredeyse birebir karşılığıdır.
+
+| Kaynak | Alan | Platform değişiyor mu? | Sıralama korunuyor mu? | Eşik veya kalibrasyon bozuluyor mu? | İddia 2 ile ilişkisi |
+|---|---|---|---|---|---|
+| `zheng2026` | Sepsis | evet (mikrodizi, RNA-seq) | evet, AUROC 0,999-1,00 | evet, dengeli doğruluk 0,50 | Doğrudan aynı bulgu |
+| `botan2026` | Meme kanseri, sağkalım | evet | büyük ölçüde (dondurulmuş ve kohort içi z-skor farkı ΔC -0,040 ile +0,0007) | evet, eğim 1,57-2,74 | Sağkalım tarafında paralel |
+| `lee2025` | Pankreas kanseri | evet, eşleşmiş örnek | ölçülmedi | evet, olasılık kayması | Eşik kaymasını destekler |
+| `kervanci2026` | Akciğer | evet | **hayır**, AUROC 0,58 | evet | Kısmi, karşı yön de içerir |
+| `kolev2026` | Sepsis | hayır, karşılaştırma grubu | kısmen, AUROC 0,73 | evet, eğim 0,24 | Benzer, başka neden |
+| `warnatherresthal2020` | AML (lösemi) | evet | AUC yok | doğruluk çöküyor, gen bazlı sıra ile düzeliyor | Lösemide öncül, ayrım yapmaz |
+| `vancalster2023` | Klinik modeller | ölçüm farkı dahil | evet (örneklerde) | evet | Genel ilke |
+
+**Değerlendirme:**
+
+- "AUC taşınır, eşik taşınmaz" genel iddiası yeni değildir. Bu cümle yenilik olarak yazılırsa hakem `zheng2026`'yı gösterir.
+- Lösemide öncül de vardır (Warnat 2020), ama bu kaynak AUC raporlamadığı için ayrışmayı göstermez.
+- Taramamızda ALL ve AML ayrımı için, sıralama ile eşik davranışını aynı anda raporlayan bir çalışma bulunmadı. Bu "ilk" demek değildir; yalnızca aşağıdaki tarama sınırları içinde "bulunamadı" demektir.
+
+**Hâlâ özgün olabilecek noktalar (güçlüden zayıfa):**
+
+1. **Örnek içi sıra dönüşümünün eşiği kurtarmaması.** `zheng2026`'da rank artı eğitimden ölçekleme 0,95-1,00 verir. Bizim `results/feasibility.json` sonuçlarında aynı biçimdeki kol 0,50-0,70 verir; hatta MILE'dan Golub'a AUC 0,660'a düşer. `lee2025` bunun için kaynaklı bir mekanizma sunar: göreli gen sırası platforma göre değişir. Bu ayrışma doğrulanırsa makalenin en ilginç bulgusu olur.
+2. **Eşik kaymasının kaynağını ayırmak.** `zheng2026` platform, prevalans, vaka karışımı ve teknik parti etkisini ayıramadığını söyler. Örnekleme ile prevalansı sabitleyen bir deney bu boşluğu doldurur.
+3. **Görev ve platform aralığı.** Üç farklı dizi platformu (GPL80, GPL570, GPL4861) arasında üç kohortlu, çift yönlü ALL/AML aktarımı. Bu tek başına küçük bir katkıdır.
+
+**Pilotla ilgili düzeltilmesi gereken üç nokta:**
+
+- **0,59-0,94 ve 0,93-0,99 aralıkları yalnızca kohort içi z-skor satırlarından gelir** (`scripts/run_feasibility.py`, `prepare`). Bu yöntem test kohortunun kendi ortalama ve standart sapmasını kullanır. `zheng2026`'nın terimiyle sabit aktarım değil, etiketsiz kohort uyarlamasıdır; `patil2015` terimiyle test kümesi yanlılığına açıktır. Metinde bu açıkça yazılmalı.
+- **Sabit aktarım durumu daha serttir.** Ham satırların dördünde dengeli doğruluk 0,50, AUC 0,965-0,992. Bu `zheng2026` ile aynı desendir ve aslında daha temiz kanıttır. Ama MILE'dan Golub'a ve Andersson'a ham satırlar 0,835 ve 0,918 verir, yani çöküş evrensel değildir.
+- **"Sıralama taşınır" her kolda doğru değildir** (sıra kolunda AUC 0,660). "Kalibrasyon" sözcüğü de şimdilik kullanılmamalı: pilot eğim, kesişim veya O/E ölçmüyor, yalnızca 0,5 eşiğini ölçüyor (`riley2024part2`, `collins2024part1`).
+
+**Önerilen deneyler (final aşaması):**
+
+- Kalibrasyon kesişimi, eğimi, O/E ve Brier ekle.
+- Prevalansı sabitleyen alt örnekleme ile eşik kaymasını sınıf karışımından ayır.
+- Kohort içi z-skoru küçük referans kümeleriyle test et (`zheng2026` n=5 referansta ortalama 0,897, en az 0,679 bulur).
+- Eğitimden türetilen eşik ve az etiketli yeniden kalibrasyonu karşılaştır.
+- Golub testlerinde örneklem uyarısını yaz (`vancalster2023`).
+
+**Önerilen çerçeve:** Bulguyu yenilik olarak değil, `zheng2026`'nın lösemi ve ALL/AML görevindeki bağımsız tekrarı olarak sun; özgün katkıyı sıra dönüşümünün başarısızlığı ve eşik kaymasının kaynağı üzerine kur. İddia 1 de yeni değildir (`ambroise2002`, `demircioglu2021`, `rosenblatt2024`); tek işlem hattında ölçüm olarak sunulmalıdır.
+
+**Tarama sınırları:** Europe PMC (yaklaşık 35 sorgu) ve Crossref; 2026-11-06 tarihinde. Google Scholar, Scopus ve Web of Science kullanılmadı. Çoğu sorgu güncel 2026 sonuçlarını öne çıkardı, eski çalışmalar kaçmış olabilir. Sonuçların çoğu başlıktan elendi, her biri okunmadı.

@@ -97,3 +97,13 @@ Lookups by known identifier:
 - **IEEE EMBC 2027.** Official page, read 2026-11-06: full papers due 24 January 2027; 5-page limit, up to 4 pages of content and a 5th page of references only, at most 20 references.
 - **Not confirmed.** No official 2027 call was found for CBMS, SIU, CIBCB, BHI or ICHI. AMLDS 2027 and ICBET 2027 appeared only on third-party listings.
 
+## Targeted update (2026-11-06)
+
+Run on Europe PMC (about 35 queries) and Crossref for leakage, external validation, cross-platform transfer, transcriptome-based leukemia classification and TabPFN on gene expression. Most results were excluded by title. Google Scholar, Scopus, Web of Science and IEEE Xplore were not used, so older or conference work may be missing.
+
+- **Added (20):** kapoor2023, whalen2022, bernett2024, rosenblatt2024, demircioglu2021, bates2024, zheng2026, lee2025, kervanci2026, botan2026, kolev2026, foltz2023, vancalster2023, collins2024part1, riley2024part2, collins2024tripod, mulet2025, cui2026, beder2023, jung2026.
+- **Removed from the report (6):** armstrong2002, statnikov2005, feltes2019, liu2006 (abstract only and not essential), cawley2010, cortes1995.
+- **Result:** 52 references, 46 studies and 6 method references; 31 from 2021 or later, 28 from 2022 or later; 47 full text, 4 abstract, 1 citation only.
+- **Not peer-review verified in the text we read:** whalen2022, bernett2024, vancalster2023 and riley2024part2 are journal articles, but the review process was not stated in what we read.
+- **Warnat-Herresthal 2020 supplement.** GSE13159 is in data set 2 with 1,860 samples. Its rank transform is gene-wise within a data set, not within-sample.
+

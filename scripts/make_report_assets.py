@@ -177,6 +177,9 @@ def pilot_macros(f: dict) -> dict:
     leak, rows = f["leakage"], f["transfer_rows"]
     z = [r for r in rows if r["mode"] == "zscore"]
     raw = [r for r in rows if r["mode"] == "raw"]
+    rank = [r for r in rows if r["mode"] == "rank"]
+    collapsed = [r for r in raw if r["bacc"] == 0.5]
+    others = [r["bacc"] for r in raw if r["bacc"] != 0.5]
     m_a = next(r for r in z if (r["train"], r["test"]) == ("MILE", "Andersson"))
     g_m = next(r for r in z if (r["train"], r["test"]) == ("Golub", "MILE"))
     return {
@@ -185,7 +188,12 @@ def pilot_macros(f: dict) -> dict:
         "PilotInPerm": num(leak["inside"]["perm_mean"]), "PilotOutPerm": num(leak["outside"]["perm_mean"]),
         "PilotAucMin": num(min(r["auc"] for r in z)), "PilotAucMax": num(max(r["auc"] for r in z)),
         "PilotBaMin": num(min(r["bacc"] for r in z)), "PilotBaMax": num(max(r["bacc"] for r in z)),
-        "PilotRawSingle": sum(r["bacc"] == 0.5 for r in raw),
+        "PilotRawSingle": len(collapsed),
+        "PilotRawAucMin": num(min(r["auc"] for r in collapsed), 3),
+        "PilotRawAucMax": num(max(r["auc"] for r in collapsed), 3),
+        "PilotRawOtherMin": num(min(others)), "PilotRawOtherMax": num(max(others)),
+        "PilotRankMin": num(min(r["bacc"] for r in rank)), "PilotRankMax": num(max(r["bacc"] for r in rank)),
+        "PilotRankAucMG": num(next(r["auc"] for r in rank if (r["train"], r["test"]) == ("MILE", "Golub")), 2),
         "PilotTallMA": pct(m_a["tall_error"]), "PilotBallMA": pct(m_a["ball_error"]),
         "PilotTallGM": pct(g_m["tall_error"]), "PilotBallGM": pct(g_m["ball_error"]),
         "PilotNTallM": int(g_m["n_tall"]),
@@ -196,13 +204,14 @@ def pilot_table(f: dict) -> None:
     """Transfer pilot, one row per train -> test direction."""
     rows = f["transfer_rows"]
     get = {(r["train"], r["test"], r["mode"]): r for r in rows}
-    out = [r"\begin{tabular}{@{}lcccc@{}}", r"\toprule",
-           r"Eğitim $\to$ test & AUC ($z$) & DD ham & DD $z$ & DD sıra\\ \midrule"
-           if TR else r"Train $\to$ test & AUC ($z$) & BA raw & BA $z$ & BA rank\\ \midrule"]
+    out = [r"\begin{tabular}{@{}lccccc@{}}", r"\toprule",
+           r"Eğitim $\to$ test & AUC ham & DD ham & AUC $z$ & DD $z$ & DD sıra\\ \midrule"
+           if TR else r"Train $\to$ test & AUC raw & BA raw & AUC $z$ & BA $z$ & BA rank\\ \midrule"]
     pairs = [(a, b) for a in ("Golub", "MILE", "Andersson") for b in ("Golub", "MILE", "Andersson") if a != b]
     for a, b in pairs:
         z = get[(a, b, "zscore")]
-        out.append(rf"{a} $\to$ {b} & {num(z['auc'])} & {num(get[(a, b, 'raw')]['bacc'])} & "
+        w = get[(a, b, "raw")]
+        out.append(rf"{a} $\to$ {b} & {num(w['auc'])} & {num(w['bacc'])} & {num(z['auc'])} & "
                    rf"{num(z['bacc'])} & {num(get[(a, b, 'rank')]['bacc'])}\\")
     out += [r"\bottomrule", r"\end{tabular}"]
     (GEN / "pilot_transfer.tex").write_text("\n".join(out) + "\n", encoding="utf-8")
@@ -237,8 +246,8 @@ def literature_table() -> None:
     head = (r"\toprule Kaynak & Yıl & Veri seti & Ön işleme/öznitelik seçimi & Yöntem & Doğrulama & En iyi sonuç & Not\\ \midrule"
             if TR else
             r"\toprule Ref. & Year & Data set & Pre-proc./feature sel. & Method & Validation & Best result & Note\\ \midrule")
-    caption = ("Tam literatür özet tablosu (dahil edilen 30 çalışmanın tamamı, kronolojik)." if TR else
-               "Full literature summary table (all 30 included studies, chronological).")
+    caption = (f"Tam literatür özet tablosu (dahil edilen {len(rows)} çalışmanın tamamı, kronolojik)." if TR else
+               f"Full literature summary table (all {len(rows)} included studies, chronological).")
     out = [r"\begin{longtable}{@{}p{0.9cm}p{0.5cm}p{2.3cm}p{2.6cm}p{2.6cm}p{2.3cm}p{2.6cm}p{2.4cm}@{}}",
            rf"\caption{{{caption}}}\label{{tab:litfull}}\\",
            head + r"\endfirsthead",
@@ -277,6 +286,11 @@ def top_gene_table(n: int = 12) -> None:
     (GEN / "top_genes.tex").write_text("\n".join(out) + "\n", encoding="utf-8")
 
 
+BIB_ACCENTS = {"ğ": r"{\u{g}}", "ı": r"{\i}", "ö": r"{\"o}", "Ö": r"{\"O}", "ã": r"{\~a}", "é": r"{\'e}",
+               "‐": "-", "ó": r"{\'o}", "ç": r"{\c{c}}", "ć": r"{\'c}", "Ž": r"{\v{Z}}", "ä": r"{\"a}",
+               "ü": r"{\"u}"}
+
+
 def bib_with_doi() -> None:
     """IEEEtran.bst ignores the doi field; copy it into a printed note."""
     src = (ROOT / "reports" / "literature" / "references.bib").read_text(encoding="utf-8")
@@ -285,6 +299,9 @@ def bib_with_doi() -> None:
         doi = m.group(2)
         return m.group(0) + ",\n  note    = {doi: \\href{https://doi.org/" + doi + "}{" + doi + "}}"
     out = re.sub(r"(doi\s*=\s*\{([^}]+)\})", add_note, src)
+    for char, tex in BIB_ACCENTS.items():  # BibTeX wraps lines by byte and can split UTF-8 letters
+        out = out.replace(char, tex)
+    assert out.isascii(), sorted({c for c in out if ord(c) > 127})
     (GEN / "references.bib").write_text(out, encoding="utf-8")
 
 
