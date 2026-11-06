@@ -8,11 +8,11 @@ Ders rehberinin "4. Ara Rapor isterleri" bölümündeki her madde ve nerede kar�
 | İster | Durum | Nerede |
 |---|---|---|
 | Ara rapor PDF'i, kapakta ad ve öğrenci no | ✅ | `reports/ara_rapor/main.pdf`, sayfa 1 |
-| Kapakta video URL'si | ⬜ | `reports/ara_rapor/main.tex` satır 20 (`\VideoURL`), sonra yeniden derle |
+| Kapakta video URL'si | ⬜ | `reports/ara_rapor/main.tex` satır 33 (`\VideoURL`), sonra yeniden derle |
 | Kapakta kod deposu URL'si | ✅ | sayfa 1 dipnotu |
 | Kod deposu: README, requirements.txt, sabit seed | ✅ | `README.md`, `requirements.txt`, `src/leukemia/config.py` (SEED = 42) |
 | Depo hocanın erişebileceği durumda | ✅ | Herkese açık: https://github.com/mrayenesay/leukemia-all-aml-ml |
-| Tanıtım videosu (5–10 dk, kendi sesin, yüz görünür) | ⬜ | Metin: `reports/video/konusma_metni.md`; slaytlar: `reports/sunum/slides.pdf` |
+| Tanıtım videosu (7–8 dk hedef, kendi sesin, yüz görünür) | ⬜ | Metin: `reports/video/konusma_metni.md`; slaytlar: `reports/sunum/slides.pdf` |
 | GenAI kullanım beyanı | ✅ / ⬜ | `reports/genai/main.pdf`; bölüm 6'daki doğrulama listesini işaretle ve imzala |
 
 ## İçerik isterleri
@@ -20,7 +20,7 @@ Ders rehberinin "4. Ara Rapor isterleri" bölümündeki her madde ve nerede kar�
 | İster | Puan | Durum | Nerede |
 |---|---|---|---|
 | 1. Problem tanımı, klinik önem, mikrodizi açıklaması, ≥2 test edilebilir araştırma sorusu | – | ✅ | Bölüm I (4 araştırma sorusu, H0 tanımlı) |
-| 1. "non-cancer" terminolojisinin düzeltilmesi | – | ✅ | Bölüm I, "Clinical problem" |
+| 1. "non-cancer" terminolojisinin düzeltilmesi | – | ✅ | Bölüm I, "Klinik problem" |
 | 2. ≥15 kaynak, ≥10 hakemli, ≥5 son 5 yıl | A2 | ✅ | 52 kaynak, tümü dergi veya konferans yayını, 31'i 2021 ve sonrası (28'i 2022 ve sonrası); 47 tam metin, 4 özet, 1 künye (yapay zekâ destekli) |
 | 2. Veritabanları, arama sorguları, tarih aralığı, dahil etme/dışlama ölçütleri | A2 | ✅ | Bölüm II "Arama protokolü"; ayrıntı: `reports/literature/search_log.md` |
 | 2. Literatür özet tablosu (yazar/yıl · veri · ön işleme · yöntem · doğrulama · sonuç · not) | A2 | ✅ | Tablo I (özet) + Ek A (46 çalışmanın tamamı) |
