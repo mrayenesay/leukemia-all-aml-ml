@@ -53,7 +53,7 @@
 \textbf{Araştırma soruları (AS)}
 \begin{enumerate}\small
 \item Nested CV'de 3 yöntem farklı mı?
-\item 38/34 tek bölme CV ile tutarlı mı?
+\item 38/34 CV ile tutarlı mı? Sızıntı ne kadar şişirir?
 \item Sinyal kohortlar arası taşınıyor mu?
 \item (Bonus) DL / TabPFN daha iyi mi?
 \end{enumerate}
@@ -100,74 +100,35 @@ Rol & ana & benzer 1 & benzer 2 (B4) \\
 \fig[width=0.95\textwidth]{fig_class_distribution.pdf}
 \end{frame}
 
-\begin{frame}{Veri kalitesi (Golub)}
-\fig[width=\textwidth]{fig_golub_quality.pdf}
-\begin{itemize}\small
-\item NaN/INF yok; ama değerlerin \textbf{\%\GolubNegPct}'si negatif (PM $-$ MM).
-\item Absent çağrıları (\%\GolubCallA) negatif/düşük değerlerle örtüşüyor.
-\item Hasta sütunları sırasız $\Rightarrow$ etiketler hasta numarasıyla eşlendi, \texttt{assert} ile doğrulandı.
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Dönüşüm: clip [20, 16000] + $\log_2$}
-\fig[width=\textwidth]{fig_golub_log_distributions.pdf}
-\begin{itemize}\small
-\item Çarpıklık \GolubSkewRaw{} $\to$ \GolubSkewLog; ortalama--SD korelasyonu \GolubRhoLin{} $\to$ \GolubRhoLog.
-\item Kat-değişim filtresi: \GolubFilt{} gen kalıyor.
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Boyut indirgeme}
+\begin{frame}{Veri kalitesi ve dönüşüm (Golub)}
 \centering
-\fig[height=0.72\textheight]{fig_embeddings_overview.pdf}
-
-\small PC1 tek başına AUC \GolubPCOneAUC{} (Golub) $\Rightarrow$ güçlü sinyal, yöntem farkları küçük olacak.
-\end{frame}
-
-\begin{frame}{Ayırt edici genler}
-\begin{columns}[c]
-\column{0.5\textwidth}
-\fig[width=\textwidth,height=0.8\textheight,keepaspectratio]{fig_golub_heatmap.pdf}
-\column{0.48\textwidth}
+\fig[width=0.76\textwidth]{fig_golub_quality.pdf}\\[1mm]
+\fig[width=0.76\textwidth]{fig_golub_log_distributions.pdf}
 \begin{itemize}\small
-\item Welch $t$, Mann--Whitney, BH-FDR, SNR
-\item $q<0{,}05$: \GolubSig{} gen
-\item AML: CST3, CD33, MPO, ZYX
-\item ALL: TCF3, CD79B, CD19, DNTT
-\item Kümeleme sınıfları buluyor (ARI \GolubARI)
-\item \textcolor{aml}{\textbf{Uyarı:}} bu sıralama yalnızca betimsel; modelde kullanılırsa sızıntı!
-\end{itemize}
-\end{columns}
-\end{frame}
-
-\begin{frame}{Eğitim ve bağımsız test seti (batch etkisi)}
-\fig[width=\textwidth]{fig_golub_batch.pdf}
-\begin{itemize}\small
-\item Test dizileri daha sönük (75.\ yüzdelik \GolubQTest{} vs.\ \GolubQTrain, $p=\GolubQP$).
-\item Sınıf içi KS: ALL'de genlerin \%\GolubKSAll'si $p<0{,}05$ (beklenen \%5).
-\item $\Rightarrow$ tek 34 örneklik test skoru nested CV'den sapabilir (AS2).
+\item NaN/INF yok; değerlerin \textbf{\%\GolubNegPct}'si negatif (PM $-$ MM), Absent çağrılarıyla (\%\GolubCallA) örtüşüyor.
+\item $[20, 16000]$ kırpma + $\log_2$: çarpıklık \GolubSkewRaw{} $\to$ \GolubSkewLog; ortalama--SS korelasyonu \GolubRhoLin{} $\to$ \GolubRhoLog.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Kohortlar arası karşılaştırma}
-\fig[width=\textwidth]{fig_cross_dataset.pdf}
+\begin{frame}{Sinyal: boyut indirgeme ve ayırt edici genler}
+\centering
+\fig[width=0.72\textwidth]{fig_golub_embedding.pdf}\\[1mm]
+\fig[width=0.72\textwidth,height=0.3\textheight,keepaspectratio]{fig_golub_heatmap.pdf}
 \begin{itemize}\small
-\item $t$ istatistikleri: $\rho=\RhoGM$ (Golub--MILE), $\rho=\RhoGA$ (Golub--Andersson); ortak üst genler şanstan fazla.
-\item Birleşik PCA'da PC1'i \textbf{kohort} belirliyor ($\eta^2=\%\EtaRawDataset$); kohort içi $z$-skor sonrası sınıf ekseni ortaya çıkıyor.
+\item PC1 varyansın \%\GolubPCOne'ini açıklıyor, ama tek başına AUC \GolubPCOneAUC{} $\Rightarrow$ güven aralığı ve test şart.
+\item $q<0{,}05$: \GolubSig{} gen. AML: CST3, CD33, MPO; ALL: CD19, CD79B, TCF3.
+\item \textcolor{aml}{\textbf{Uyarı:}} sıralama tüm veriyle yapıldı, yalnızca betimsel; modelde kullanılırsa sızıntı.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Bulgular $\Rightarrow$ modelleme kararları}
-\small
-\begin{enumerate}
-\item Negatif/taban değerler $\Rightarrow$ clip + $\log_2$
-\item $p\gg n$ $\Rightarrow$ öznitelik seçimi \textbf{her eğitim katının içinde}, $k$ iç CV'de ayarlanır
-\item Güçlü sinyal $\Rightarrow$ güven aralığı + eşleştirilmiş testler şart
-\item Dengesizlik (\%65/35) $\Rightarrow$ stratified katlar, \texttt{class\_weight}, balanced accuracy
-\item Train/test kayması $\Rightarrow$ 38/34 ve nested CV ayrı raporlanır
-\item Andersson'da eksik değer $\Rightarrow$ kat içi imputasyon (medyan vs.\ $k$NN)
-\item Platform/ölçek farkı $\Rightarrow$ kohort içi standardizasyon, ortak \CommonAll{} gen
-\end{enumerate}
+\begin{frame}{Batch etkisi ve kohortlar arası farklar}
+\centering
+\fig[width=0.76\textwidth]{fig_golub_batch.pdf}\\[1mm]
+\fig[width=0.76\textwidth]{fig_cross_dataset.pdf}
+\begin{itemize}\small
+\item Sınıf içi KS: ALL'de genlerin \%\GolubKSAll'si $p<0{,}05$ (beklenen \%5) $\Rightarrow$ 34 örneklik test skoru sapabilir.
+\item Biyoloji taşınıyor ($\rho=\RhoGM$, ilk \OvN{} genin \OvGM'ü ortak); ölçek taşınmıyor (PC1'de kohort $\eta^2=\%\EtaRawDataset$).
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Fizibilite pilotu: planlanan ölçümler mümkün mü?}
@@ -197,24 +158,25 @@ Rol & ana & benzer 1 & benzer 2 (B4) \\
 \end{columns}
 \end{frame}
 
-\begin{frame}{Final planı}
+\begin{frame}{Bulgulardan final planına}
 \begin{columns}[T]
-\column{0.5\textwidth}
-\small
-\textbf{Yöntemler:} elastic-net LR, SVM (lineer/RBF), random forest (+ karar ağacı tabanı)\\[1mm]
-\textbf{Protokol:} (a) 38/34, test \emph{bir kez}; (b) 72 örnekte 5$\times$5 nested CV, 5 seed\\[1mm]
-\textbf{Metrikler:} Acc, BAcc, Precision, Recall, Specificity, F1, ROC-AUC, karışıklık matrisi\\[1mm]
-\textbf{İstatistik:} düzeltilmiş $t$ + Holm, kohortlar arası ortalama sıra, McNemar
 \column{0.48\textwidth}
 \small
-\textbf{Bonuslar}
+\textbf{Bulgular $\Rightarrow$ kararlar}
 \begin{itemize}
-\item B1: MLP / autoencoder (+ MILE ön eğitim)
-\item B2: TabPFN, GenePT tarzı gömmeler
-\item B3: İngilizce makale; aday IEEE EMBC 2027 (son tarih 24 Ocak 2027), hocanın yazılı onayıyla
-\item B4: Andersson (3.\ veri seti)
+\item $p\gg n$ $\Rightarrow$ öznitelik seçimi \textbf{her eğitim katının içinde}
+\item Güçlü sinyal $\Rightarrow$ güven aralığı, eşleştirilmiş testler
+\item Dengesizlik $\Rightarrow$ tabakalı katlar, dengeli doğruluk
+\item Eksik değer $\Rightarrow$ kat içi imputasyon
+\item Platform farkı $\Rightarrow$ etiketsiz düzeltmeler ve ortak \CommonAll{} gen
 \end{itemize}
-\textbf{Tekrarlanabilirlik:} \texttt{python run\_all.py}, seed 42, rapordaki her sayı betikten
+\column{0.5\textwidth}
+\small
+\textbf{Yöntemler:} elastic-net LR, SVM, random forest (+ karar ağacı)\\[1mm]
+\textbf{Protokol:} 38/34, test \emph{bir kez}; 72 örnekte 5$\times$5 iç içe CV, 5 tohum\\[1mm]
+\textbf{İstatistik:} düzeltilmiş $t$ + Holm, McNemar\\[1mm]
+\textbf{Bonuslar:} B1 MLP/otokodlayıcı; B2 TabPFN, GenePT; B3 İngilizce makale (aday IEEE EMBC 2027, hocanın yazılı onayıyla); B4 Andersson\\[1mm]
+\textbf{Tekrarlanabilirlik:} \texttt{python run\_all.py}, tohum 42
 \end{columns}
 \end{frame}
 
