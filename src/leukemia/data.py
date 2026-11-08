@@ -64,6 +64,8 @@ def load_golub(root: Path = DATA_RAW / "golub") -> Dataset:
     tr_x, tr_call, genes = _read_golub_csv(root / "data_set_ALL_AML_train.csv")
     te_x, te_call, _ = _read_golub_csv(root / "data_set_ALL_AML_independent.csv")
     labels = pd.read_csv(root / "actual.csv").set_index("patient")["cancer"]
+    assert sorted(tr_x.index) == list(range(1, 39)), "training ids must be 1-38"
+    assert sorted(te_x.index) == list(range(39, 73)), "test ids must be 39-72"
 
     X = pd.concat([tr_x, te_x]).sort_index()
     calls = pd.concat([tr_call, te_call]).sort_index()
