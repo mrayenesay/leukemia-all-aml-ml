@@ -8,12 +8,12 @@ Ders rehberinin "4. Ara Rapor isterleri" bölümündeki her madde ve nerede kar�
 | İster | Durum | Nerede |
 |---|---|---|
 | Ara rapor PDF'i, kapakta ad ve öğrenci no | ✅ | `reports/ara_rapor/main.pdf`, sayfa 1 |
-| Kapakta video URL'si | ⬜ | `reports/ara_rapor/main.tex` satır 33 (`\VideoURL`), sonra yeniden derle |
+| Kapakta video URL'si | ✅ | sayfa 1 dipnotu: https://youtu.be/WWjyMpgxolk |
 | Kapakta kod deposu URL'si | ✅ | sayfa 1 dipnotu |
 | Kod deposu: README, requirements.txt, sabit seed | ✅ | `README.md`, `requirements.txt`, `src/leukemia/config.py` (SEED = 42) |
 | Depo hocanın erişebileceği durumda | ✅ | Herkese açık: https://github.com/mrayenesay/leukemia-all-aml-ml |
-| Tanıtım videosu (7–8 dk hedef, kendi sesin, yüz görünür) | ⬜ | Zaman planı: `reports/video/video_senaryosu.md`; slaytlar: `reports/sunum/slides.pdf` |
-| GenAI kullanım beyanı | ✅ / ⬜ | `reports/genai/main.pdf` (2 sayfa, rehber 9.2 biçiminde); video satırı kayıttan sonra doğru olur, teslimden önce bir kez oku |
+| Tanıtım videosu (7–8 dk hedef, kendi sesin, yüz görünür) | ✅ | YouTube, liste dışı: https://youtu.be/WWjyMpgxolk (oturum açmadan erişim denendi) |
+| GenAI kullanım beyanı | ✅ | `reports/genai/main.pdf` (2 sayfa, rehber 9.2 biçiminde) |
 
 ## İçerik isterleri
 
@@ -38,8 +38,8 @@ Ders rehberinin "4. Ara Rapor isterleri" bölümündeki her madde ve nerede kar�
 | 4. Bulguların numaralı özeti ve modelleme çıkarımları | A1 | ✅ | Bölüm IV-G (7 madde) |
 | 5. 3 ML yöntemi ve gerekçesi, hedeflenen bonuslar, takvim, riskler | – | ✅ | Bölüm V, Ek Şekil 3 (pipeline), Ek B (arama uzayları) |
 | Rehberde zorunlu değil: makale için fizibilite pilotu ve kilitli dış test setleri | – | ✅ | Bölüm III, Bölüm V, Tablo III |
-| 6. GenAI beyanı (A4) | A4 | ✅ / ⬜ | `reports/genai/main.pdf` + raporda "Yapay Zekâ Kullanım Beyanı" bölümü |
-| 6. Tanıtım videosu (A5) | A5 | ⬜ | yukarıya bak |
+| 6. GenAI beyanı (A4) | A4 | ✅ | `reports/genai/main.pdf` + raporda "Yapay Zekâ Kullanım Beyanı" bölümü |
+| 6. Tanıtım videosu (A5) | A5 | ✅ | yukarıya bak |
 | IEEE şablonu, ≤6 sayfa + kaynaklar + ekler | – | ✅ | IEEEtran, Türkçe; ana metin 6. sayfada bitiyor |
 
 ## Yeniden üretme (hoca kontrol ederse)
