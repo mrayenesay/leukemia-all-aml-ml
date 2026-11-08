@@ -48,7 +48,6 @@ def main() -> None:
     run([PY, "scripts/make_word_copy.py"])
     build_pdf(ROOT / "reports" / "genai")
     build_pdf(ROOT / "reports" / "sunum", "slides.tex")
-    run([PY, "scripts/make_speech_pdf.py"])
 
 
 if __name__ == "__main__":

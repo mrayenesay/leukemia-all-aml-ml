@@ -74,8 +74,7 @@ reports/
   ara_rapor/                   interim report (IEEEtran LaTeX, Turkish)
   literature/                  references.bib, literature_table.csv (+ _tr), search_log.md, okuma_rehberi.md (bilingual reading guide)
   genai/                       GenAI usage declaration (A4)
-  video/                       script for the interim video (A5); konusma_metni.pdf is built
-                               from konusma_metni.md by scripts/make_speech_pdf.py
+  video/                       timing plan for the interim video (A5)
 ```
 
 ## Leakage policy

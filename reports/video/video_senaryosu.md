@@ -1,6 +1,6 @@
 # Ara Rapor Tanıtım Videosu — Senaryo (hedef süre: 7–8 dk, üst sınır 9 dk)
 
-Kurallar (rehber Bölüm 10): yüzünüz açılışta ve kod anlatımında köşede görünsün, anlatım kendi sesinizle olsun (yapay ses/avatar yok). YouTube "liste dışı" veya Google Drive linki, en az 6 ay erişilebilir. Link raporun ilk sayfasındaki `\VideoURL` satırına yazılacak. Kelimesi kelimesine metin: [konusma_metni.md](konusma_metni.md).
+Kurallar (rehber Bölüm 10): yüzünüz açılışta ve kod anlatımında köşede görünsün, anlatım kendi sesinizle olsun (yapay ses/avatar yok). YouTube "liste dışı" veya Google Drive linki, en az 6 ay erişilebilir. Link raporun ilk sayfasındaki `\VideoURL` satırına yazılacak.
 
 Kayıt önerisi: OBS Studio → ekran + webcam köşede. Ekranda sırayla: `reports/sunum/slides.pdf`, VS Code, terminal.
 
