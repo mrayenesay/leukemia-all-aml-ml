@@ -13,7 +13,7 @@ Ders rehberinin "4. Ara Rapor isterleri" bölümündeki her madde ve nerede kar�
 | Kod deposu: README, requirements.txt, sabit seed | ✅ | `README.md`, `requirements.txt`, `src/leukemia/config.py` (SEED = 42) |
 | Depo hocanın erişebileceği durumda | ✅ | Herkese açık: https://github.com/mrayenesay/leukemia-all-aml-ml |
 | Tanıtım videosu (7–8 dk hedef, kendi sesin, yüz görünür) | ⬜ | Zaman planı: `reports/video/video_senaryosu.md`; slaytlar: `reports/sunum/slides.pdf` |
-| GenAI kullanım beyanı | ✅ / ⬜ | `reports/genai/main.pdf`; bölüm 6'daki doğrulama listesini işaretle ve imzala |
+| GenAI kullanım beyanı | ✅ / ⬜ | `reports/genai/main.pdf` (2 sayfa, rehber 9.2 biçiminde); video satırı kayıttan sonra doğru olur, teslimden önce bir kez oku |
 
 ## İçerik isterleri
 

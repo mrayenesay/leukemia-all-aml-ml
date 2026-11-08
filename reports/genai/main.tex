@@ -11,126 +11,73 @@
 \fi
 \usepackage[turkish]{babel}
 \usepackage[margin=2cm]{geometry}
-\usepackage{booktabs,tabularx,array,enumitem,xcolor}
+\usepackage{booktabs,tabularx,xltabular,array,enumitem,xcolor}
 \usepackage[hidelinks]{hyperref}
 \usepackage{xurl}
 \urlstyle{tt}
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
-\usepackage{amssymb}
-\newcommand{\cb}{$\square$}
-\newcommand{\cbx}{$\boxtimes$}
 \setlist{nosep,leftmargin=*}
+\setlength{\parskip}{0.4em}
+\setlength{\parindent}{0pt}
 
-\title{Ek A -- GenAI Kullanım Beyanı ve Özgünlük Kanıtı\\[2pt]\large Ara Rapor: ALL/AML Lösemi Alt Tip Sınıflandırması}
+\title{Ek A -- GenAI Kullanım Beyanı\\[2pt]\large Ara Rapor: ALL/AML Lösemi Alt Tip Sınıflandırması}
 \author{Enes AY -- 503020260092\\\small Eskişehir Osmangazi Üniversitesi, Fen Bilimleri Enstitüsü, Yapay Zeka Programı}
-\date{3 Kasım 2026}
+\date{Kasım 2026}
 
 \begin{document}
 \maketitle
 
 \section*{1. Beyan}
-Bu projenin ara rapor aşamasında Anthropic'in \textbf{Claude Opus 5.5} modeli (Claude Code
-masaüstü uygulaması, ajan modu, Kasım 2026) yardımcı araç olarak kullanılmıştır. Model; ders
-rehberinin isterlerinin maddeleştirilmesi, veri indirme/ön işleme/EDA kodunun yazılması,
-literatür meta verilerinin taranması ve doğrulanması ile İngilizce rapor taslağının
-oluşturulmasında kullanılmıştır. Kod model tarafından yazılıp çalıştırılmıştır; tüm şekiller ve sayılar depodaki betiklerin
-çıktısıdır. Kaynak metinlerin okunması ve rapordaki iddiaların denetlenmesi de yapay zekâ ajanlarıyla
-yapılmıştır (47 tam metin, 4 özet, 1 künye); benim kendi doğrulamalarım Bölüm 6'da listelidir. Raporun ve kodun içeriğine ilişkin tüm sorumluluk bana aittir. IEEE'nin
-yazarlara yönelik GenAI politikası gereği raporun \emph{Acknowledgment} bölümünde de kısa bir
-beyan yer almaktadır.
+Bu projenin ara rapor aşamasında Anthropic'in \textbf{Claude Opus 5.5} modeli (Claude Code masaüstü
+uygulaması) yardımcı araç olarak kullanılmıştır. Projenin kapsamı, bonus hedefleri, veri setleri,
+rapor dili ve yöntemsel kararlar tarafımca belirlenmiş; model bu kararları uygulamada, anlamadığım
+konuları açıklamada, sonuçları test etmede ve konuda derinleşmede kullanılmıştır. Kod Claude Code ile
+yazılmış, tarafımca çalıştırılarak doğrulanmıştır. Literatür taraması ve makalelerin incelenmesi
+Claude Opus 5.5 ile birlikte yapılmış, temel makaleler tarafımca okunmuştur. Modelin ürettiği tüm
+içerik tarafımca gözden geçirilmiştir; raporun ve kodun içeriğine ilişkin tüm sorumluluk bana aittir.
 
 \section*{2. Kullanım tablosu}
 {\small
-\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{1.7cm} Y >{\raggedright\arraybackslash}p{3.3cm} Y Y@{}}
+\begin{xltabular}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.2cm} Y >{\raggedright\arraybackslash}p{2.9cm} Y Y@{}}
 \toprule
-Araç / sürüm & Amaç & Bölüm / dosya & Öğrencinin katkısı & Nasıl doğrulandı (M: model, Ö: öğrenci) \\
+Araç / sürüm & Amaç & Bölüm / dosya & Öğrencinin katkısı & Nasıl doğrulandı \\
 \midrule
-Claude Opus 5.5 & Rehber isterlerinin (A1--A5, F1--F11, B1--B4) çıkarılması, proje ve veri seti planı & tüm proje & Ders rehberini ve proje klasörünü sağladı; kapsamı (ara rapor + bonus hedefleri) belirledi & M: rehberle madde madde karşılaştırma; Ö: \cb{} isterleri rapor bölümleriyle eşledi \\
-Claude Opus 5.5 & Devam ettirilebilir paralel veri indirme betiği & \url{scripts/download_data.py} & Kod modelce yazıldı; öğrenci değişiklik yapmadı & M: gzip bütünlük testi, SHA-256; Ö: \cb{} dosyaların \texttt{data/raw} altında olduğunu kontrol etti \\
-Claude Opus 5.5 & Veri yükleyiciler, hasta no.\ üzerinden etiket eşleştirme, prob$\to$gen eşleme & \url{src/leukemia/data.py} & Kod modelce yazıldı; öğrenci değişiklik yapmadı & M: kodda \texttt{assert} (ID 1--38 / 39--72, sınıf 27/11 ve 20/14); Ö: \cb{} \texttt{load\_golub}'u okuyup videoda anlattı \\
-Claude Opus 5.5 & Sızıntısız sklearn dönüştürücüleri (clip, log2, filtre) & \url{src/leukemia/preprocessing.py} & Kod modelce yazıldı; öğrenci değişiklik yapmadı & M: \texttt{fit}/\texttt{transform} ayrımı; Ö: \cb{} \texttt{FoldChangeFilter}'ın yalnızca \texttt{fit}'te öğrendiğini kodda gördü \\
-Claude Opus 5.5 & EDA analizleri ve şekiller & \url{eda.py}, \url{cross.py}, \url{stats.py}, \url{run_eda.py} & Kod modelce yazıldı; öğrenci değişiklik yapmadı & M: şekillerin görsel kontrolü; Ö: \cb{} \texttt{run\_eda.py --only golub} çalıştırıp rapordaki 3 sayıyı JSON ile karşılaştırdı \\
-Claude Opus 5.5 (alt ajan) & Literatür taraması: Crossref, Europe PMC, PubMed sorguları; \texttt{references.bib}, özet tablo & \url{reports/literature/} & Öğrenci kaynak eklemedi/çıkarmadı; okumanın ve denetimin yapılmasını istedi & M: 52 kaynak Crossref ve yayıncı kayıtlarında kontrol edildi; ilk taslakta 76 iddia denetlendi (\url{claim_audit.md}), sonradan eklenen 20 kaynak ajan tarafından okundu, sayıların bir bölümü örneklem olarak kontrol edildi; Ö: \cb{} okuma notlarını ve temel makaleleri okudu \\
-Claude Opus 5.5 & Rapor taslağı (IEEEtran; önce İngilizce yazıldı, öğrencinin kararıyla Türkçeye çevrildi), şekil etiketlerinin Türkçeleştirilmesi, sunum & \url{reports/ara_rapor/}, \url{reports/sunum/} & Üniversite bilgisini verdi, rapor dilini seçti; video bağlantısını kendisi ekleyecek & M: sayılar \LaTeX{} makrolarıyla betik çıktısından, çeviri sonrası \texttt{eda\_numbers.json} değişmedi; Ö: \cb{} raporu baştan sona okudu \\
-Claude Opus 5.5 & Fizibilite pilotu; dış kohort ve konferans araştırması; makale kurgusu & \url{scripts/run_feasibility.py}, rapor Bölüm V & Kod modelce yazıldı ve çalıştırıldı; öğrenci raporun finale ve makaleye yeterliliği göstermesini istedi & M: sabit ayar, kilitli setlere dokunulmadı, GDC ve GEO kayıtları sorgulandı, EMBC tarihi resmî sayfada görüldü; Ö: \cb{} betiği kendisi çalıştırıp Tablo III ile karşılaştırdı \\
-Claude Opus 5.5 & Video senaryosu ve konuşma metni & \url{reports/video/} (konuşma metni depoda değil, öğrencide) & Videoyu kendi sesiyle, metni kendi cümleleriyle anlatarak kaydetti & Ö: \cb{} video süresi ve bağlantı erişimi kontrol edildi \\
+\endhead
+Claude Opus 5.5 & Rehber isterlerinin maddeleştirilmesi ve proje planı & tüm proje &
+Kapsamı, bonus hedeflerini ve takvimi belirledi; ara raporun Türkçe, final makalesinin İngilizce olmasına karar verdi &
+İsterler rapor bölümleriyle tek tek eşlendi (\url{TESLIM_KONTROL.md}) \\
+Claude Opus 5.5 (Claude Code) & Veri indirme, yükleme, ön işleme ve EDA kodu & \url{scripts/}, \url{src/leukemia/} &
+Gereksinimleri belirledi; daha güçlü ve bağımsız veri setleri aranmasını istedi; betikleri kendi bilgisayarında çalıştırdı &
+EDA betiği yeniden çalıştırıldı, sayılar raporla aynı çıktı; kodda etiket ve sınıf sayısı kontrolleri (\texttt{assert}) \\
+Claude Opus 5.5 & Literatür taraması ve makalelerin incelenmesi & \url{reports/literature/}, rapor Bölüm II &
+Son beş yılın kaynaklarına ağırlık verilmesini ve iddiaların kaynak metinle denetlenmesini istedi; temel makaleleri okudu &
+DOI'ler Crossref ile doğrulandı; rapordaki iddialar kaynak metinlerle karşılaştırıldı (\url{claim_audit.md}) \\
+Claude Opus 5.5 & Kavramların açıklanması ve konuda derinleşme & -- &
+Anlamadığı kavramları (sızıntı, iç içe CV, AUC ve karar eşiği vb.) sordu; katkıların bir bildiri için yeterliliğini sorguladı &
+Kavramlar videoda kendi sözleriyle anlatıldı \\
+Claude Opus 5.5 & Fizibilite pilotu (planlanan ölçümlerin denenmesi) & \url{scripts/run_feasibility.py}, rapor Bölüm V &
+Raporun final ve makale için yeterliliği göstermesini istedi &
+Sabit ayarlar; kilitli test setlerine dokunulmadı \\
+Claude Opus 5.5 & Rapor ve sunum metninin yazımı ve Türkçeye çevirisi & \url{reports/ara_rapor/}, \url{reports/sunum/} &
+Rapor dilini ve yapısını belirledi; düzenleme için Word kopyası istedi &
+Rapordaki sayılar betik çıktılarından otomatik geliyor \\
+Claude Opus 5.5 & Video için anlatım taslağı & \url{reports/video/} &
+Videoyu kendi sesiyle ve kendi cümleleriyle kaydetti & Video süresi ve bağlantı erişimi kontrol edildi \\
 \bottomrule
-\end{tabularx}}
+\end{xltabular}}
 
 \section*{3. Önemli prompt'ların özeti}
-\begin{enumerate}
-\item \textbf{Ana istek (öğrenci, Türkçe):} ``makine öğrenmesi ve anomali tespiti dersi
-alıyorum yüksek lisansta. bunun için bir proje geliştirmemiz gerekiyor. şimdi ara sunumu teslim
-etmem gerekiyor. Donem\_projesi\_rapor\_rehber (1) adlı klasörü okuyup bana profesyonel, bütün
-şartları (bonuslar dahil) sağlayacak şekilde bir projeyi geliştirir misin lütfen.''
-\item \textbf{Literatür alt görevi (model tarafından alt ajana verilen):} 26--30 kaynak bul; en az
-18'i hakemli, en az 8'i 2021 ve sonrası; her DOI'yi Crossref API ile doğrula, doğrulanamayanı
-çıkar; Golub sonuçlarını yalnızca okunan metinde görülüyorsa yaz, aksi halde ``n/r''; arama
-sorgularını ve dahil etme/dışlama ölçütlerini kaydet.
-\item \textbf{Takip istekleri (öğrenci):} GitHub deposunun oluşturulup aşamalı commit'lerle
-gönderilmesi onaylandı; ``gönderime hazır mı'' sorusu ve video için konuşma metni istendi;
-son olarak bu beyandaki öğrenci alanlarının doldurulması istendi. Model, öğrencinin yapmadığı
-işleri yazmayı reddederek yalnızca gerçekte olanları yazdı ve aşağıdaki doğrulama listesini ekledi.
-Öğrenci ayrıca 15 makalenin gerçekten incelenip incelenmediğini sordu; bunun üzerine tam metin
-okuması ve iddia denetimi yapıldı. Ardından ara raporun Türkçe olmasını istedi; final makalesi
-İngilizce kalacaktır. Son olarak raporun final ve uluslararası makale için yeterliliği göstermesini,
-gerekirse daha güçlü veri setleri bulunmasını ve okuması gereken kaynakların Türkçe ve İngilizce
-sunulmasını istedi; fizibilite pilotu ve okuma rehberi bunun üzerine hazırlandı. Kabul güvencesi
-verilemeyeceği öğrenciye açıkça söylendi. Öğrenci ayrıca dayanılan kaynakların ağırlıkla son beş yıldan
-olmasını ve raporun Word kopyasını istedi; 20 güncel kaynak eklendi, 6 eski kaynak çıkarıldı.
-\end{enumerate}
-
-\section*{4. GenAI çıktısında yakalanan hatalar (doğrulamanın kanıtı)}
 \begin{itemize}
-\item Model ``sıralama taşınıyor, eşik taşınmıyor'' ifadesini makalenin özgün iddiası olarak kurmuştu.
-Güncel tarama aynı desenin 2026'da sepsiste yayımlandığını gösterdi; özgünlük iddiası daraltıldı, pilotun
-$z$-skor sonuçları da sabit aktarım değil etiketsiz kohort uyarlaması olarak yeniden tanımlandı.
-\item Andersson (2007) için ilk bulunan DOI (\texttt{10.1038/sj.leu.2404657}) başka bir makaleye
-aitti; Crossref kontrolüyle yakalandı ve doğru DOI (\texttt{10.1038/sj.leu.2404688}) GEO GSE7186
-sayfasıyla teyit edildi.
-\item GSE7186 başlangıçta Affymetrix (GPL96) sanıldı; seri matrisi incelenince iki renkli cDNA
-platformu (GPL4861, log-oran, eksik değerli) olduğu görüldü ve tüm analiz buna göre düzeltildi.
-\item MILE değerlerinin ölçeği önce $\log_2$, ardından GEO açıklamasına (kantil normalizasyonlu
-sinyal) dayanarak doğrusal varsayıldı. Veri indirilince her dizinin tam olarak [0, 1] aralığında
-olduğu görüldü; ArrayExpress örnek tablosuyla karşılaştırma (Spearman 1,000; $\log_2$ sinyal ile
-Pearson 0,998) değerlerin dizi başına ölçeklenmiş log yoğunluk olduğunu gösterdi. Bu kontrol
-koda eklendi (\texttt{mile\_scale\_check}) ve gereksiz ikinci log dönüşümü engellendi.
-\item Literatürdeki bazı Golub sonuçlarının (ör.\ \%99,9) özellik seçimini CV dışında yaptığı
-fark edilerek ``sızıntı riski'' sütunu eklendi.
-\item İlk taslakta model bazı literatür ayrıntılarını kaynağı okumadan, hafızasından yazmıştı.
-Tam metin denetiminde 76 iddiadan 8'i yanlış, 35'i kısmen doğru, 5'i doğrulanamaz bulundu ve
-düzeltildi. Örnekler: Dudoit'nun tabanı 20 değil 100'dür (taban 100 ile 3.571 gen birebir
-üretildi); Golub hastaları ``çoğunlukla erişkin'' değil, çoğunlukla çocuktur; Friedman testi tek
-veri setindeki katlar için uygun değildir ve plandan çıkarıldı.
+\item Ders rehberindeki tüm şartları (bonuslar dahil) karşılayan bir proje planı ve uygulaması istendi.
+\item Kaynakların gerçekten okunup okunmadığı soruldu; bunun üzerine iddialar kaynak metinlerle denetlendi.
+\item Raporun final ve uluslararası makale için yeterliliği, daha güçlü veri setleri ve güncel kaynaklar istendi.
+\item Projenin amacı, çalışma konusunun nasıl belirlendiği ve kullanılan terimler soruldu.
+\item Katkıların bir uluslararası bildiri için ne kadar güçlü olduğu soruldu.
 \end{itemize}
 
-\section*{5. Özgünlük kanıtları}
-\begin{itemize}
-\item \textbf{Git geçmişi:} Depo, anlamlı mesajlı ve aşamalı commit'lerle tutulacaktır
-(veri indirme $\to$ yükleyiciler $\to$ EDA $\to$ literatür $\to$ rapor).
-\item \textbf{Videoda canlı anlatım:} Etiket eşleştirme (\texttt{load\_golub}) ve EDA betiği
-ekranda çalıştırılarak kendi sesimle anlatılacaktır.
-\item \textbf{Açıklayabildiğim konular} (öğrenci kontrol listesi):
-average difference neden negatif olur; P/A/M çağrıları; neden clip + $\log_2$;
-PCA açıklanan varyans ve t-SNE farkı; Welch $t$ / Mann--Whitney / BH-FDR; batch etkisi ve
-KS testi; seçim yanlılığı (Ambroise \& McLachlan) ve nested CV neden gerekli.
-\end{itemize}
-
-\section*{6. Öğrenci doğrulama listesi}
-Yukarıdaki tabloda ``Ö: \cb{}'' ile işaretli adımlar öğrencinin kendisinin yaptığı
-doğrulamalardır; yalnızca gerçekten yapılanlar işaretlenmelidir (\cb{} $\to$ \cbx{}).
-\begin{itemize}
-\item[\cb] \texttt{python scripts/run\_eda.py --only golub} çalıştırıldı; rapordaki negatif değer
-oranı (\%28,7), PC1 AUC (0,984) ve anlamlı gen sayısı (945) \texttt{results/eda\_numbers.json} ile aynı.
-\item[\cb] \texttt{src/leukemia/data.py} içindeki \texttt{load\_golub} ve
-\texttt{src/leukemia/preprocessing.py} içindeki \texttt{FoldChangeFilter} okundu ve anlaşıldı.
-\item[\cb] \texttt{reports/literature/reading\_notes.md} okundu; en az 3 temel makale bizzat okundu
-(önerilen: Golub 1999, Ambroise \& McLachlan 2002, Varma \& Simon 2006).
-\item[\cb] \texttt{run\_feasibility.py} çalıştırıldı; sonuçlar Tablo III ile karşılaştırıldı.
-\item[\cb] Rapor PDF'i baştan sona okundu; video bağlantısı ve üniversite bilgisi eklendi.
-\item[\cb] Video kendi sesimle, yüzüm görünür şekilde kaydedildi; bağlantı giriş yapmadan açılıyor.
-\end{itemize}
+Doğrulama sırasında modelin hataları yakalanıp düzeltilmiştir: yanlış bir DOI, yanlış tanımlanan bir
+platform (GSE7186), MILE verisinin ölçeği ve gereğinden geniş bir özgünlük iddiası.
 
 \vspace{1em}
-\noindent İmza: \rule{5cm}{0.4pt} \hfill Tarih: \rule{3cm}{0.4pt}
+\noindent Enes AY (503020260092) \hfill Kasım 2026
 \end{document}
