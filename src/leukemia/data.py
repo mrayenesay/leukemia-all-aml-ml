@@ -73,6 +73,11 @@ def load_golub(root: Path = DATA_RAW / "golub") -> Dataset:
     # join labels on patient number (not on column position)
     y_str = labels.reindex(X.index)
     assert y_str.notna().all(), "patients without a label"
+    # class counts published for the reference split (Golub et al. 1999)
+    for part, expected in {"train": (27, 11), "test": (20, 14)}.items():
+        counts = y_str[split == part].value_counts()
+        got = (int(counts.get("ALL", 0)), int(counts.get("AML", 0)))
+        assert got == expected, f"{part} ALL/AML counts {got}, expected {expected}"
     y = y_str.map(LABELS).astype(int).rename("y")
     meta = pd.DataFrame({"split": split, "label": y_str,
                          "column_order": [list(tr_x.index).index(i) if i in tr_x.index
